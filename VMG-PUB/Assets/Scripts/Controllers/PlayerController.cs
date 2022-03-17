@@ -30,13 +30,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        Managers.Input.KeyAction -= OnKeyBoard;
-        Managers.Input.KeyAction += OnKeyBoard;
-        
-        rigid = GetComponent<Rigidbody>();
-
         if (photonView.IsMine)
+        {
             Camera.main.GetComponent<SmoothFollow>().target = GetComponent<Transform>();
+            Managers.Input.KeyAction -= OnKeyBoard;
+            Managers.Input.KeyAction += OnKeyBoard;
+        
+            rigid = GetComponent<Rigidbody>();
+        }
     }
 
     void UpdateMoving()
