@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityStandardAssets.Utility;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -33,6 +34,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         Managers.Input.KeyAction += OnKeyBoard;
         
         rigid = GetComponent<Rigidbody>();
+
+        if (photonView.IsMine)
+            Camera.main.GetComponent<SmoothFollow>().target = GetComponent<Transform>();
     }
 
     void UpdateMoving()
