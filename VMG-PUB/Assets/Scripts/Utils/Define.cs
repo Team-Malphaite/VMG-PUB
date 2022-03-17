@@ -13,6 +13,7 @@ public class Define
     {
         Unknown,
         Login,
+        Lobby,
         Square,
         Voting,
         Game,
@@ -25,5 +26,11 @@ public class Define
     {
         Press,
         Click,
+    }
+
+    public enum LoginCheck
+    {
+        Pass,
+        NonPass,
     }
 }
