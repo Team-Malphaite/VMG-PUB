@@ -9,10 +9,12 @@ public class Managers : MonoBehaviour
 
     InputManager _input = new InputManager();
     ResourceManager _resource = new ResourceManager();
+    SceneManagerEx _scene = new SceneManagerEx();
     UIMananger _ui = new UIMananger();
     public static InputManager Input { get { return Instance._input; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
-    public static UIMananger UI {get { return Instance._ui; } }
+    public static SceneManagerEx Scene { get { return Instance._scene; } }
+    public static UIMananger UI { get { return Instance._ui; } }
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +34,7 @@ public class Managers : MonoBehaviour
         {
             // 초기화
             GameObject go = GameObject.Find("@Managers");
+            GameObject net = GameObject.Find("@Network");
             if (go == null)
             {
                 go = new GameObject { name = "@Managers"};
@@ -39,6 +42,12 @@ public class Managers : MonoBehaviour
             }
             DontDestroyOnLoad(go);
             s_instance = go.GetComponent<Managers>();
+            if (net == null)
+            {
+                net = new GameObject {name = "@Network"};
+                net.AddComponent<NetworkManager>();
+            }
+            DontDestroyOnLoad(net);
         }
     }
 }
