@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     float _speed = 3.0f;
@@ -29,13 +31,6 @@ public class PlayerController : MonoBehaviour
     {
         Managers.Input.KeyAction -= OnKeyBoard;
         Managers.Input.KeyAction += OnKeyBoard;
-
-        Managers.UI.ShowSceneUI<UI_Inven>();
-
-        // Managers.UI.ShowPopupUI<UI_Button>();
-        // Managers.UI.ClosePopupUI();
-        Managers.UI.ShowSceneUI<UI_Square>();
-        Managers.UI.ShowPopupUI<PopupWindowController>();
         
         rigid = GetComponent<Rigidbody>();
     }
@@ -114,23 +109,29 @@ public class PlayerController : MonoBehaviour
 
     void OnKeyBoard()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        if (photonView.IsMine)
         {
-            _state = moveState.Moving;
-        }
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+            {
+                _state = moveState.Moving;
+            }
+        }   
     }
 
     void Update()
     {
-        switch(_state)
+        if (photonView.IsMine)
         {
-            case moveState.Idle:
-                UpdateIdle();
-                break;
-            case moveState.Moving:
-                UpdateMoving();
-                break;
+            switch(_state)
+            {
+                case moveState.Idle:
+                    UpdateIdle();
+                    break;
+                case moveState.Moving:
+                    UpdateMoving();
+                    break;
+            }
+            UpdateJumping();
         }
-        UpdateJumping();
     }
 }
