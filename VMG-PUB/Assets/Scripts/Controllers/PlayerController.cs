@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private float _roatationSpeed = 0.07f;
     private Rigidbody rigid;
     public bool IsJumping = false;
+    private Transform tr;
     public enum moveState
     {
         Moving,
@@ -30,9 +31,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        tr = GetComponent<Transform>();
         if (photonView.IsMine)
         {
-            Camera.main.GetComponent<SmoothFollow>().target = GetComponent<Transform>();
+            Camera.main.GetComponent<SmoothFollow>().target = tr;
             Managers.Input.KeyAction -= OnKeyBoard;
             Managers.Input.KeyAction += OnKeyBoard;
         
