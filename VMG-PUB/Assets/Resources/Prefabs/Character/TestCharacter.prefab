@@ -2672,11 +2672,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec03bb8ae3036747b4d5544430b4a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PV: {fileID: 0}
-  rb: {fileID: 0}
-  m_moveSpeed: 1
-  m_turnSpeed: 200
-  m_animator: {fileID: 0}
+  _speed: 3
+  JumpPower: 0.4
+  _roatationSpeed: 0.07
+  IsJumping: 0
 --- !u!114 &694886611831322525
 MonoBehaviour:
   m_ObjectHideFlags: 0
