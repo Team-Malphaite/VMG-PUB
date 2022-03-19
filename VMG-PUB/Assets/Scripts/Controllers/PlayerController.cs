@@ -106,11 +106,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     private void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (photonView.IsMine)
         {
-            IsJumping = false;
-            Animator anim = GetComponent<Animator>();
-            anim.SetBool("jump", IsJumping);
+            if (collision.gameObject.CompareTag("Ground"))
+            {
+                IsJumping = false;
+                Animator anim = GetComponent<Animator>();
+                anim.SetBool("jump", IsJumping);
+            }
         }
     }
 
