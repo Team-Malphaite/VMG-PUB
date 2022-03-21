@@ -10,7 +10,7 @@ public class SquareScene : BaseScene
 
         SceneType = Define.Scene.Square;
 
-        Managers.UI.ShowSceneUI<UI_Inven>();
+        // Managers.UI.ShowSceneUI<UI_Inven>();
         Managers.UI.ShowSceneUI<UI_Square>();
         Managers.UI.ShowPopupUI<PopupWindowController>();
     }
