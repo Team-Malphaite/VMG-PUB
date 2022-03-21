@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIMananger
 {
@@ -19,6 +20,16 @@ public class UIMananger
             }
             return root;
         }
+    }
+
+    public void SetUIResolution(GameObject go)
+    {
+        CanvasScaler canvasScaler = Util.GetOrAddComponent<CanvasScaler>(go);
+        canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
+        canvasScaler.referenceResolution = new Vector2(800, 600);
+        canvasScaler.referencePixelsPerUnit = 100;
+
     }
 
     public void SetCanvas(GameObject go, bool sort = true)
