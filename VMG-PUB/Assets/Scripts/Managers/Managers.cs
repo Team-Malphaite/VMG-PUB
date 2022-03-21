@@ -12,11 +12,13 @@ public class Managers : MonoBehaviour
     SceneManagerEx _scene = new SceneManagerEx();
     UIMananger _ui = new UIMananger();
     ScreenManager _screen = new ScreenManager();
+    NetworkManager _network = new NetworkManager();
     public static InputManager Input { get { return Instance._input; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static UIMananger UI { get { return Instance._ui; } }
     public static ScreenManager Screen { get { return Instance._screen; } }
+    public static NetworkManager Network { get { return Instance._network; }}
 
     // Start is called before the first frame update
     void Start()
@@ -44,12 +46,12 @@ public class Managers : MonoBehaviour
             }
             DontDestroyOnLoad(go);
             s_instance = go.GetComponent<Managers>();
-            if (net == null)
-            {
-                net = new GameObject {name = "@Network"};
-                net.AddComponent<NetworkManager>();
-            }
-            DontDestroyOnLoad(net);
+            // if (net == null)
+            // {
+            //     net = new GameObject {name = "@Network"};
+            //     net.AddComponent<NetworkManager>();
+            // }
+            // DontDestroyOnLoad(net);
         }
     }
 }

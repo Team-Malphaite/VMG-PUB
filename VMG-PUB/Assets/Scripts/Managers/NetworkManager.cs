@@ -9,18 +9,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public string NickName = "test1";
     public string gameVersion = "1.0";
     
-    void Awake()
+    // void Awake()
+    // {
+    //      PhotonNetwork.AutomaticallySyncScene = true;
+    // }
+
+    // void Start()
+    // {
+    //     OnLogin();
+    // }
+
+    public void OnLogin()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
-    }
-
-    void Start()
-    {
-        OnLogin();
-    }
-
-    void OnLogin()
-    {
         PhotonNetwork.GameVersion = this.gameVersion;
         PhotonNetwork.NickName = this.NickName;
         PhotonNetwork.ConnectUsingSettings();
