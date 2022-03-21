@@ -11,10 +11,12 @@ public class Managers : MonoBehaviour
     ResourceManager _resource = new ResourceManager();
     SceneManagerEx _scene = new SceneManagerEx();
     UIMananger _ui = new UIMananger();
+    ScreenManager _screen = new ScreenManager();
     public static InputManager Input { get { return Instance._input; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static UIMananger UI { get { return Instance._ui; } }
+    public static ScreenManager Screen { get { return Instance._screen; } }
 
     // Start is called before the first frame update
     void Start()
