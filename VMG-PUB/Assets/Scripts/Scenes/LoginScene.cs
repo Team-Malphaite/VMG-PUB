@@ -18,7 +18,17 @@ public class LoginScene : BaseScene
     {
         // if (Input.GetKeyDown(KeyCode.Q))
         if(Managers.Scene._logincheck == true)
+        {
             Managers.Scene.LoadScene(Define.Scene.Square);
+            GameObject net = GameObject.Find("@Network");
+            if (net == null)
+            {
+                net = new GameObject {name = "@Network"};
+                net.AddComponent<NetworkManager>();
+            }
+            DontDestroyOnLoad(net);
+            Managers.Network.OnLogin();
+        }
     }
 
     public override void Clear()
