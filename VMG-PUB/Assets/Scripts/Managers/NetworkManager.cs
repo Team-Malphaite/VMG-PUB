@@ -8,6 +8,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public string NickName = "test1";
     public string gameVersion = "1.0";
+
+    Define.Scene _scene = Define.Scene.Square;
     
     // void Awake()
     // {
@@ -30,15 +32,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         // base.OnConnectedToMaster();
+
+        PhotonNetwork.JoinRandomOrCreateRoom(expectedCustomRoomProperties: new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } }, expectedMaxPlayers: 3);
         Debug.Log("Connected !!!");
-        PhotonNetwork.JoinRandomRoom();
+        Debug.Log(_scene);
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
         // base.OnJoinRandomFailed(returnCode, message);
         Debug.Log("Failed join room!!!");
-        this.CreateRoom();
+        // this.CreateRoom();
     }
 
     public override void OnJoinedRoom()
@@ -48,8 +52,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.Instantiate("Prefabs/Character/TestCharacter", new Vector3(0,0,0), Quaternion.identity);
     }
 
-    void CreateRoom()
-    {
-        PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 4});
-    }
+    // void CreateRoom()
+    // {
+    //     PhotonNetwork.CreateRoom("Lobby", new RoomOptions { MaxPlayers = 3});
+    //     Debug.Log("Create");
+    // }
 }

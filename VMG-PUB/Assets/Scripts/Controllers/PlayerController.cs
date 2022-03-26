@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private Rigidbody rigid;
     public bool IsJumping = false;
     private Transform tr;
+    public GameObject Cam;
+    private Vector3 MoveDir;
     public enum moveState
     {
         Moving,
@@ -34,7 +36,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         tr = GetComponent<Transform>();
         if (photonView.IsMine)
         {
-            Camera.main.GetComponent<SmoothFollow>().target = tr;
+            // Camera.main.GetComponent<SmoothFollow>().target = tr;
+            Camera.main.GetComponent<CameraAutoFocus>().target = tr;
+            Cam = Camera.main.gameObject;
             Managers.Input.KeyAction -= OnKeyBoard;
             Managers.Input.KeyAction += OnKeyBoard;
         
@@ -46,30 +50,71 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         //moving mode
 
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), _roatationSpeed);
-            transform.position += Vector3.forward * Time.deltaTime * _speed;
-        }
+        // if (Input.GetKey(KeyCode.W))
+        // {
+        //     transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), _roatationSpeed);
+        //     transform.position += Vector3.forward * Time.deltaTime * _speed;
+        // }
             
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.back), _roatationSpeed);
-            transform.position += Vector3.back * Time.deltaTime * _speed;
-        }
+        // if (Input.GetKey(KeyCode.S))
+        // {
+        //     transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.back), _roatationSpeed);
+        //     transform.position += Vector3.back * Time.deltaTime * _speed;
+        // }
             
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), _roatationSpeed);
-            transform.position += Vector3.left * Time.deltaTime * _speed;
-        }
+        // if (Input.GetKey(KeyCode.A))
+        // {
+        //     transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), _roatationSpeed);
+        //     transform.position += Vector3.left * Time.deltaTime * _speed;
+        // }
             
-        if (Input.GetKey(KeyCode.D))
+        // if (Input.GetKey(KeyCode.D))
+        // {
+        //     transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), _roatationSpeed);
+        //     transform.position += Vector3.right * Time.deltaTime * _speed;
+        // }
+        
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), _roatationSpeed);
-            transform.position += Vector3.right * Time.deltaTime * _speed;
+            var offset = Cam.transform.forward;
+            offset.y = 0;
+            transform.LookAt(transform.position + offset);
+            // if (Input.GetKey(KeyCode.W))
+            // {
+            //     var offset = Cam.transform.forward;
+            //     offset.y = 0;
+            //     transform.LookAt(transform.position + offset);
+            // }
+            
+            // if (Input.GetKey(KeyCode.A))
+            // {
+            //     var offset = Cam.transform.forward;
+            //     offset.y = 0;
+            //     offset.x -= 90;
+            //     transform.LookAt(transform.position + offset);
+            // }
+            // if (Input.GetKey(KeyCode.S))
+            // {
+            //     var offset = Cam.transform.forward;
+            //     offset.y = 0;
+            //     offset.z -= 180;
+            //     transform.LookAt(transform.position + offset);
+            // }
+            // if (Input.GetKey(KeyCode.D))
+            // {
+            //     var offset = Cam.transform.forward;
+            //     offset.y = 0;
+            //     offset.x += 90;
+            //     transform.LookAt(transform.position + offset);
+            // }
         }
         
+        MoveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        // 오브젝트가 바라보는 앞방향으로 이동방향을 돌려서 조정합니다.
+        MoveDir = transform.TransformDirection(MoveDir);
+
+        // transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(MoveDir), _roatationSpeed);
+        transform.position += MoveDir * _speed * Time.deltaTime;
 
         Animator anim = GetComponent<Animator>();
         anim.SetFloat("speed", 3);
@@ -108,7 +153,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private void OnCollisionEnter(Collision collision) {
         if (photonView.IsMine)
         {
-            if (collision.gameObject.CompareTag("Ground"))
+            if (collision.gameObject.CompareTag("Untagged"))
             {
                 IsJumping = false;
                 Animator anim = GetComponent<Animator>();
