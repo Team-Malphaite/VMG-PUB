@@ -2584,7 +2584,7 @@ GameObject:
   - component: {fileID: 694886611831322513}
   m_Layer: 0
   m_Name: TestCharacter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2598,7 +2598,7 @@ Transform:
   m_GameObject: {fileID: 2463208962451423167}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.01, y: 0.02, z: -0.03}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 8620055769677728513}
   - {fileID: 2863452086845895450}
@@ -2644,7 +2644,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!136 &694886611831322527
 CapsuleCollider:
@@ -2656,10 +2656,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 0.5695213
+  m_Height: 1.9622184
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0.0074123144, y: 0.96779436, z: 0}
 --- !u!114 &694886611831322526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2672,7 +2672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec03bb8ae3036747b4d5544430b4a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
+  _speed: 4
   JumpPower: 0.4
   _roatationSpeed: 0.07
   IsJumping: 0
@@ -2699,7 +2699,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: jump
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 1
     LayerIndex: 0
 --- !u!114 &694886611831322514
 MonoBehaviour:
@@ -2715,7 +2715,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
+  m_SynchronizeScale: 1
   m_UseLocal: 1
 --- !u!114 &694886611831322513
 MonoBehaviour:
