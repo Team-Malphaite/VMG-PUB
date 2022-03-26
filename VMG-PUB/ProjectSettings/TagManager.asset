@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Portal
+  - Bullet
+  - Gate
   layers:
   - Default
   - TransparentFX
