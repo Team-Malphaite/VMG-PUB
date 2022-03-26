@@ -215,7 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
-  m_SynchronizeScale: 1
+  m_SynchronizeScale: 0
   m_UseLocal: 1
 --- !u!114 &-8226950207504097871
 MonoBehaviour:
@@ -237,6 +237,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: -2326860246914829265}
+  - {fileID: 8857952121375061256}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -254,5 +255,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
-  m_SynchronizeLayers: []
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 0
+    Name: Disabled
+  - Type: 4
+    SynchronizeType: 0
+    Name: open
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
