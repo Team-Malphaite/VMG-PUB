@@ -144,6 +144,7 @@ MonoBehaviour:
   JumpPower: 0.4
   _roatationSpeed: 0.07
   IsJumping: 0
+  Cam: {fileID: 0}
 --- !u!136 &185891173
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -238,7 +239,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &527700230
 GameObject:
@@ -582,7 +583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3137786495578628170, guid: 07dfd2411454d6648ae4ae29236eeb1e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8511895970222891146, guid: 07dfd2411454d6648ae4ae29236eeb1e, type: 3}
       propertyPath: m_UpdateMode
@@ -725,7 +726,7 @@ Transform:
   - {fileID: 527700234}
   - {fileID: 1783454850}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3050005409059164721
 PrefabInstance:
@@ -736,7 +737,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3050005409965860819, guid: f977a19f80afc6a4dbc2e641fec85f9c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3050005409965860819, guid: f977a19f80afc6a4dbc2e641fec85f9c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -744,7 +745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3050005409965860819, guid: f977a19f80afc6a4dbc2e641fec85f9c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.35
+      value: 3.3500004
       objectReference: {fileID: 0}
     - target: {fileID: 3050005409965860819, guid: f977a19f80afc6a4dbc2e641fec85f9c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -779,9 +780,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3050005409965860846, guid: f977a19f80afc6a4dbc2e641fec85f9c, type: 3}
+      propertyPath: dist
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3050005409965860846, guid: f977a19f80afc6a4dbc2e641fec85f9c, type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 185891171}
+    - target: {fileID: 3050005409965860846, guid: f977a19f80afc6a4dbc2e641fec85f9c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3050005409965860847, guid: f977a19f80afc6a4dbc2e641fec85f9c, type: 3}
       propertyPath: m_Name
       value: Main Camera
