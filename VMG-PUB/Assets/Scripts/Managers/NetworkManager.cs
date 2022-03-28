@@ -8,7 +8,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public string NickName = "test1";
     public string gameVersion = "1.0";
-    GameObject player;
+    GameObject player = null;
 
     Define.Scene _scene = Define.Scene.Square;
     
@@ -19,6 +19,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+
+    }
+
+    void Update() {
         player = GameObject.Find("@Player");
     }
 
