@@ -26,7 +26,8 @@ public class PortalController : MonoBehaviourPunCallbacks
         }
         go = GameObject.Find("@Player");
 
-        if (Managers.Scene._portalCheck)
+        // if (Managers.Scene._portalCheck)
+        if (PlayerController.Instance._portalCheck)
         {
             if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Square)
             {
@@ -35,7 +36,8 @@ public class PortalController : MonoBehaviourPunCallbacks
                 OnLeftRoom();
                 Managers.Scene.LoadScene(Define.Scene.Voting);
                 Managers.Network.OnLogin();
-                Managers.Scene._portalCheck = false;
+                // Managers.Scene._portalCheck = false;
+                PlayerController.Instance._portalCheck = false;
 
                 Debug.Log(PhotonNetwork.PlayerList.Length);
             }
@@ -47,7 +49,8 @@ public class PortalController : MonoBehaviourPunCallbacks
                 OnLeftRoom();
                 Managers.Scene.LoadScene(Define.Scene.Square);
                 Managers.Network.OnLogin();
-                Managers.Scene._portalCheck = false;
+                // Managers.Scene._portalCheck = false;
+                PlayerController.Instance._portalCheck = false;
 
                 Debug.Log(PhotonNetwork.PlayerList.Length);
             }
@@ -55,16 +58,16 @@ public class PortalController : MonoBehaviourPunCallbacks
     }
 
     void OnTriggerEnter(Collider col) {
-        if (col.gameObject.tag == "Player") {
-            if (go.GetComponent<PhotonView>().IsMine)
-            {
+        if (col.gameObject.name == "@Player") {
+            // if (go.GetComponent<PhotonView>().IsMine)
+            // {
                 if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Square)
                 {
                     string title = "이동";
                     string message = "Voting Space로 이동하시겠습니까?";
                     Action yesAction = () => Debug.Log("On Click Portal Ok Button");
                     Action noAction = () => Debug.Log("On Click Portal No Button");
-                    PopupWindowController.Instance.ShowYesNoPortal(title, message, yesAction, noAction); 
+                    PopupWindowController.Instance.ShowYesNoPortal(title, message, yesAction, noAction);
                 }
                 if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Voting)
                 {
@@ -74,7 +77,7 @@ public class PortalController : MonoBehaviourPunCallbacks
                     Action noAction = () => Debug.Log("On Click Portal No Button");
                     PopupWindowController.Instance.ShowYesNoPortal(title, message, yesAction, noAction);
                 }
-            }
+            // }
 
             else return;
             

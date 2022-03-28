@@ -392,7 +392,8 @@ public class PopupWindowController : UI_Popup
     {
         if (okAction != null)
             okAction();
-        Managers.Scene._portalCheck = true;
+        // Managers.Scene._portalCheck = true;
+        PlayerController.Instance._portalCheck = true;
         Debug.Log("눌림");
         // ClosePopupWindow();
         ClosePopupUI();
@@ -402,7 +403,8 @@ public class PopupWindowController : UI_Popup
     {
         if (okAction != null)
             okAction();
-        Managers.Scene._portalCheck = false;
+        // Managers.Scene._portalCheck = false;
+        PlayerController.Instance._portalCheck = true;
         // ClosePopupWindow();
         ClosePopupUI();
     }

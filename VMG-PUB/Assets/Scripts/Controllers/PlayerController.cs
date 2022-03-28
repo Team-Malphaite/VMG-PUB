@@ -7,6 +7,7 @@ using UnityStandardAssets.Utility;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
+    public static PlayerController Instance;
     [SerializeField]
     float _speed = 3.0f;
     [SerializeField]
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public Transform tr;
     public GameObject Cam;
     private Vector3 MoveDir;
+    public bool _portalCheck = false;
     public enum moveState
     {
         Moving,
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     void Awake()
     {
+        Instance = this;
         tr = transform;
     }
 
