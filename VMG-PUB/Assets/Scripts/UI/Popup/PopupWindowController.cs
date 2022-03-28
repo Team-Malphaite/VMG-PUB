@@ -99,6 +99,8 @@ public class PopupWindowController : UI_Popup
 
         // GetButton((int)Buttons.okButton).gameObject.BindEvent(ShowOk);
         GetButton((int)Buttons.OkButton).gameObject.BindEvent(OnClickOkButtonLogin);
+        GetButton((int)Buttons.YesButton).gameObject.BindEvent(OnClickYesButtonPortal);
+        GetButton((int)Buttons.NoButton).gameObject.BindEvent(OnClickNoButtonPortal);
 
         // GameObject go = GetImage((int)Images.ItemIcon).gameObject;
     }
@@ -215,6 +217,40 @@ public class PopupWindowController : UI_Popup
         navigation.selectOnLeft = null;
         navigation.selectOnRight = null;
         okButton.navigation = navigation;
+
+        // 팝업 윈도우 활성화
+        OpenPopupWindow();
+    }
+
+    public void ShowYesNoPortal(string title, string message, Action yesAction = null, Action noAction = null)
+    {
+        // 이벤트 등록
+        this.yesAction = yesAction;
+        this.noAction = noAction;
+
+        // 타이틀 및 메시지 설정
+        Text titleText = GetText((int)Texts.TitleText);
+        Text messageText = GetText((int)Texts.MessageText);
+        titleText.text = title;
+        messageText.text = message;
+
+        // 버튼 활성화
+        Button yesButton = GetButton((int)Buttons.YesButton);
+        Button noButton = GetButton((int)Buttons.NoButton);
+        yesButton.gameObject.SetActive(true);
+        noButton.gameObject.SetActive(true);
+        noButton.Select();
+
+        // 버튼 네비게이션 설정
+        Navigation navigation = new Navigation();
+
+        navigation.selectOnLeft = noButton;
+        navigation.selectOnRight = noButton;
+        yesButton.navigation = navigation;
+
+        navigation.selectOnLeft = yesButton;
+        navigation.selectOnRight = yesButton;
+        noButton.navigation = navigation;
 
         // 팝업 윈도우 활성화
         OpenPopupWindow();
@@ -348,6 +384,25 @@ public class PopupWindowController : UI_Popup
         if (okAction != null)
             okAction();
         Managers.Scene._logincheck = true;
+        // ClosePopupWindow();
+        ClosePopupUI();
+    }
+
+    public void OnClickYesButtonPortal(PointerEventData data)
+    {
+        if (okAction != null)
+            okAction();
+        Managers.Scene._portalCheck = true;
+        Debug.Log("눌림");
+        // ClosePopupWindow();
+        ClosePopupUI();
+    }
+
+    public void OnClickNoButtonPortal(PointerEventData data)
+    {
+        if (okAction != null)
+            okAction();
+        Managers.Scene._portalCheck = false;
         // ClosePopupWindow();
         ClosePopupUI();
     }

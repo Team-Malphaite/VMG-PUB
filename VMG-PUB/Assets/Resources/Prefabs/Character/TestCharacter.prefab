@@ -2676,7 +2676,10 @@ MonoBehaviour:
   JumpPower: 0.4
   _roatationSpeed: 0.07
   IsJumping: 0
+  tr: {fileID: 0}
   Cam: {fileID: 0}
+  _move: 1
+  _mode: 0
 --- !u!114 &694886611831322525
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ using UnityStandardAssets.Utility;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
+    public static PlayerController Instance = null;
     [SerializeField]
     float _speed = 3.0f;
     [SerializeField]
@@ -15,7 +16,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private float _roatationSpeed = 0.07f;
     private Rigidbody rigid;
     public bool IsJumping = false;
-    private Transform tr;
+    public Transform tr;
     public GameObject Cam;
     private Vector3 MoveDir;
     public enum moveState
@@ -29,14 +30,23 @@ public class PlayerController : MonoBehaviourPunCallbacks
         Game,
         Voting,
     }
-    moveState _state = moveState.Idle;
+    public moveState _move = moveState.Idle;
+    public modeState _mode = modeState.Square;
+
+    void Awake()
+    {
+        Instance = this;
+        tr = transform;
+    }
 
     void Start()
     {
         tr = GetComponent<Transform>();
         if (photonView.IsMine)
         {
+            this.name = "@Player";
             // Camera.main.GetComponent<SmoothFollow>().target = tr;
+            DontDestroyOnLoad(Camera.main);
             Camera.main.GetComponent<CameraAutoFocus>().target = tr;
             Cam = Camera.main.gameObject;
             Managers.Input.KeyAction -= OnKeyBoard;
@@ -119,7 +129,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         Animator anim = GetComponent<Animator>();
         anim.SetFloat("speed", 3);
         anim.SetBool("jump", IsJumping);
-        _state = moveState.Idle;
+        _move = moveState.Idle;
     }
 
     void UpdateIdle()
@@ -168,7 +178,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
             {
-                _state = moveState.Moving;
+                _move = moveState.Moving;
             }
         }   
     }
@@ -177,7 +187,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (photonView.IsMine)
         {
-            switch(_state)
+            switch(_move)
             {
                 case moveState.Idle:
                     UpdateIdle();

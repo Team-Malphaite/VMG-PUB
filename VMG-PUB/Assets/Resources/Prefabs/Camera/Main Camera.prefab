@@ -83,7 +83,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3050005409965860847}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &3050005409965860846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,6 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e605a03315bd54ba8ad2584099f8c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mode: 0
-  _delta: {x: 0, y: 6, z: -5}
-  _player: {fileID: 0}
+  target: {fileID: 0}
+  dist: 4
+  xSpeed: 220
+  ySpeed: 100
+  yMinLimit: -20
+  yMaxLimit: 80

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneManagerEx
 {
     public bool _logincheck = false;
+    public bool _portalCheck = false;
     public BaseScene CurrentScene { get { return GameObject.FindObjectOfType<BaseScene>(); } }
     public void LoadScene(Define.Scene type)
     {
