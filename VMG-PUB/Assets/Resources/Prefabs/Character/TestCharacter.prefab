@@ -2678,6 +2678,7 @@ MonoBehaviour:
   IsJumping: 0
   tr: {fileID: 0}
   Cam: {fileID: 0}
+  _portalCheck: 0
   _move: 1
   _mode: 0
 --- !u!114 &694886611831322525
