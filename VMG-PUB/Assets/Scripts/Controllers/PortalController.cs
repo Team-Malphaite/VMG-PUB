@@ -5,9 +5,10 @@ using Photon.Pun;
 using System;
 using Photon.Realtime;
 
-public class PortalController : MonoBehaviour
+public class PortalController : MonoBehaviourPunCallbacks
 {
     public GameObject go;
+    Define.Scene _scene = Define.Scene.Voting;
 
     // Start is called before the first frame update
     void Start()
@@ -29,18 +30,54 @@ public class PortalController : MonoBehaviour
         {
             if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Square)
             {
+                _scene = Define.Scene.Voting;
+                RoomOptions roomOptions = new RoomOptions();
+                roomOptions.MaxPlayers = 3; // 인원 지정.
+                roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } };
+                roomOptions.CustomRoomPropertiesForLobby = new string[] { "Mode" }; // 여기에 키 값을 등록해야, 참가할 때 필터링이 가능하다.
+                
                 go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Voting;
-                Managers.Scene.LoadScene(Define.Scene.Voting);
-                // go.position = new Vector3(0.18f, 0.27f, -9f);
+                // Managers.Scene.LoadScene(Define.Scene.Voting);
                 Managers.Scene._portalCheck = false;
+
+                Debug.Log(PhotonNetwork.PlayerList.Length);
+
+                if (PhotonNetwork.PlayerList.Length == 1)
+                {
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } });
+                    Managers.Scene.LoadScene(Define.Scene.Voting);
+                }
+                else
+                {
+                    PhotonNetwork.JoinRandomOrCreateRoom(expectedCustomRoomProperties: new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } }, expectedMaxPlayers: 3, roomOptions: roomOptions);
+                    Debug.Log("Connected !!!");
+                    Debug.Log(_scene);
+                }
             }
 
             else if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Voting)
             {
+                _scene = Define.Scene.Square;
+                RoomOptions roomOptions = new RoomOptions();
+                roomOptions.MaxPlayers = 3; // 인원 지정.
+                roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } };
+                roomOptions.CustomRoomPropertiesForLobby = new string[] { "Mode" }; // 여기에 키 값을 등록해야, 참가할 때 필터링이 가능하다.
+
                 go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
-                Managers.Scene.LoadScene(Define.Scene.Square);
-                // go.position = new Vector3(-457.67f, -191.161f, 129.03f);
+                // Managers.Scene.LoadScene(Define.Scene.Square);
                 Managers.Scene._portalCheck = false;
+
+                if (PhotonNetwork.PlayerList.Length == 1)
+                {
+                    PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } });
+                    Managers.Scene.LoadScene(Define.Scene.Square);
+                }
+                else
+                {
+                    PhotonNetwork.JoinRandomOrCreateRoom(expectedCustomRoomProperties: new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } }, expectedMaxPlayers: 3, roomOptions: roomOptions);
+                    Debug.Log("Connected !!!");
+                    Debug.Log(_scene);
+                }
             }
         }
     }
@@ -66,6 +103,8 @@ public class PortalController : MonoBehaviour
                     PopupWindowController.Instance.ShowYesNoPortal(title, message, yesAction, noAction);
                 }
             }
+
+            else return;
             
         }
     }
