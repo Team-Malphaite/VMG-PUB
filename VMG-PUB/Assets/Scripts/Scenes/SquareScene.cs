@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class SquareScene : BaseScene
 {
-    public static SquareScene Instance;
-    public GameObject go;
     GameObject cam;
 
     protected override void Init()
     {
         base.Init();
-        cam = GameObject.Find("Main Camera");
+        cam = GameObject.Find("@Main Camera");
         if (cam == null)
-            Managers.Resource.Instantiate("Camera/Main Camera");
-        Instance = this;
-        go = GameObject.Find("portal");
+            cam = Managers.Resource.Instantiate("Camera/Main Camera");
 
         SceneType = Define.Scene.Square;
-
+        cam.name = "@Main Camera";
         // Managers.UI.ShowSceneUI<UI_Inven>();
         Managers.UI.ShowSceneUI<UI_Square>();
         Managers.UI.ShowPopupUI<PopupWindowController>();
+        // DontDestroyOnLoad(Managers.UI.ShowPopupUI<PopupWindowController>());
     }
 
     public override void Clear()
