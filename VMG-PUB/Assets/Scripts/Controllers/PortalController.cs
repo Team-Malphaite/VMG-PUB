@@ -31,53 +31,25 @@ public class PortalController : MonoBehaviourPunCallbacks
             if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Square)
             {
                 _scene = Define.Scene.Voting;
-                RoomOptions roomOptions = new RoomOptions();
-                roomOptions.MaxPlayers = 3; // 인원 지정.
-                roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } };
-                roomOptions.CustomRoomPropertiesForLobby = new string[] { "Mode" }; // 여기에 키 값을 등록해야, 참가할 때 필터링이 가능하다.
-                
                 go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Voting;
-                // Managers.Scene.LoadScene(Define.Scene.Voting);
+                OnLeftRoom();
+                Managers.Scene.LoadScene(Define.Scene.Voting);
+                Managers.Network.OnLogin();
                 Managers.Scene._portalCheck = false;
 
                 Debug.Log(PhotonNetwork.PlayerList.Length);
-
-                if (PhotonNetwork.PlayerList.Length == 1)
-                {
-                    PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } });
-                    Managers.Scene.LoadScene(Define.Scene.Voting);
-                }
-                else
-                {
-                    PhotonNetwork.JoinRandomOrCreateRoom(expectedCustomRoomProperties: new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } }, expectedMaxPlayers: 3, roomOptions: roomOptions);
-                    Debug.Log("Connected !!!");
-                    Debug.Log(_scene);
-                }
             }
 
             else if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Voting)
             {
                 _scene = Define.Scene.Square;
-                RoomOptions roomOptions = new RoomOptions();
-                roomOptions.MaxPlayers = 3; // 인원 지정.
-                roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } };
-                roomOptions.CustomRoomPropertiesForLobby = new string[] { "Mode" }; // 여기에 키 값을 등록해야, 참가할 때 필터링이 가능하다.
-
                 go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
-                // Managers.Scene.LoadScene(Define.Scene.Square);
+                OnLeftRoom();
+                Managers.Scene.LoadScene(Define.Scene.Square);
+                Managers.Network.OnLogin();
                 Managers.Scene._portalCheck = false;
 
-                if (PhotonNetwork.PlayerList.Length == 1)
-                {
-                    PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } });
-                    Managers.Scene.LoadScene(Define.Scene.Square);
-                }
-                else
-                {
-                    PhotonNetwork.JoinRandomOrCreateRoom(expectedCustomRoomProperties: new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } }, expectedMaxPlayers: 3, roomOptions: roomOptions);
-                    Debug.Log("Connected !!!");
-                    Debug.Log(_scene);
-                }
+                Debug.Log(PhotonNetwork.PlayerList.Length);
             }
         }
     }

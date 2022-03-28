@@ -8,6 +8,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public string NickName = "test1";
     public string gameVersion = "1.0";
+    GameObject player;
 
     Define.Scene _scene = Define.Scene.Square;
     
@@ -16,10 +17,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     //      PhotonNetwork.AutomaticallySyncScene = true;
     // }
 
-    // void Start()
-    // {
-    //     OnLogin();
-    // }
+    void Start()
+    {
+        player = GameObject.Find("@Player");
+    }
 
     public void OnLogin()
     {
@@ -32,14 +33,24 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         // base.OnConnectedToMaster();
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 3; // 인원 지정.
-        roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } }; // 게임 시간 지정.
-        roomOptions.CustomRoomPropertiesForLobby = new string[] { "Mode" }; // 여기에 키 값을 등록해야, 참가할 때 필터링이 가능하다.
+        // RoomOptions roomOptions = new RoomOptions();
+        // roomOptions.MaxPlayers = 3; // 인원 지정.
+        // roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } }; // 게임 시간 지정.
+        // roomOptions.CustomRoomPropertiesForLobby = new string[] { "Mode" }; // 여기에 키 값을 등록해야, 참가할 때 필터링이 가능하다.
         
-        PhotonNetwork.JoinRandomOrCreateRoom(expectedCustomRoomProperties: new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } }, expectedMaxPlayers: 3, roomOptions: roomOptions);
-        Debug.Log("Connected !!!");
-        Debug.Log(_scene);
+        // PhotonNetwork.JoinRandomOrCreateRoom(expectedCustomRoomProperties: new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } }, expectedMaxPlayers: 3, roomOptions: roomOptions);
+        if(player == null || player.GetComponent<PlayerController>()._mode == PlayerController.modeState.Voting)
+        {
+            PhotonNetwork.JoinOrCreateRoom("Voting", new RoomOptions{MaxPlayers = 3}, null);
+            Debug.Log("Connected !!!");
+            Debug.Log(_scene);
+        }
+        else if(player.GetComponent<PlayerController>()._mode == PlayerController.modeState.Square)
+        {
+            PhotonNetwork.JoinOrCreateRoom("Square", new RoomOptions{MaxPlayers = 3}, null);
+            Debug.Log("Connected !!!");
+            Debug.Log(_scene);
+        }
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
