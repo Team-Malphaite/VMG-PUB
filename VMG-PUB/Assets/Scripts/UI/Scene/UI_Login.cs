@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class UI_Login : UI_Scene
 {
+   // public static FirebaseWebGL.Examples.Auth.AuthHandler instance;
     enum Buttons
     {
         LoginButton,
@@ -26,6 +27,7 @@ public class UI_Login : UI_Scene
     {
         Init();
     }
+  
 
     public override void Init()
     {
@@ -47,11 +49,26 @@ public class UI_Login : UI_Scene
         GameObject go = EventSystem.current.currentSelectedGameObject;
         if(go.name.Equals("LoginButton"))
         {
+            
             string title = "로그인 통과";
             string message = "로그인 체크";
-            Action okAction = () => Debug.Log("On Click Login Ok Button");
 
+            AuthHandler firebaseHelper = GameObject.Find("firebaseHandler").GetComponent<AuthHandler>();
+           if(firebaseHelper !=null){
+                Debug.Log("오브젝트 찾음");
+            }
+            //firebaseHelper.SignInWithGoogle(); //파이어베이스 로그인 실행함수
+            
+            Action okAction = () => Debug.Log("On Click Login Ok Button");
             PopupWindowController.Instance.ShowOkLogin(title, message, okAction);
+
+            /*if(firebaseHelper.statusText =="Success: signed in with Google!")
+            {
+                PopupWindowController.Instance.ShowOkLogin(title, message, okAction);
+
+            }*/
+
+
         }
     }
 }
