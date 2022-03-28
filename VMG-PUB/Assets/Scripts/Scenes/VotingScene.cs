@@ -5,9 +5,13 @@ using UnityEngine;
 public class VotingScene : BaseScene
 {
     public GameObject go;
+    GameObject cam;
     protected override void Init()
     {
         base.Init();
+        cam = GameObject.Find("@Main Camera");
+        if (cam == null)
+            cam = Managers.Resource.Instantiate("Camera/Main Camera");
 
         SceneType = Define.Scene.Square;
 

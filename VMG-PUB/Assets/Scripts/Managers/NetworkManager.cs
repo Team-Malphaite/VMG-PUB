@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -28,7 +29,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void OnLogin()
     {
-        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.AutomaticallySyncScene = false;
         PhotonNetwork.GameVersion = this.gameVersion;
         PhotonNetwork.NickName = this.NickName;
         PhotonNetwork.ConnectUsingSettings();
@@ -36,45 +37,37 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        // base.OnConnectedToMaster();
-        // RoomOptions roomOptions = new RoomOptions();
-        // roomOptions.MaxPlayers = 3; // 인원 지정.
-        // roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } }; // 게임 시간 지정.
-        // roomOptions.CustomRoomPropertiesForLobby = new string[] { "Mode" }; // 여기에 키 값을 등록해야, 참가할 때 필터링이 가능하다.
-        
-        // PhotonNetwork.JoinRandomOrCreateRoom(expectedCustomRoomProperties: new ExitGames.Client.Photon.Hashtable() { { "Mode", _scene } }, expectedMaxPlayers: 3, roomOptions: roomOptions);
-        if(player == null || player.GetComponent<PlayerController>()._mode == PlayerController.modeState.Voting)
+        if (SceneManager.GetActiveScene().name == "Square")
         {
-            PhotonNetwork.JoinOrCreateRoom("Voting", new RoomOptions{MaxPlayers = 3}, null);
-            Debug.Log("Connected !!!");
-            Debug.Log(_scene);
-        }
-        else if(player.GetComponent<PlayerController>()._mode == PlayerController.modeState.Square)
-        {
+            _scene = Define.Scene.Square;
             PhotonNetwork.JoinOrCreateRoom("Square", new RoomOptions{MaxPlayers = 3}, null);
-            Debug.Log("Connected !!!");
+            Debug.Log("Joined Square !!!");
             Debug.Log(_scene);
         }
-    }
-
-    public override void OnJoinRandomFailed(short returnCode, string message)
-    {
-        // base.OnJoinRandomFailed(returnCode, message);
-        Debug.Log("Failed join room!!!");
-        // this.CreateRoom();
+        else if (SceneManager.GetActiveScene().name == "Voting")
+        {
+            _scene = Define.Scene.Voting;
+            PhotonNetwork.JoinOrCreateRoom("Voting", new RoomOptions{MaxPlayers = 3}, null);
+            Debug.Log("Joined Voting !!!");
+            Debug.Log(_scene);
+        }
     }
 
     public override void OnJoinedRoom()
     {
         // base.OnJoinedRoom();
         Debug.Log("Joined Room");
-        GameObject go = PhotonNetwork.Instantiate("Prefabs/Character/TestCharacter", new Vector3(0, 0, -5), Quaternion.identity);
-        DontDestroyOnLoad(go);
+        if (player == null)
+        {
+            player = PhotonNetwork.Instantiate("Prefabs/Character/TestCharacter", new Vector3(0, 0, -5), Quaternion.identity);
+            DontDestroyOnLoad(player);
+        }
     }
-
-    // void CreateRoom()
-    // {
-    //     PhotonNetwork.CreateRoom("Lobby", new RoomOptions { MaxPlayers = 3});
-    //     Debug.Log("Create");
-    // }
+    
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        Debug.Log("Leave Room");
+        PhotonNetwork.JoinLobby();
+    }
 }

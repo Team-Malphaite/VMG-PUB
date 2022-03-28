@@ -21,7 +21,7 @@ public class PortalController : MonoBehaviourPunCallbacks
     {
         if (GameObject.Find("@Player") == null)
         {
-            Debug.Log("Can't find player");
+            // Debug.Log("Can't find player");
             return;
         }
         go = GameObject.Find("@Player");
@@ -29,38 +29,39 @@ public class PortalController : MonoBehaviourPunCallbacks
         // if (Managers.Scene._portalCheck)
         if (PlayerController.Instance._portalCheck)
         {
-            if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Square)
+            if(go.GetComponent<PhotonView>().IsMine)
             {
-                _scene = Define.Scene.Voting;
-                go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Voting;
-                OnLeftRoom();
-                Managers.Scene.LoadScene(Define.Scene.Voting);
-                Managers.Network.OnLogin();
-                // Managers.Scene._portalCheck = false;
-                PlayerController.Instance._portalCheck = false;
+                if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Square)
+                {
+                    _scene = Define.Scene.Voting;
+                    go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Voting;
+                    Managers.Network.LeaveRoom();
+                    Managers.Scene.LoadScene(Define.Scene.Voting);
+                    Managers.Network.OnLogin();
+                    // Managers.Scene._portalCheck = false;
+                    PlayerController.Instance._portalCheck = false;
+                }
 
-                Debug.Log(PhotonNetwork.PlayerList.Length);
-            }
-
-            else if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Voting)
-            {
-                _scene = Define.Scene.Square;
-                go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
-                OnLeftRoom();
-                Managers.Scene.LoadScene(Define.Scene.Square);
-                Managers.Network.OnLogin();
-                // Managers.Scene._portalCheck = false;
-                PlayerController.Instance._portalCheck = false;
-
-                Debug.Log(PhotonNetwork.PlayerList.Length);
+                else if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Voting)
+                {
+                    _scene = Define.Scene.Square;
+                    go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
+                    Managers.Network.LeaveRoom();
+                    Managers.Scene.LoadScene(Define.Scene.Square);
+                    Managers.Network.OnLogin();
+                    // Managers.Scene._portalCheck = false;
+                    PlayerController.Instance._portalCheck = false;
+                }
             }
         }
     }
 
-    void OnTriggerEnter(Collider col) {
-        if (col.gameObject.name == "@Player") {
-            // if (go.GetComponent<PhotonView>().IsMine)
-            // {
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.name == "@Player")
+        {
+            if (go.GetComponent<PhotonView>().IsMine)
+            {
                 if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Square)
                 {
                     string title = "이동";
@@ -77,10 +78,19 @@ public class PortalController : MonoBehaviourPunCallbacks
                     Action noAction = () => Debug.Log("On Click Portal No Button");
                     PopupWindowController.Instance.ShowYesNoPortal(title, message, yesAction, noAction);
                 }
-            // }
+            }
 
             else return;
             
+        }
+    }
+    
+    void OnTriggerExit(Collider col)
+    {
+        if (col.gameObject.name == "@Player")
+        {
+            if (go.GetComponent<PhotonView>().IsMine)
+                PopupWindowController.Instance.ClosePopupUI();
         }
     }
 }

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using Photon.Pun;
 using UnityEngine.EventSystems;
 
-public abstract class UI_Base : MonoBehaviour
+public abstract class UI_Base : MonoBehaviourPunCallbacks
 {
     protected Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
     public abstract void Init();
