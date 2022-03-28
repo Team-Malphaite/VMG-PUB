@@ -7,7 +7,6 @@ using UnityStandardAssets.Utility;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
-    public static PlayerController Instance = null;
     [SerializeField]
     float _speed = 3.0f;
     [SerializeField]
@@ -35,7 +34,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     void Awake()
     {
-        Instance = this;
         tr = transform;
     }
 
