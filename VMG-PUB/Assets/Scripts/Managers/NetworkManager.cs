@@ -53,7 +53,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         // base.OnJoinedRoom();
         Debug.Log("Joined Room");
-        PhotonNetwork.Instantiate("Prefabs/Character/TestCharacter", new Vector3(0,0,0), Quaternion.identity);
+        GameObject go = PhotonNetwork.Instantiate("Prefabs/Character/TestCharacter", new Vector3(0, 0, -5), Quaternion.identity);
+        DontDestroyOnLoad(go);
     }
 
     // void CreateRoom()
