@@ -5,7 +5,7 @@ using UnityEngine;
 public class Managers : MonoBehaviour
 {
     static Managers s_instance; // 유일성 보장
-    static Managers Instance { get { Init(); return s_instance; } } // 유일한 매니저 갖고 옴
+    static Managers Instance { get { return s_instance; } } // 유일한 매니저 갖고 옴
 
     InputManager _input = new InputManager();
     ResourceManager _resource = new ResourceManager();
@@ -21,7 +21,7 @@ public class Managers : MonoBehaviour
     public static NetworkManager Network { get { return Instance._network; }}
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Init();
     }
@@ -34,17 +34,16 @@ public class Managers : MonoBehaviour
 
     static void Init()
     {
+        GameObject go = null;
         if (s_instance == null)
         {
             // 초기화
-            GameObject go = GameObject.Find("@Managers");
-            GameObject net = GameObject.Find("@Network");
+            go = GameObject.Find("@Managers");
             if (go == null)
             {
                 go = new GameObject { name = "@Managers"};
                 go.AddComponent<Managers>();
             }
-            DontDestroyOnLoad(go);
             s_instance = go.GetComponent<Managers>();
             // if (net == null)
             // {
@@ -53,5 +52,6 @@ public class Managers : MonoBehaviour
             // }
             // DontDestroyOnLoad(net);
         }
+        DontDestroyOnLoad(go);
     }
 }

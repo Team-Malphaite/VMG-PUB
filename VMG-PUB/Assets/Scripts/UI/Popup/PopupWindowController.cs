@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using Photon.Pun;
 using UnityEngine.EventSystems;
 
 /// <summary>
@@ -12,6 +13,7 @@ using UnityEngine.EventSystems;
 public class PopupWindowController : UI_Popup
 {
     public static PopupWindowController Instance; // singleton 변수
+    public GameObject go;
 
     public bool useBackground = true;
     public string DefaultOkName = "Ok";         // 기본 Ok 텍스트
@@ -103,6 +105,15 @@ public class PopupWindowController : UI_Popup
         GetButton((int)Buttons.NoButton).gameObject.BindEvent(OnClickNoButtonPortal);
 
         // GameObject go = GetImage((int)Images.ItemIcon).gameObject;
+    }
+
+    void Update() {
+        if (GameObject.Find("@Player") == null)
+        {
+            // Debug.Log("Can't find player");
+            return;
+        }
+        go = GameObject.Find("@Player");
     }
 
     public override void ClosePopupUI()
@@ -393,7 +404,8 @@ public class PopupWindowController : UI_Popup
         if (okAction != null)
             okAction();
         // Managers.Scene._portalCheck = true;
-        PlayerController.Instance._portalCheck = true;
+        if (go.GetComponent<PhotonView>().IsMine)
+            PlayerController.Instance._portalCheck = true;
         Debug.Log("눌림");
         // ClosePopupWindow();
         ClosePopupUI();
@@ -404,7 +416,6 @@ public class PopupWindowController : UI_Popup
         if (okAction != null)
             okAction();
         // Managers.Scene._portalCheck = false;
-        PlayerController.Instance._portalCheck = true;
         // ClosePopupWindow();
         ClosePopupUI();
     }

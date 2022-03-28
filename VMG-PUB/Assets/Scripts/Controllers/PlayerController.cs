@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityStandardAssets.Utility;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -34,20 +35,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public moveState _move = moveState.Idle;
     public modeState _mode = modeState.Square;
 
-    void Awake()
-    {
-        Instance = this;
-        tr = transform;
-    }
-
     void Start()
     {
+        Instance = this;
         tr = GetComponent<Transform>();
         if (photonView.IsMine)
         {
             this.name = "@Player";
             // Camera.main.GetComponent<SmoothFollow>().target = tr;
-            DontDestroyOnLoad(Camera.main);
+            // DontDestroyOnLoad(Camera.main);
             Camera.main.GetComponent<CameraAutoFocus>().target = tr;
             Cam = Camera.main.gameObject;
             Managers.Input.KeyAction -= OnKeyBoard;
@@ -181,7 +177,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 _move = moveState.Moving;
             }
-        }   
+        }
     }
 
     void Update()
@@ -198,6 +194,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     break;
             }
             UpdateJumping();
+            if(SceneManager.GetActiveScene().name == "Square")
+                _mode = modeState.Square;
+            if(SceneManager.GetActiveScene().name == "Voting")
+                _mode = modeState.Voting;
         }
+    }
+
+    void OnDestroy() {
+        Managers.Input.KeyAction -= OnKeyBoard;
     }
 }
