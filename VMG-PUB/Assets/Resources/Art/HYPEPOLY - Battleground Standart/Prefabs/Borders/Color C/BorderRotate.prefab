@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 386418981289839163}
   - component: {fileID: 6518845956100133402}
   - component: {fileID: 3969673584758034807}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BorderRotate
   m_TagString: Untagged
   m_Icon: {fileID: 0}

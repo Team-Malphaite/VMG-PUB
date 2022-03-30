@@ -42,6 +42,17 @@ public class PortalController : MonoBehaviourPunCallbacks
                     PlayerController.Instance._portalCheck = false;
                 }
 
+                // if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Square)
+                // {
+                //     _scene = Define.Scene.Game;
+                //     go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Game;
+                //     Managers.Network.LeaveRoom();
+                //     Managers.Scene.LoadScene(Define.Scene.Game);
+                //     Managers.Network.OnLogin();
+                //     // Managers.Scene._portalCheck = false;
+                //     PlayerController.Instance._portalCheck = false;
+                // }
+
                 else if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Voting)
                 {
                     _scene = Define.Scene.Square;

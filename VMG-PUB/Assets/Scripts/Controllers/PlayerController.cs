@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public GameObject Cam;
     private Vector3 MoveDir;
     public bool _portalCheck = false;
+    private bool isBorder;
+    public bool _goalCheck = false;
     public enum moveState
     {
         Moving,
@@ -115,13 +117,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
             //     transform.LookAt(transform.position + offset);
             // }
         }
-        
-        MoveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
         // 오브젝트가 바라보는 앞방향으로 이동방향을 돌려서 조정합니다.
+        MoveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         MoveDir = transform.TransformDirection(MoveDir);
 
-        // transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(MoveDir), _roatationSpeed);
-        transform.position += MoveDir * _speed * Time.deltaTime;
+        if(!isBorder)
+            // transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(MoveDir), _roatationSpeed);
+            transform.position += MoveDir * _speed * Time.deltaTime;
 
         Animator anim = GetComponent<Animator>();
         anim.SetFloat("speed", 3);
@@ -157,7 +160,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
             IsJumping = false;
     }
 
-    private void OnCollisionEnter(Collision collision) {
+    private void OnCollisionEnter(Collision collision)
+    {
         if (photonView.IsMine)
         {
             if (collision.gameObject.CompareTag("Untagged"))
@@ -166,7 +170,23 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 Animator anim = GetComponent<Animator>();
                 anim.SetBool("jump", IsJumping);
             }
+            else if (collision.gameObject.CompareTag("Player"))
+            {
+                rigid.AddForce(-MoveDir, ForceMode.Impulse);
+            }
         }
+    }
+
+    void StopToWall()
+    {
+        Debug.DrawRay(transform.position, transform.forward * 1, Color.green);
+        isBorder = Physics.Raycast(transform.position, transform.forward, 1, LayerMask.GetMask("Wall"));
+    }
+
+    void StopToObstacle()
+    {
+        Debug.DrawRay(transform.position, transform.forward * 1.5f, Color.red);
+        isBorder = Physics.Raycast(transform.position, transform.forward, 1, LayerMask.GetMask("Obstacle"));
     }
 
     void OnKeyBoard()
@@ -195,9 +215,23 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
             UpdateJumping();
             if(SceneManager.GetActiveScene().name == "Square")
+            {
+                StopToWall();
                 _mode = modeState.Square;
-            if(SceneManager.GetActiveScene().name == "Voting")
+            }
+            else if(SceneManager.GetActiveScene().name == "Voting")
+            {
+                StopToWall();
                 _mode = modeState.Voting;
+            }
+            else if(SceneManager.GetActiveScene().name == "Game")
+            {
+                _mode = modeState.Game;
+                transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                this._speed = 10.0f;
+                this.JumpPower = 2.0f;
+                StopToObstacle();
+            }
         }
     }
 
