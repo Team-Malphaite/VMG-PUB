@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Voting.unity
     guid: 56b5387a89d08b34cae70cc061327594
   - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 5a92b0f3f9fe70c4cbfe2e0201afd71f
+  - enabled: 1
     path: Assets/Photon/PhotonChat/Demos/DemoChat/DemoChat-Scene.unity
     guid: ec07267f6a28fb044ac89845274e79af
   - enabled: 1

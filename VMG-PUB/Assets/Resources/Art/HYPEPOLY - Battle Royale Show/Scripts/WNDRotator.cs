@@ -8,6 +8,6 @@ public class WNDRotator : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.Rotate(rotationSpeed);
+        transform.Rotate(-rotationSpeed);
     }
 }

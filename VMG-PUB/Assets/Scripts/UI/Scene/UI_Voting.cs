@@ -9,6 +9,7 @@ public class UI_Voting : UI_Scene
 {
     enum Buttons
     {
+        Game,
         Ranking,
         Explain,
         Logout,
@@ -43,6 +44,7 @@ public class UI_Voting : UI_Scene
         // Bind<GameObject>(typeof(GameObjects));
         // Bind<Image>(typeof(Images));
 
+        GetButton((int)Buttons.Game).gameObject.BindEvent(OnButtonClicked);
         GetButton((int)Buttons.Ranking).gameObject.BindEvent(OnButtonClicked);
         GetButton((int)Buttons.Explain).gameObject.BindEvent(OnButtonClicked);
         GetButton((int)Buttons.Logout).gameObject.BindEvent(OnButtonClicked);

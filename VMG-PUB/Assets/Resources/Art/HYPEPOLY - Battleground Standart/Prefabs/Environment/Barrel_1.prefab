@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1829242220448339075}
   - component: {fileID: 6901154212083244594}
   - component: {fileID: -48830814869132140}
+  - component: {fileID: -8615771758912282831}
   m_Layer: 0
   m_Name: Barrel_1
   m_TagString: Untagged
@@ -93,6 +94,22 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -125435165217083709, guid: e746f91a09b87d546ac6c612c71259b1, type: 3}
+--- !u!54 &-8615771758912282831
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8256669679295027787}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0

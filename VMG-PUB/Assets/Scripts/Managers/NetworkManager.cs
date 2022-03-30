@@ -51,6 +51,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             Debug.Log("Joined Voting !!!");
             Debug.Log(_scene);
         }
+        else if (SceneManager.GetActiveScene().name == "Game")
+        {
+            _scene = Define.Scene.Game;
+            PhotonNetwork.JoinOrCreateRoom("Game", new RoomOptions{MaxPlayers = 3}, null);
+            Debug.Log("Joined Game !!!");
+            Debug.Log(_scene);
+        }
     }
 
     public override void OnJoinedRoom()
@@ -60,6 +67,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (player == null)
         {
             player = PhotonNetwork.Instantiate("Prefabs/Character/TestCharacter", new Vector3(0, 0, -5), Quaternion.identity);
+            if(SceneManager.GetActiveScene().name == "Game")
+                player.AddComponent<RespawnController>();
             DontDestroyOnLoad(player);
         }
     }

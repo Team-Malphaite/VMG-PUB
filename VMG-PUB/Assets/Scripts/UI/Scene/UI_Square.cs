@@ -9,6 +9,7 @@ public class UI_Square : UI_Scene
 {
     enum Buttons
     {
+        Game,
         Ranking,
         Explain,
         Logout,
@@ -43,6 +44,7 @@ public class UI_Square : UI_Scene
         // Bind<GameObject>(typeof(GameObjects));
         // Bind<Image>(typeof(Images));
 
+        GetButton((int)Buttons.Game).gameObject.BindEvent(OnButtonClicked);
         GetButton((int)Buttons.Ranking).gameObject.BindEvent(OnButtonClicked);
         GetButton((int)Buttons.Explain).gameObject.BindEvent(OnButtonClicked);
         GetButton((int)Buttons.Logout).gameObject.BindEvent(OnButtonClicked);
@@ -80,6 +82,15 @@ public class UI_Square : UI_Scene
             Action noAction = () => Debug.Log("On Click No Button");
 
             PopupWindowController.Instance.ShowYesNo(title, message, yesAction, noAction);
+        }
+        if(go.name.Equals("Game"))
+        {
+            string title = "게임";
+            string message = "게임에 입장하시겠습니까?";
+            Action yesAction = () => Debug.Log("On Click Yes Button");
+            Action noAction = () => Debug.Log("On Click No Button");
+
+            PopupWindowController.Instance.ShowYesNoGame(title, message, yesAction, noAction);
         }
         // _score++;
         // GetText((int)Texts.ScoreText).text = $"점수 : {_score}점";

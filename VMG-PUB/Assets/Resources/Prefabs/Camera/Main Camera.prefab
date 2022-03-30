@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  dist: 4
+  dist: 2
   xSpeed: 220
   ySpeed: 100
-  yMinLimit: -20
+  yMinLimit: 13
   yMaxLimit: 80

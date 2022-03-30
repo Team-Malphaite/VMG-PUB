@@ -8,6 +8,11 @@ TagManager:
   - Portal
   - Bullet
   - Gate
+  - Obstacle
+  - Destroy
+  - RespawnPlayer1
+  - RespawnPlayer2
+  - RespawnPlayer3
   layers:
   - Default
   - TransparentFX

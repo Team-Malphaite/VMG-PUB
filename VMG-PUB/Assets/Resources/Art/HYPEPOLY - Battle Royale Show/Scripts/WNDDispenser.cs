@@ -18,6 +18,19 @@ public class WNDDispenser : MonoBehaviour
     float timeToShoot = 0f;
     float delayToSpawn = 0f;
 
+    public GameObject Root
+    {
+        get
+        {
+            GameObject root = GameObject.Find("Env/Spawn");
+            if (root == null)
+            {
+                root = new GameObject {name = "Env/Spawn"};
+            }
+            return root;
+        }
+    }
+
     void Start()
     {
         Transform[] childs = GetComponentsInChildren<Transform>();
@@ -36,18 +49,20 @@ public class WNDDispenser : MonoBehaviour
         arrowReady = false;
         arrowSize = 0f;
         currentArrow = GameObject.Instantiate(projectilePrefab, arrowsParent);
+        currentArrow.transform.SetParent(Root.transform);
         if (currentArrow.GetComponent<WNDPrefabVariator>() != null)
             currentArrow.GetComponent<WNDPrefabVariator>().RandomPrefab();
         currentArrow.GetComponent<Rigidbody>().isKinematic = true;
+        currentArrow.AddComponent<WNDBallDestroyer>();
         currentArrow.transform.localScale = Vector3.zero;
         timeToShoot = shootingDelay;
     }
     public void Shoot()
     {
         GameObject fx = Instantiate(particlePrefab, arrowsParent.transform.position, new Quaternion());
+        fx.transform.SetParent(Root.transform);
         fx.transform.localEulerAngles = Vector3.zero;
 
-        currentArrow.transform.parent = null;
         currentArrow.GetComponent<Rigidbody>().isKinematic = false;
         currentArrow.GetComponent<Rigidbody>().AddForce(transform.up * (power*Random.Range(randomPowerMinMultiplier,randomPowerMaxMultiplier)), ForceMode.Impulse);
         delayToSpawn = 1f;
@@ -80,4 +95,5 @@ public class WNDDispenser : MonoBehaviour
             }
         }
     }
+
 }
