@@ -13,6 +13,7 @@ public class SquareScene : BaseScene
         // Managers.UI.ShowSceneUI<UI_Inven>();
         Managers.UI.ShowSceneUI<UI_Square>();
         Managers.UI.ShowPopupUI<PopupWindowController>();
+        Managers.UI.ShwoSceneUI<ChatManager>();
     }
 
     public override void Clear()

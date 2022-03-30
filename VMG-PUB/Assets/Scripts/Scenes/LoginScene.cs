@@ -21,12 +21,18 @@ public class LoginScene : BaseScene
         {
             Managers.Scene.LoadScene(Define.Scene.Square);
             GameObject net = GameObject.Find("@Network");
+            GameObject chat = GameObject.Find("@Chatting");
             if (net == null)
             {
                 net = new GameObject {name = "@Network"};
                 net.AddComponent<NetworkManager>();
             }
+            if (chat == null){
+                chat = new GameObject {name = "@Chatting"};
+                chat.AddComponent<ChatManager>();
+            }
             DontDestroyOnLoad(net);
+            DontDestroyOnLoad(chat);
             Managers.Network.OnLogin();
         }
     }
