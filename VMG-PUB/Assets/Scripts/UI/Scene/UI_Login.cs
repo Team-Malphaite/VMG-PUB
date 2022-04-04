@@ -57,6 +57,8 @@ public class UI_Login : UI_Scene
            if(firebaseHelper !=null){
                 Debug.Log("오브젝트 찾음");
             }
+            Action okAction = () => Debug.Log("On Click Login Ok Button");
+
             /*firebaseHelper.SignInWithGoogle(); //파이어베이스 로그인 실행함수
             Action okAction = () => Debug.Log("On Click Login Ok Button");
 
