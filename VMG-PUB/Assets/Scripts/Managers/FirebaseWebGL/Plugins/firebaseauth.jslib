@@ -1,5 +1,61 @@
 mergeInto(LibraryManager.library, {
 
+    SignInAnonymously: function (objectName, callback, fallback) {
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedCallback = UTF8ToString(callback);
+        var parsedFallback = UTF8ToString(fallback);
+
+        try {
+            firebase.auth().signInAnonymously().then(function (result) {
+                unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, "Success: signed up for " + result);
+            }).catch(function (error) {
+                unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+            });
+
+        } catch (error) {
+            unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+        }
+    },
+    
+    CreateUserWithEmailAndPassword: function (email, password, objectName, callback, fallback) {
+        var parsedEmail = UTF8ToString(email);
+        var parsedPassword = UTF8ToString(password);
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedCallback = UTF8ToString(callback);
+        var parsedFallback = UTF8ToString(fallback);
+
+        try {
+
+            firebase.auth().createUserWithEmailAndPassword(parsedEmail, parsedPassword).then(function (unused) {
+                unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, "Success: signed up for " + parsedEmail);
+            }).catch(function (error) {
+                unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+            });
+
+        } catch (error) {
+            unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+        }
+    },
+
+    SignInWithEmailAndPassword: function (email, password, objectName, callback, fallback) {
+        var parsedEmail = UTF8ToString(email);
+        var parsedPassword = UTF8ToString(password);
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedCallback = UTF8ToString(callback);
+        var parsedFallback = UTF8ToString(fallback);
+
+        try {
+
+            firebase.auth().signInWithEmailAndPassword(parsedEmail, parsedPassword).then(function (unused) {
+                unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, "Success: signed in for " + parsedEmail);
+            }).catch(function (error) {
+                unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+            });
+
+        } catch (error) {
+            unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+        }
+    },
     SignInWithGoogle: function (objectName, callback, fallback) {
  
         var parsedObjectName = Pointer_stringify(objectName);
@@ -18,74 +74,18 @@ mergeInto(LibraryManager.library, {
             unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
         }
     },
-    GetUserAuthDataEmail: function (objectName, callback, fallback) {
- 
-        var parsedObjectName = Pointer_stringify(objectName);
-        var parsedCallback = Pointer_stringify(callback);
-        var parsedFallback = Pointer_stringify(fallback);
 
-        const user = firebase.auth().currentUser;
-        if (user !== null) {
-        user.providerData.forEach(function (profile) {
-                 unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, profile.email);
 
-        });
-        }
-
-         
-    },
-    /////////////Pointer_stringify 자바스크립트 문자열로 바꿔주는 함수
-///////////파이어 스토어
-    SetDocument: function (collectionPath, documentId, oneValue, twoValue,objectName, callback, fallback) {
-        var parsedPath = Pointer_stringify(collectionPath);
-        var parsedId = Pointer_stringify(documentId);
-        var parsedOneValue = Pointer_stringify(oneValue);
-        var parsedTwoValue = Pointer_stringify(twoValue);
-
-        var parsedObjectName = Pointer_stringify(objectName);
-        var parsedCallback = Pointer_stringify(callback);
-        var parsedFallback = Pointer_stringify(fallback);
-
-        var parseToObject={"Email":parsedOneValue,"character": parsedTwoValue}; // 유니티로 받아온 문자를 자바스크립트 객체로 변환
-        var parseToJson=JSON.stringify(parseToObject); //자바스크립트 객체를 json 으로 변환하기 위해 문자열로 변환
-
-        try {
-            firebase.firestore().collection(parsedPath).doc(parsedId).set(JSON.parse(parseToJson)).then(function() {
-                unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, "Success: signed in with Google!");
-                //unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, "Success: document " + parsedId + " was set");
-            })
-                .catch(function(error) {
-                    unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
-                });
-
-        } catch (error) {
-            unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
-        }
-    },
-
-    GetDocument: function (collectionPath, documentId, objectName, callback, fallback) {
-        var parsedPath = UTF8ToString(collectionPath);
-        var parsedId = UTF8ToString(documentId);
+    SignInWithFacebook: function (objectName, callback, fallback) {
         var parsedObjectName = UTF8ToString(objectName);
         var parsedCallback = UTF8ToString(callback);
         var parsedFallback = UTF8ToString(fallback);
-        var resultData = null;
 
         try {
-            firebase.firestore().collection(parsedPath).doc(parsedId).get().then(function (doc) {
-
-                if (doc.exists) {
-                    
-                    var userBuffer=doc.data();//doc데이터를 내가 지정한 문서로 분해  - 이렇게하는 이유는 파이어베이스에서 리턴을 자신들의 방법으로 하기때문
-                    
-                   // userBuffer.character - 지정 문서의 키 값 character의 value ex. userBuffer.Email - 이메일주소 값이 리턴됨
-         
-                    unityInstance.Module.SendMessage(parsedObjectName, parsedCallback,JSON.stringify(userBuffer.character));                    
-                    //unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(doc.data()));
-                } else {
-                    unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, "null");
-                }
-            }).catch(function(error) {
+            var provider = new firebase.auth.FacebookAuthProvider();
+            firebase.auth().signInWithRedirect(provider).then(function (unused) {
+                unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, "Success: signed in with Facebook!");
+            }).catch(function (error) {
                 unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
             });
 
@@ -93,12 +93,6 @@ mergeInto(LibraryManager.library, {
             unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
         }
     },
-
-////////////////////////////////////////////////////////////
-
-  
-
-
 
     OnAuthStateChanged: function (objectName, onUserSignedIn, onUserSignedOut) {
         var parsedObjectName = UTF8ToString(objectName);
