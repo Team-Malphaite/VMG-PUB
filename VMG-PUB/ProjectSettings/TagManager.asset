@@ -13,6 +13,7 @@ TagManager:
   - RespawnPlayer1
   - RespawnPlayer2
   - RespawnPlayer3
+  - Character
   layers:
   - Default
   - TransparentFX

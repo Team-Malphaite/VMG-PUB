@@ -13,7 +13,7 @@ public class Define
     {
         Unknown,
         Login,
-        Lobby,
+        Select,
         Square,
         Voting,
         Game,
