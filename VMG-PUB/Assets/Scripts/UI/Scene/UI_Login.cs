@@ -54,7 +54,7 @@ public class UI_Login : UI_Scene
             string message = "로그인 체크";
 
             AuthHandler firebaseHelper = GameObject.Find("firebaseHandler").GetComponent<AuthHandler>();
-           if(firebaseHelper !=null){
+            if(firebaseHelper !=null){
                 Debug.Log("오브젝트 찾음");
             }
             Action okAction = () => Debug.Log("On Click Login Ok Button");

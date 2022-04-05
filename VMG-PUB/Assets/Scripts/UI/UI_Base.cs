@@ -42,6 +42,7 @@ public abstract class UI_Base : MonoBehaviourPunCallbacks
     protected Button GetButton(int idx) { return Get<Button>(idx); }
     protected Image GetImage(int idx) { return Get<Image>(idx); }
     protected GameObject GetGameObject(int idx) { return Get<GameObject>(idx); }
+    protected InputField GetInputField(int idx) { return Get<InputField>(idx); }
 
     public static void BindEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
     {

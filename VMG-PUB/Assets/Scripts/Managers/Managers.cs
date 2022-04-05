@@ -35,23 +35,27 @@ public class Managers : MonoBehaviour
     static void Init()
     {
         GameObject go = null;
+        GameObject net = null;
         if (s_instance == null)
         {
             // 초기화
             go = GameObject.Find("@Managers");
+            net = GameObject.Find("@Network");
+
             if (go == null)
             {
                 go = new GameObject { name = "@Managers"};
                 go.AddComponent<Managers>();
             }
             s_instance = go.GetComponent<Managers>();
-            // if (net == null)
-            // {
-            //     net = new GameObject {name = "@Network"};
-            //     net.AddComponent<NetworkManager>();
-            // }
-            // DontDestroyOnLoad(net);
+
+            if (net == null)
+            {
+                net = new GameObject {name = "@Network"};
+                net.AddComponent<NetworkManager>();
+            }
         }
         DontDestroyOnLoad(go);
+        DontDestroyOnLoad(net);
     }
 }
