@@ -7,7 +7,7 @@ public class SelectCameraController : MonoBehaviour
     public static SelectCameraController Instance;
     public RaycastHit hit;
     public bool zoom = false;
-    public string selectCharacterName = null;
+    public string selectCharacterName;
 
     public GameObject[] character = new GameObject [28];
     public Vector3 defaultPosition = new Vector3(0.0f, 4.0f, 22.0f);
@@ -15,6 +15,7 @@ public class SelectCameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        selectCharacterName = null;
         for (int i = 1; i < character.Length + 1; i++)
         {
             character[i-1] = GameObject.Find("C" + i);

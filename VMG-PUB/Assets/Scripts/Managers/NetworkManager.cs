@@ -66,7 +66,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log("Joined Room");
         if (player == null)
         {
-            player = PhotonNetwork.Instantiate("Prefabs/Character/TestCharacter", new Vector3(0, 0, -5), Quaternion.identity);
+            player = PhotonNetwork.Instantiate("Prefabs/Character/" + UI_SelectInfoInput.Instance.selectCharacterName, new Vector3(0, 0, -5), Quaternion.identity);
             if(SceneManager.GetActiveScene().name == "Game")
                 player.AddComponent<RespawnController>();
             DontDestroyOnLoad(player);
