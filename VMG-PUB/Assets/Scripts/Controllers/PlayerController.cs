@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool IsJumping = false;
     public Transform tr;
     public GameObject Cam;
-    private Vector3 MoveDir;
+    private Vector3 MoveDir = new Vector3(0.0f, 0.0f, 0.0f);
     public bool _portalCheck = false;
     private bool isBorder;
     public bool _goalCheck = false;
@@ -167,19 +167,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (photonView.IsMine)
-        {
+        // if (photonView.IsMine)
+        // {
             if (collision.gameObject.CompareTag("Untagged"))
             {
                 IsJumping = false;
                 Animator anim = GetComponent<Animator>();
                 anim.SetBool("jump", IsJumping);
             }
-            else if (collision.gameObject.CompareTag("Player"))
-            {
-                rigid.AddForce(-MoveDir, ForceMode.Impulse);
-            }
-        }
+        // }
     }
 
     void StopToWall()
