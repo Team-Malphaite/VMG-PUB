@@ -37,9 +37,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public moveState _move = moveState.Idle;
     public modeState _mode = modeState.Square;
 
+    private void Awake() {
+        Instance = this;
+    }
+
     void Start()
     {
-        Instance = this;
         tr = GetComponent<Transform>();
         if (photonView.IsMine)
         {
@@ -53,6 +56,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         
             rigid = GetComponent<Rigidbody>();
         }
+        else
+            return;
     }
 
     void UpdateMoving()
