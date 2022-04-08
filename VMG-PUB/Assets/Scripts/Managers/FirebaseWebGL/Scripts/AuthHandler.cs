@@ -11,7 +11,6 @@ using UnityEngine.UI;
 
         public string statusText=null;
         public  string emailAddress=null; // 로그인한 사용자의 이메일 정보를 담고있는 변수
-        public string playerDataBuffer=null;// 데이터를 읽어오면 여기에 저장된다
         public string name=null; // 사용자 닉네임
         public string charcter=null;
 
@@ -48,9 +47,9 @@ using UnityEngine.UI;
         {
                 emailAddress=Infotext;
         }
-        private void ReadPlayerData(string Infotext)
+        private void ReadPlayerData(string Infotext)//json 데이터는 "key" : "value" 형태여서 split해줌
         {
-                playerDataBuffer=Infotext;
+                charcter= string.Join("" , Infotext.Split('"'));
         }
 
          //public static AuthHandler Instance; // singleton 변수
@@ -64,7 +63,7 @@ using UnityEngine.UI;
             FirebaseAuth.GetUserAuthDataEmail(gameObject.name, "GetEmailData", "DisplayError");
           public void SetDocument() =>  //사용자가 처음 로그인할때 사용자 정보 저장(문서 작성 - 컬렉션도 없을때 ) 
             FirebaseAuth.SetDocument("user",  emailAddress,  emailAddress , charcter , name , gameObject.name,"DisplayInfo", "DisplayError");
-          public void GetDocument() =>   //데베 읽기
+          public void GetDocument() =>   //데베 읽기 - 캐릭터 정보 읽어옴
             FirebaseAuth.GetDocument("user", emailAddress, gameObject.name, "ReadPlayerData",  "DisplayError");
 
 

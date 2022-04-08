@@ -28,20 +28,28 @@ public class LoginScene : BaseScene
         //     DontDestroyOnLoad(net);
         //     Managers.Network.OnLogin();
         // }
+         if(Managers.Scene._logincheck == true)
+        {
+                Managers.Scene.LoadScene(Define.Scene.Select);
+          
+        }
+        /*
         if(Managers.Scene._logincheck == true)
         {
               //Managers.Scene.LoadScene(Define.Scene.Select);
 
-            if(AuthHandler.Instance.playerDataBuffer=="null"){
+            if(AuthHandler.Instance.charcter=="null"){
                 Managers.Scene.LoadScene(Define.Scene.Select);
 
             }
             else{
-                 Debug.Log("현재 플레이어데이터버퍼 값 ="+AuthHandler.Instance.playerDataBuffer);
+                 Managers.Scene.LoadScene(Define.Scene.Square);
+                  Managers.Network.OnLogin();
+  
 
             }
             
-        }
+        }*/
     }
 
     public override void Clear()

@@ -80,7 +80,7 @@ mergeInto(LibraryManager.library, {
                     
                     var userBuffer=doc.data();//doc데이터를 내가 지정한 문서로 분해  - 이렇게하는 이유는 파이어베이스에서 리턴을 자신들의 방법으로 하기때문
                     
-                   // userBuffer.character - 지정 문서의 키 값 character의 value ex. userBuffer.Email - 이메일주소 값이 리턴됨
+                   // userBuffer.character - 지정 문서의 밸류 값 character의 value ex. userBuffer.Email - 이메일주소 값이 리턴됨
          
                     unityInstance.Module.SendMessage(parsedObjectName, parsedCallback,JSON.stringify(userBuffer.character));                    
                     //unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(doc.data()));
