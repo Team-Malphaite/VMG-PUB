@@ -85,8 +85,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // base.OnJoinedRoom();
         Debug.Log("Joined Room");
         if (player == null)
-        {
-            player = PhotonNetwork.Instantiate("Prefabs/Character/" + UI_SelectInfoInput.Instance.selectCharacterName, new Vector3(0, 0, -5), Quaternion.identity);
+        {//파이어베이스 할때 이거 활성화
+          /* AuthHandler.Instance.GetDocument();//데베 읽어와서 캐릭터 정보 받아서 그것을 입력
+           Debug.Log("AuthHandler.Instance.charcter ="+ AuthHandler.Instance.charcter) ;
+           string buffer = string.Join("" , AuthHandler.Instance.charcter.Split('"'));
+           Debug.Log("문자열 처리한 뒤에 AuthHandler.Instance.charcter ="+ buffer) ;
+            player = PhotonNetwork.Instantiate("Prefabs/Character/" + AuthHandler.Instance.charcter, new Vector3(0, 0, -5), Quaternion.identity);
+*/
+            player = PhotonNetwork.Instantiate("Prefabs/Character/" +  UI_SelectInfoInput.Instance.selectCharacterName, new Vector3(0, 0, -5), Quaternion.identity);
             if(SceneManager.GetActiveScene().name == "Game")
                 player.AddComponent<RespawnController>();
             DontDestroyOnLoad(player);
