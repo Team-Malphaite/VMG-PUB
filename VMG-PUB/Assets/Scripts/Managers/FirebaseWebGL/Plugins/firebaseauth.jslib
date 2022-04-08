@@ -36,17 +36,19 @@ mergeInto(LibraryManager.library, {
     },
     /////////////Pointer_stringify 자바스크립트 문자열로 바꿔주는 함수
 ///////////파이어 스토어
-    SetDocument: function (collectionPath, documentId, oneValue, twoValue,objectName, callback, fallback) {
+        SetDocument: function (collectionPath, documentId, oneValue, twoValue,threeValue,objectName, callback, fallback) {
         var parsedPath = Pointer_stringify(collectionPath);
         var parsedId = Pointer_stringify(documentId);
         var parsedOneValue = Pointer_stringify(oneValue);
         var parsedTwoValue = Pointer_stringify(twoValue);
+        var parsedThreeValue = Pointer_stringify(threeValue);
+
 
         var parsedObjectName = Pointer_stringify(objectName);
         var parsedCallback = Pointer_stringify(callback);
         var parsedFallback = Pointer_stringify(fallback);
 
-        var parseToObject={"Email":parsedOneValue,"character": parsedTwoValue}; // 유니티로 받아온 문자를 자바스크립트 객체로 변환
+        var parseToObject={"Email":parsedOneValue,"character": parsedTwoValue , "name": parsedThreeValue }; // 유니티로 받아온 문자를 자바스크립트 객체로 변환
         var parseToJson=JSON.stringify(parseToObject); //자바스크립트 객체를 json 으로 변환하기 위해 문자열로 변환
 
         try {

@@ -30,7 +30,16 @@ public class LoginScene : BaseScene
         // }
         if(Managers.Scene._logincheck == true)
         {
-            Managers.Scene.LoadScene(Define.Scene.Select);
+              //Managers.Scene.LoadScene(Define.Scene.Select);
+
+            if(AuthHandler.Instance.playerDataBuffer=="null"){
+                Managers.Scene.LoadScene(Define.Scene.Select);
+
+            }
+            else{
+                 Debug.Log("현재 플레이어데이터버퍼 값 ="+AuthHandler.Instance.playerDataBuffer);
+
+            }
             
         }
     }
