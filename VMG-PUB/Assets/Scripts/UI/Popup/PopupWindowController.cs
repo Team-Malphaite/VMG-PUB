@@ -49,6 +49,8 @@ public class PopupWindowController : UI_Popup
         NoPortalButton,
         YesGameButton,
         NoGameButton,
+        YesGameExitButton,
+        NoGameExitButton,
     }
 
     // [SerializeField]
@@ -108,7 +110,9 @@ public class PopupWindowController : UI_Popup
         GetButton((int)Buttons.YesPortalButton).gameObject.BindEvent(OnClickYesButtonPortal);
         GetButton((int)Buttons.NoPortalButton).gameObject.BindEvent(OnClickNoPortalButtonPortal);
         GetButton((int)Buttons.YesGameButton).gameObject.BindEvent(OnClickYesButtonGame);
-        GetButton((int)Buttons.NoGameButton).gameObject.BindEvent(OnClickNoPortalButtonGame);
+        GetButton((int)Buttons.NoGameButton).gameObject.BindEvent(OnClickNoButtonGame);
+        GetButton((int)Buttons.YesGameExitButton).gameObject.BindEvent(OnClickYesButtonGameExit);
+        GetButton((int)Buttons.NoGameExitButton).gameObject.BindEvent(OnClickNoButtonGameExit);
 
         // GameObject go = GetImage((int)Images.ItemIcon).gameObject;
     }
@@ -137,12 +141,16 @@ public class PopupWindowController : UI_Popup
         Button NoPortalButton = GetButton((int)Buttons.NoPortalButton);
         Button yesGameButton = GetButton((int)Buttons.YesGameButton);
         Button NoGameButton = GetButton((int)Buttons.NoGameButton);
+        Button yesGameExitButton = GetButton((int)Buttons.YesGameExitButton);
+        Button NoGameExitButton = GetButton((int)Buttons.NoGameExitButton);
         okButton.gameObject.SetActive(false);
         cancelButton.gameObject.SetActive(false);
         yesPortalButton.gameObject.SetActive(false);
         NoPortalButton.gameObject.SetActive(false);
         yesGameButton.gameObject.SetActive(false);
         NoGameButton.gameObject.SetActive(false);
+        yesGameExitButton.gameObject.SetActive(false);
+        NoGameExitButton.gameObject.SetActive(false);
 
         GameObject background = GetGameObject((int)GameObjects.Background).gameObject;
         GameObject popupWindow = GetGameObject((int)GameObjects.PopupWindow).gameObject;
@@ -173,12 +181,20 @@ public class PopupWindowController : UI_Popup
         // 버튼 비활성화
         Button okButton = GetButton((int)Buttons.OkLoginButton);
         Button cancelButton = GetButton((int)Buttons.CancelButton);
-        Button yesButton = GetButton((int)Buttons.YesPortalButton);
+        Button YesPortalButton = GetButton((int)Buttons.YesPortalButton);
         Button NoPortalButton = GetButton((int)Buttons.NoPortalButton);
+        Button YesGameButton = GetButton((int)Buttons.YesGameButton);
+        Button NoGameButton = GetButton((int)Buttons.NoGameButton);
+        Button YesGameExitButton = GetButton((int)Buttons.YesGameExitButton);
+        Button NoGameExitButton = GetButton((int)Buttons.NoGameExitButton);
         okButton.gameObject.SetActive(false);
         cancelButton.gameObject.SetActive(false);
-        yesButton.gameObject.SetActive(false);
+        YesPortalButton.gameObject.SetActive(false);
         NoPortalButton.gameObject.SetActive(false);
+        YesGameButton.gameObject.SetActive(false);
+        NoGameButton.gameObject.SetActive(false);
+        YesGameExitButton.gameObject.SetActive(false);
+        NoGameExitButton.gameObject.SetActive(false);
 
         GameObject background = GetGameObject((int)GameObjects.Background).gameObject;
         GameObject popupWindow = GetGameObject((int)GameObjects.PopupWindow).gameObject;
@@ -333,21 +349,55 @@ public class PopupWindowController : UI_Popup
 
         // 버튼 활성화
         Button yesButton = GetButton((int)Buttons.YesGameButton);
-        Button NoPortalButton = GetButton((int)Buttons.NoGameButton);
+        Button NoButton = GetButton((int)Buttons.NoGameButton);
         yesButton.gameObject.SetActive(true);
-        NoPortalButton.gameObject.SetActive(true);
-        NoPortalButton.Select();
+        NoButton.gameObject.SetActive(true);
+        NoButton.Select();
 
         // 버튼 네비게이션 설정
         Navigation navigation = new Navigation();
 
-        navigation.selectOnLeft = NoPortalButton;
-        navigation.selectOnRight = NoPortalButton;
+        navigation.selectOnLeft = NoButton;
+        navigation.selectOnRight = NoButton;
         yesButton.navigation = navigation;
 
         navigation.selectOnLeft = yesButton;
         navigation.selectOnRight = yesButton;
-        NoPortalButton.navigation = navigation;
+        NoButton.navigation = navigation;
+
+        // 팝업 윈도우 활성화
+        OpenPopupWindow();
+    }
+
+    public void ShowYesNoGameExit(string title, string message, Action yesAction = null, Action noAction = null)
+    {
+        // 이벤트 등록
+        this.yesAction = yesAction;
+        this.noAction = noAction;
+
+        // 타이틀 및 메시지 설정
+        Text titleText = GetText((int)Texts.TitleText);
+        Text messageText = GetText((int)Texts.MessageText);
+        titleText.text = title;
+        messageText.text = message;
+
+        // 버튼 활성화
+        Button yesButton = GetButton((int)Buttons.YesGameExitButton);
+        Button NoButton = GetButton((int)Buttons.NoGameExitButton);
+        yesButton.gameObject.SetActive(true);
+        NoButton.gameObject.SetActive(true);
+        NoButton.Select();
+
+        // 버튼 네비게이션 설정
+        Navigation navigation = new Navigation();
+
+        navigation.selectOnLeft = NoButton;
+        navigation.selectOnRight = NoButton;
+        yesButton.navigation = navigation;
+
+        navigation.selectOnLeft = yesButton;
+        navigation.selectOnRight = yesButton;
+        NoButton.navigation = navigation;
 
         // 팝업 윈도우 활성화
         OpenPopupWindow();
@@ -480,18 +530,47 @@ public class PopupWindowController : UI_Popup
             _scene = Define.Scene.Game;
             go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Game;
             Managers.Network.LeaveRoom();
-            Managers.Scene.LoadScene(Define.Scene.Game);
+            Managers.Scene.LoadScene(_scene);
             Managers.Network.OnLogin();
             // Managers.Scene._portalCheck = false;
         }
     }
 
-    public void OnClickNoPortalButtonGame(PointerEventData data)
+    public void OnClickNoButtonGame(PointerEventData data)
     {
         if (okAction != null)
             okAction();
         // Managers.Scene._portalCheck = false;
         // ClosePopupWindow();
+        ClosePopupUI();
+    }
+
+    public void OnClickYesButtonGameExit(PointerEventData data)
+    {
+        if (okAction != null)
+            okAction();
+        // Managers.Scene._portalCheck = true;
+        if (go.GetComponent<PhotonView>().IsMine)
+            PlayerController.Instance._mode = PlayerController.modeState.Square;
+        Debug.Log("눌림");
+        // ClosePopupWindow();
+        ClosePopupUI();
+
+        if(go.GetComponent<PhotonView>().IsMine)
+        {
+            _scene = Define.Scene.Square;
+            go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
+            Managers.Network.LeaveRoom();
+            Managers.Scene.LoadScene(_scene);
+            Managers.Network.OnLogin();
+            // Managers.Scene._portalCheck = false;
+        }
+    }
+
+    public void OnClickNoButtonGameExit(PointerEventData data)
+    {
+        if (okAction != null)
+            okAction();
         ClosePopupUI();
     }
 
@@ -504,7 +583,7 @@ public class PopupWindowController : UI_Popup
         ClosePopupUI();
     }
 
-    public void OnClickNoPortalButton()
+    public void OnClickNoButton()
     {
         if (noAction != null)
             noAction();

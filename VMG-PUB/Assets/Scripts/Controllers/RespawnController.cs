@@ -11,11 +11,11 @@ public class RespawnController : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        if (GameObject.Find("@Player") == null) return;
+
         respawn1 = GameObject.Find("Respawn1");
         respawn2 = GameObject.Find("Respawn2");
         respawn3 = GameObject.Find("Respawn3");
-
-        if (GameObject.Find("@Player") == null) return;
     }
 
     // Update is called once per frame
@@ -26,12 +26,12 @@ public class RespawnController : MonoBehaviourPunCallbacks
 
     void OnCollisionEnter(Collision collision)
     {
-        if (go.GetComponent<PhotonView>().IsMine)
-            if (collision.collider.CompareTag("RespawnPlayer1"))
-                go.transform.position = respawn1.transform.position;
-            if (collision.collider.CompareTag("RespawnPlayer2"))
-                go.transform.position = respawn2.transform.position;
-            if (collision.collider.CompareTag("RespawnPlayer3"))
-                go.transform.position = respawn3.transform.position;
+        // if (go.GetComponent<PhotonView>().IsMine)
+        if (collision.collider.CompareTag("RespawnPlayer1"))
+            go.transform.position = respawn1.transform.position;
+        if (collision.collider.CompareTag("RespawnPlayer2"))
+            go.transform.position = respawn2.transform.position;
+        if (collision.collider.CompareTag("RespawnPlayer3"))
+            go.transform.position = respawn3.transform.position;
     }
 }

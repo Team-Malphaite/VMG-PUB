@@ -40,6 +40,11 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - ReceiveMsg
+  - StopToObstacle
+  - StopToWall
+  - UpdateIdle
+  - UpdateJumping
+  - UpdateMoving
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

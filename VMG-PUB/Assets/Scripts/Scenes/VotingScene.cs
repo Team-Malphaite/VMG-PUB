@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class VotingScene : BaseScene
 {
-    public GameObject go;
     GameObject cam;
     protected override void Init()
     {
