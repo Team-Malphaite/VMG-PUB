@@ -17,7 +17,7 @@ public class GameScene : BaseScene
         SceneType = Define.Scene.Game;
         cam.name = "@Main Camera";
         // Managers.UI.ShowSceneUI<UI_Inven>();
-        Managers.UI.ShowSceneUI<UI_Square>();
+        Managers.UI.ShowSceneUI<UI_Game>();
         Managers.UI.ShowPopupUI<PopupWindowController>();
         // DontDestroyOnLoad(Managers.UI.ShowPopupUI<PopupWindowController>());
     }

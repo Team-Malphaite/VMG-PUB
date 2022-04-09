@@ -10,9 +10,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
 {
     public static PlayerController Instance;
     [SerializeField]
-    float _speed = 3.0f;
+    public float _speed = 3.0f;
     [SerializeField]
-    private float JumpPower = 0.4f;
+    public float JumpPower = 0.4f;
     [SerializeField]
     private float _roatationSpeed = 0.07f;
     private Rigidbody rigid;
@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool _portalCheck = false;
     private bool isBorder;
     public bool _goalCheck = false;
+    public bool _gameReady = false;
     public enum moveState
     {
         Moving,
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             return;
     }
 
+    [PunRPC]
     void UpdateMoving()
     {
         //moving mode
@@ -137,6 +139,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         _move = moveState.Idle;
     }
 
+    [PunRPC]
     void UpdateIdle()
     {
         // idle idle
@@ -146,6 +149,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         anim.SetBool("jump", IsJumping);
     }
 
+    [PunRPC]
     void UpdateJumping()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -178,12 +182,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
         // }
     }
 
+    [PunRPC]
     void StopToWall()
     {
         Debug.DrawRay(transform.position, transform.forward * 1, Color.green);
         isBorder = Physics.Raycast(transform.position, transform.forward, 1, LayerMask.GetMask("Wall"));
     }
 
+    [PunRPC]
     void StopToObstacle()
     {
         Debug.DrawRay(transform.position, transform.forward * 1.5f, Color.red);
@@ -209,29 +215,35 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 case moveState.Idle:
                     UpdateIdle();
+                    photonView.RPC("UpdateIdle", RpcTarget.All);
                     break;
                 case moveState.Moving:
                     UpdateMoving();
+                    photonView.RPC("UpdateIdle", RpcTarget.All);
                     break;
             }
             UpdateJumping();
+            photonView.RPC("UpdateIdle", RpcTarget.All);
             if(SceneManager.GetActiveScene().name == "Square")
             {
                 StopToWall();
+                photonView.RPC("StopToWall", RpcTarget.All);
                 _mode = modeState.Square;
             }
             else if(SceneManager.GetActiveScene().name == "Voting")
             {
                 StopToWall();
+                photonView.RPC("StopTOWall", RpcTarget.All);
                 _mode = modeState.Voting;
             }
             else if(SceneManager.GetActiveScene().name == "Game")
             {
                 _mode = modeState.Game;
-                transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-                this._speed = 10.0f;
-                this.JumpPower = 2.0f;
+                // transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                // this._speed = 10.0f;
+                // this.JumpPower = 2.0f;
                 StopToObstacle();
+                photonView.RPC("StopToObstacle", RpcTarget.All);
             }
         }
     }
