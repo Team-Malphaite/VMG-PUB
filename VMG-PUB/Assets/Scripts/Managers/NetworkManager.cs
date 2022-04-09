@@ -94,7 +94,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 */
             player = PhotonNetwork.Instantiate("Prefabs/Character/" +  UI_SelectInfoInput.Instance.selectCharacterName, new Vector3(0, 0, -5), Quaternion.identity);
             if(SceneManager.GetActiveScene().name == "Game")
+            {
                 player.AddComponent<RespawnController>();
+                player.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                player.GetComponent<PlayerController>()._speed = 10.0f;
+                player.GetComponent<PlayerController>().JumpPower = 4.0f;
+            }
+                
             DontDestroyOnLoad(player);
         }
     }
