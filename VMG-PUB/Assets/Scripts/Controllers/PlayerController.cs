@@ -219,11 +219,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     break;
                 case moveState.Moving:
                     UpdateMoving();
-                    photonView.RPC("UpdateIdle", RpcTarget.All);
+                    photonView.RPC("UpdateMoving", RpcTarget.All);
                     break;
             }
             UpdateJumping();
-            photonView.RPC("UpdateIdle", RpcTarget.All);
+            photonView.RPC("UpdateJumping", RpcTarget.All);
             if(SceneManager.GetActiveScene().name == "Square")
             {
                 StopToWall();
