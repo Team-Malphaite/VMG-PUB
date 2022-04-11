@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
             return;
     }
 
-    [PunRPC]
     void UpdateMoving()
     {
         //moving mode
@@ -149,7 +148,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         anim.SetBool("jump", IsJumping);
     }
 
-    [PunRPC]
     void UpdateJumping()
     {
         if (photonView.IsMine)
@@ -217,11 +215,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     break;
                 case moveState.Moving:
                     UpdateMoving();
-                    photonView.RPC("UpdateMoving", RpcTarget.All);
                     break;
             }
             UpdateJumping();
-            photonView.RPC("UpdateJumping", RpcTarget.All);
             if(SceneManager.GetActiveScene().name.Equals("Square"))
             {
                 StopToWall();
@@ -239,6 +235,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 // this._speed = 10.0f;
                 // this.JumpPower = 2.0f;
                 photonView.RPC("gameMode", RpcTarget.All);
+                if (_gameReady) photonView.RPC("setReady", RpcTarget.All);
+                else photonView.RPC("setUnReady", RpcTarget.All);
                 StopToObstacle();
             }
         }
@@ -252,7 +250,21 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void gameMode()
     {
         transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-        _speed = 5.0f;
+        _speed = 7.0f;
         JumpPower = 1.0f;
+    }
+
+    [PunRPC]
+    void setReady()
+    {
+        _gameReady = true;
+        // Debug.Log("전부 ready 송신");
+    }
+
+    [PunRPC]
+    void setUnReady()
+    {
+        _gameReady = false;
+        // Debug.Log("전부 unReady 송신");
     }
 }

@@ -10204,11 +10204,11 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 1
+  OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 694886611831322525, guid: ecd718bd45e1fcb49831c17d7cc19abc, type: 3}
-  - {fileID: 694886611831322514, guid: ecd718bd45e1fcb49831c17d7cc19abc, type: 3}
+  - {fileID: -8856219942698308431}
+  - {fileID: -9168877239500724852}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

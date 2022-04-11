@@ -11,8 +11,11 @@ public class SquareScene : BaseScene
         base.Init();
         cam = GameObject.Find("@Main Camera");
         if (cam == null)
+        {
             cam = Managers.Resource.Instantiate("Camera/Main Camera");
-
+            Debug.Log("make cam");
+        }
+        
         SceneType = Define.Scene.Square;
         cam.name = "@Main Camera";
         // Managers.UI.ShowSceneUI<UI_Inven>();

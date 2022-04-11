@@ -10,9 +10,12 @@ public class VotingScene : BaseScene
         base.Init();
         cam = GameObject.Find("@Main Camera");
         if (cam == null)
+        {
             cam = Managers.Resource.Instantiate("Camera/Main Camera");
+            Debug.Log("make cam");
+        }
 
-        SceneType = Define.Scene.Square;
+        SceneType = Define.Scene.Voting;
 
         // Managers.UI.ShowSceneUI<UI_Inven>();
         Managers.UI.ShowSceneUI<UI_Voting>();

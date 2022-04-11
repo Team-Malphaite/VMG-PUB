@@ -46,6 +46,9 @@ MonoBehaviour:
   - UpdateJumping
   - UpdateMoving
   - gameMode
+  - getInGameRoom
+  - setReady
+  - setUnReady
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
