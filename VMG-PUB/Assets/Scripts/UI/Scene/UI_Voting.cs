@@ -9,15 +9,13 @@ public class UI_Voting : UI_Scene
 {
     enum Buttons
     {
-        Game,
-        Ranking,
-        Explain,
-        Logout,
+        voteList,
+        voteMake
     }
 
     enum Texts
     {
-        Balance,
+        Balance, Account
     }
 
     // enum GameObjects
@@ -44,10 +42,8 @@ public class UI_Voting : UI_Scene
         // Bind<GameObject>(typeof(GameObjects));
         // Bind<Image>(typeof(Images));
 
-        GetButton((int)Buttons.Game).gameObject.BindEvent(OnButtonClicked);
-        GetButton((int)Buttons.Ranking).gameObject.BindEvent(OnButtonClicked);
-        GetButton((int)Buttons.Explain).gameObject.BindEvent(OnButtonClicked);
-        GetButton((int)Buttons.Logout).gameObject.BindEvent(OnButtonClicked);
+        GetButton((int)Buttons.voteList).gameObject.BindEvent(OnButtonClicked);
+        GetButton((int)Buttons.voteMake).gameObject.BindEvent(OnButtonClicked);
 
         // GameObject go = GetImage((int)Images.ItemIcon).gameObject;
         // BindEvent(go, (PointerEventData data) => { go.gameObject.transform.position = data.position; }, Define.UIEvent.Drag);
@@ -58,30 +54,21 @@ public class UI_Voting : UI_Scene
     public void OnButtonClicked(PointerEventData data)
     {
         GameObject go = EventSystem.current.currentSelectedGameObject;
-        if(go.name.Equals("Ranking"))
+        if(go.name.Equals("voteList"))
         {
-            string title = "게임 랭킹";
-            string message = "랭킹 내용";
+            string title = "투표리스트";
+            string message = "투표 출력";
             Action okAction = () => Debug.Log("On Click Ok Button");
 
             PopupWindowController.Instance.ShowOk(title, message, okAction);
         }
-        if(go.name.Equals("Explain"))
+        if(go.name.Equals("voteMake"))
         {
-            string title = "설명서";
-            string message = "설명 내용";
+            string title = "투표만들기";
+            string message = "투표 만들기";
             Action okAction = () => Debug.Log("On Click Ok Button");
 
             PopupWindowController.Instance.ShowOk(title, message, okAction);
-        }
-        if(go.name.Equals("Logout"))
-        {
-            string title = "로그아웃";
-            string message = "로그아웃 하시겠습니까?";
-            Action yesAction = () => Debug.Log("On Click Yes Button");
-            Action noAction = () => Debug.Log("On Click No Button");
-
-            PopupWindowController.Instance.ShowYesNo(title, message, yesAction, noAction);
         }
         // _score++;
         // GetText((int)Texts.ScoreText).text = $"점수 : {_score}점";
