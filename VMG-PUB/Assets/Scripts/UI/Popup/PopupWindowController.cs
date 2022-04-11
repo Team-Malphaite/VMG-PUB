@@ -51,6 +51,8 @@ public class PopupWindowController : UI_Popup
         NoGameButton,
         YesGameExitButton,
         NoGameExitButton,
+        YesMetamaskConnectButton,
+        NoMetamaskConnectButton,
     }
 
     // [SerializeField]
@@ -109,6 +111,8 @@ public class PopupWindowController : UI_Popup
         GetButton((int)Buttons.OkLoginButton).gameObject.BindEvent(OnClickOkButtonLogin);
         GetButton((int)Buttons.YesPortalButton).gameObject.BindEvent(OnClickYesButtonPortal);
         GetButton((int)Buttons.NoPortalButton).gameObject.BindEvent(OnClickNoPortalButtonPortal);
+        GetButton((int)Buttons.YesMetamaskConnectButton).gameObject.BindEvent(OnClickYesButtonMetamask);
+        GetButton((int)Buttons.NoMetamaskConnectButton).gameObject.BindEvent(OnClickNoButtonMetamask);
         GetButton((int)Buttons.YesGameButton).gameObject.BindEvent(OnClickYesButtonGame);
         GetButton((int)Buttons.NoGameButton).gameObject.BindEvent(OnClickNoButtonGame);
         GetButton((int)Buttons.YesGameExitButton).gameObject.BindEvent(OnClickYesButtonGameExit);
@@ -139,6 +143,8 @@ public class PopupWindowController : UI_Popup
         Button cancelButton = GetButton((int)Buttons.CancelButton);
         Button yesPortalButton = GetButton((int)Buttons.YesPortalButton);
         Button NoPortalButton = GetButton((int)Buttons.NoPortalButton);
+        Button YesMetamaskConnectButton = GetButton((int)Buttons.YesMetamaskConnectButton);
+        Button NoMetamaskConnectButton = GetButton((int)Buttons.NoMetamaskConnectButton);
         Button yesGameButton = GetButton((int)Buttons.YesGameButton);
         Button NoGameButton = GetButton((int)Buttons.NoGameButton);
         Button yesGameExitButton = GetButton((int)Buttons.YesGameExitButton);
@@ -151,7 +157,9 @@ public class PopupWindowController : UI_Popup
         NoGameButton.gameObject.SetActive(false);
         yesGameExitButton.gameObject.SetActive(false);
         NoGameExitButton.gameObject.SetActive(false);
-
+        YesMetamaskConnectButton.gameObject.SetActive(false);
+        NoMetamaskConnectButton.gameObject.SetActive(false);
+        
         GameObject background = GetGameObject((int)GameObjects.Background).gameObject;
         GameObject popupWindow = GetGameObject((int)GameObjects.PopupWindow).gameObject;
 
@@ -187,6 +195,8 @@ public class PopupWindowController : UI_Popup
         Button NoGameButton = GetButton((int)Buttons.NoGameButton);
         Button YesGameExitButton = GetButton((int)Buttons.YesGameExitButton);
         Button NoGameExitButton = GetButton((int)Buttons.NoGameExitButton);
+        Button YesMetamaskConnectButton = GetButton((int)Buttons.YesMetamaskConnectButton);
+        Button NoMetamaskConnectButton = GetButton((int)Buttons.NoMetamaskConnectButton);
         okButton.gameObject.SetActive(false);
         cancelButton.gameObject.SetActive(false);
         YesPortalButton.gameObject.SetActive(false);
@@ -195,6 +205,8 @@ public class PopupWindowController : UI_Popup
         NoGameButton.gameObject.SetActive(false);
         YesGameExitButton.gameObject.SetActive(false);
         NoGameExitButton.gameObject.SetActive(false);
+        YesMetamaskConnectButton.gameObject.SetActive(false);
+        NoMetamaskConnectButton.gameObject.SetActive(false);
 
         GameObject background = GetGameObject((int)GameObjects.Background).gameObject;
         GameObject popupWindow = GetGameObject((int)GameObjects.PopupWindow).gameObject;
@@ -367,6 +379,64 @@ public class PopupWindowController : UI_Popup
 
         // 팝업 윈도우 활성화
         OpenPopupWindow();
+    }
+
+    public void ShowYesNoMetamaskConnect(string title, string message, Action yesAction = null, Action noAction = null)
+    {
+        // 이벤트 등록
+        this.yesAction = yesAction;
+        this.noAction = noAction;
+
+        // 타이틀 및 메시지 설정
+        Text titleText = GetText((int)Texts.TitleText);
+        Text messageText = GetText((int)Texts.MessageText);
+        titleText.text = title;
+        messageText.text = message;
+
+        // 버튼 활성화
+        Button yesButton = GetButton((int)Buttons.YesMetamaskConnectButton);
+        Button NoPortalButton = GetButton((int)Buttons.NoMetamaskConnectButton);
+        yesButton.gameObject.SetActive(true);
+        NoPortalButton.gameObject.SetActive(true);
+        NoPortalButton.Select();
+
+        // 버튼 네비게이션 설정
+        Navigation navigation = new Navigation();
+
+        navigation.selectOnLeft = NoPortalButton;
+        navigation.selectOnRight = NoPortalButton;
+        yesButton.navigation = navigation;
+
+        navigation.selectOnLeft = yesButton;
+        navigation.selectOnRight = yesButton;
+        NoPortalButton.navigation = navigation;
+
+        // 팝업 윈도우 활성화
+        OpenPopupWindow();
+    }
+
+    public void OnClickYesButtonMetamask(PointerEventData data)
+    {
+        if (okAction != null)
+            okAction();
+        
+        // 메타마스크 sdk 실행 코드 
+        WebLogin.Instance.OnLogin();
+        
+        // Managers.Scene._portalCheck = true;
+        if (go.GetComponent<PhotonView>().IsMine)
+            PlayerController.Instance._portalCheck = true;
+            Debug.Log("눌림");
+            // ClosePopupWindow();
+            ClosePopupUI();
+        
+    }
+
+    public void OnClickNoButtonMetamask(PointerEventData data)
+    {
+        if (okAction != null)
+            okAction();
+        ClosePopupUI();
     }
 
     public void ShowYesNoGameExit(string title, string message, Action yesAction = null, Action noAction = null)
