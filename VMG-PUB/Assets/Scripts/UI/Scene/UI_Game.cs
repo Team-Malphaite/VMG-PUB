@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
+using Photon.Pun;
 
 public class UI_Game : UI_Scene
 {

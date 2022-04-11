@@ -11,6 +11,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public string gameVersion = "1.0";
     GameObject player = null;
 
+    byte maxPlayers = 2;
+    int maxTime = 120;
+
     Define.Scene _scene = Define.Scene.Square;
     
     // void Awake()
@@ -64,11 +67,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void JoinGameRoom(){
         Debug.Log("Random Match Start!!!");
         
-
-        // 해쉬테이블 값 지정
-        byte maxPlayers = 4; // MAXPLAYER 지정
-        int maxTime = 120;
-
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = maxPlayers; // 인원 지정.
         roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "maxTime", maxTime } }; // 게임 시간 지정.
@@ -107,5 +105,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
         Debug.Log("Leave Room");
         PhotonNetwork.JoinLobby();
+    }
+
+    public byte getGameMaxPlayer()
+    {
+        return maxPlayers;
+    }
+
+    public int getGameTime()
+    {
+        return maxTime;
     }
 }

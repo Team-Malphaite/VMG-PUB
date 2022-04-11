@@ -2672,6 +2672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec03bb8ae3036747b4d5544430b4a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nick: tkd
   _speed: 3
   JumpPower: 0.4
   _roatationSpeed: 0.07
@@ -2680,6 +2681,7 @@ MonoBehaviour:
   Cam: {fileID: 0}
   _portalCheck: 0
   _goalCheck: 0
+  _gameReady: 0
   _move: 1
   _mode: 0
 --- !u!114 &694886611831322525
@@ -2738,7 +2740,7 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 1
+  OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
   - {fileID: 694886611831322525}
