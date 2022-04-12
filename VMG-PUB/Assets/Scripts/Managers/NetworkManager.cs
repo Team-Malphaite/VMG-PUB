@@ -85,8 +85,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
            Debug.Log("AuthHandler.Instance.charcter ="+ AuthHandler.Instance.charcter) ;
            string buffer = string.Join("" , AuthHandler.Instance.charcter.Split('"'));
            Debug.Log("문자열 처리한 뒤에 AuthHandler.Instance.charcter ="+ buffer) ;
-            player = PhotonNetwork.Instantiate("Prefabs/Character/" + AuthHandler.Instance.charcter, new Vector3(0, 0, -5), Quaternion.identity);
-*/
+            player = PhotonNetwork.Instantiate("Prefabs/Character/" + AuthHandler.Instance.charcter, new Vector3(0, 0, -5), Quaternion.identity);*/
+
             player = PhotonNetwork.Instantiate("Prefabs/Character/" +  UI_SelectInfoInput.Instance.selectCharacterName, new Vector3(0, 0, -5), Quaternion.identity);
             if(SceneManager.GetActiveScene().name == "Game")
             {
