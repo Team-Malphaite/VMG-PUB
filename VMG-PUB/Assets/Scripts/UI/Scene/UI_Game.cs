@@ -8,6 +8,7 @@ using Photon.Pun;
 
 public class UI_Game : UI_Scene
 {
+    public GameObject player;
     enum Buttons
     {
         Ready,
@@ -48,8 +49,8 @@ public class UI_Game : UI_Scene
         GetButton((int)Buttons.Ready).gameObject.BindEvent(OnButtonClickedReady);
         GetButton((int)Buttons.Exit).gameObject.BindEvent(OnButtonClickedExit);
 
-        // GameObject go = GetImage((int)Images.ItemIcon).gameObject;
-        // BindEvent(go, (PointerEventData data) => { go.gameObject.transform.position = data.position; }, Define.UIEvent.Drag);
+        // GameObject player = GetImage((int)Images.ItemIcon).gameObject;
+        // BindEvent(player, (PointerEventData data) => { player.gameObject.transform.position = data.position; }, Define.UIEvent.Drag);
     }
 
     private void Start()
@@ -65,6 +66,10 @@ public class UI_Game : UI_Scene
     }
 
     private void Update() {
+
+        if (GameObject.Find("@Player") == null) return;
+        else player = GameObject.Find("@Player");
+
         if (GameManagerEx.Instance.getAllReady() && !GameManagerEx.Instance.getGameStart())
         {
             GetButton((int)Buttons.Ready).gameObject.SetActive(false);
@@ -90,13 +95,16 @@ public class UI_Game : UI_Scene
         {
             Debug.Log("준비 버튼 클릭");
             GetText((int)Texts.ReadyButtonText).text = "준비 완료";
-            PlayerController.Instance._gameReady = true;
+            // PlayerController.Instance._gameReady = true;
+            player.GetComponent<PlayerController>()._gameReady = true;
+            
         }
         else if (GetText((int)Texts.ReadyButtonText).text == "준비 완료")
         {
             Debug.Log("준비 완료 버튼 클릭");
             GetText((int)Texts.ReadyButtonText).text = "준비";
-            PlayerController.Instance._gameReady = false;
+            // PlayerController.Instance._gameReady = false;
+            player.GetComponent<PlayerController>()._gameReady = false;
         }
     }
 
@@ -153,7 +161,6 @@ public class UI_Game : UI_Scene
     void RankUpdate()
     {
         int rank = GameManagerEx.Instance.Players.Count;
-        GameObject player = GameObject.Find("@Player");
         for(int i = 1; i < GameManagerEx.Instance.Players.Count; i++)
             if (player.GetComponent<PlayerController>().getDist() < GameManagerEx.Instance.Players[i].GetComponent<PlayerController>().getDist()) i--;
 

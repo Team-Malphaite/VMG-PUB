@@ -12,7 +12,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     GameObject player = null;
 
     byte maxPlayers = 2;
-    int maxTime = 120;
+    int maxTime = 360;
 
     public Define.Scene _scene;// = Define.Scene.Square;
     
