@@ -237,7 +237,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 photonView.RPC("gameMode", RpcTarget.All);
                 if (_gameReady) photonView.RPC("setReady", RpcTarget.All);
                 else if (!_gameReady)photonView.RPC("setUnReady", RpcTarget.All);
-                if (GameManagerEx.Instance.getAllReady() && !GameManagerEx.Instance.getGameStart()) photonView.RPC("closeGameRoom", RpcTarget.All);
+                if (GameManagerEx.Instance.getAllReady() && GameManagerEx.Instance.getGameStart()) //photonView.RPC("closeGameRoom", RpcTarget.All);
+                    PhotonNetwork.CurrentRoom.IsOpen = false;
                 StopToObstacle();
                 Dist = Vector3.Distance(transform.position, GameObject.Find("Gate3").transform.position);
             }
