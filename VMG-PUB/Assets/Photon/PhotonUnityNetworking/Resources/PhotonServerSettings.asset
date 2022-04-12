@@ -49,6 +49,12 @@ MonoBehaviour:
   - getInGameRoom
   - setReady
   - setUnReady
+  - roomClose
+  - closeGameRoom
+  - setAllReady
+  - setAllReadyFalse
+  - setGameStart
+  - setGameStartFalse
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -9668,6 +9668,7 @@ MonoBehaviour:
   _portalCheck: 0
   _goalCheck: 0
   _gameReady: 0
+  Dist: 0
   _move: 1
   _mode: 0
 --- !u!114 &3854018365924691853

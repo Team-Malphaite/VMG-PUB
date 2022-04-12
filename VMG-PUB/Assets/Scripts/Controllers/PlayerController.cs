@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private bool isBorder;
     public bool _goalCheck = false;
     public bool _gameReady = false;
+    public float Dist;
     public enum moveState
     {
         Moving,
@@ -190,7 +191,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void StopToObstacle()
     {
         Debug.DrawRay(transform.position, transform.forward * 1.5f, Color.red);
-        isBorder = Physics.Raycast(transform.position, transform.forward, 1, LayerMask.GetMask("Obstacle"));
+        isBorder = Physics.Raycast(transform.position, transform.forward, 2, LayerMask.GetMask("Obstacle"));
     }
 
     void OnKeyBoard()
@@ -220,24 +221,25 @@ public class PlayerController : MonoBehaviourPunCallbacks
             UpdateJumping();
             if(SceneManager.GetActiveScene().name.Equals("Square"))
             {
-                StopToWall();
                 _mode = modeState.Square;
+                StopToWall();
+                _gameReady = false;
             }
             else if(SceneManager.GetActiveScene().name.Equals("Voting"))
             {
-                StopToWall();
                 _mode = modeState.Voting;
+                StopToWall();
+                _gameReady = false;
             }
             else if(SceneManager.GetActiveScene().name.Equals("Game"))
             {
                 _mode = modeState.Game;
-                // transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-                // this._speed = 10.0f;
-                // this.JumpPower = 2.0f;
                 photonView.RPC("gameMode", RpcTarget.All);
                 if (_gameReady) photonView.RPC("setReady", RpcTarget.All);
-                else photonView.RPC("setUnReady", RpcTarget.All);
+                else if (!_gameReady)photonView.RPC("setUnReady", RpcTarget.All);
+                if (GameManagerEx.Instance.getAllReady() && !GameManagerEx.Instance.getGameStart()) photonView.RPC("closeGameRoom", RpcTarget.All);
                 StopToObstacle();
+                Dist = Vector3.Distance(transform.position, GameObject.Find("Gate3").transform.position);
             }
         }
     }
@@ -266,5 +268,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         _gameReady = false;
         // Debug.Log("전부 unReady 송신");
+    }
+
+    [PunRPC]
+    public void closeGameRoom()
+    {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        // Debug.Log("현재 게임 방 닫힘");
+    }
+
+    public float getDist()
+    {
+        return Dist;
     }
 }

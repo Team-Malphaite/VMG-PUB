@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using Photon.Pun;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 팝업 윈도우를 띄워주는 클래스
@@ -569,7 +570,18 @@ public class PopupWindowController : UI_Popup
             okAction();
         // Managers.Scene._portalCheck = true;
         if (go.GetComponent<PhotonView>().IsMine)
+        {
             PlayerController.Instance._portalCheck = true;
+            if (SceneManager.GetActiveScene().name == "Square")
+            {
+                Managers.Network._scene = Define.Scene.Voting;
+            }
+            else if (SceneManager.GetActiveScene().name == "Voting")
+            {
+                Managers.Network._scene = Define.Scene.Square;
+            }
+            
+        }
         Debug.Log("눌림");
         // ClosePopupWindow();
         ClosePopupUI();
@@ -597,11 +609,12 @@ public class PopupWindowController : UI_Popup
 
         if(go.GetComponent<PhotonView>().IsMine)
         {
-            _scene = Define.Scene.Game;
+            Managers.Network._scene = Define.Scene.Game;
             go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Game;
-            Managers.Network.LeaveRoom();
-            Managers.Scene.LoadScene(_scene);
-            Managers.Network.OnLogin();
+            PhotonNetwork.LeaveRoom();
+            Managers.Network.OnLeftRoom();
+            // Managers.Scene.LoadScene(_scene);
+            // Managers.Network.OnLogin();
             // Managers.Scene._portalCheck = false;
         }
     }
@@ -628,11 +641,12 @@ public class PopupWindowController : UI_Popup
 
         if(go.GetComponent<PhotonView>().IsMine)
         {
-            _scene = Define.Scene.Square;
+            Managers.Network._scene = Define.Scene.Square;
             go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
-            Managers.Network.LeaveRoom();
-            Managers.Scene.LoadScene(_scene);
-            Managers.Network.OnLogin();
+            PhotonNetwork.LeaveRoom();
+            Managers.Network.OnLeftRoom();
+            // Managers.Scene.LoadScene(_scene);
+            // Managers.Network.OnLogin();
             // Managers.Scene._portalCheck = false;
         }
     }

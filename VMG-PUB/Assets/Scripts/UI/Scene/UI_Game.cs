@@ -19,20 +19,22 @@ public class UI_Game : UI_Scene
     //     TestObject,
     // }
 
-    // enum Images
-    // {
-    //     ItemIcon,
-    // }
+    enum RawImages
+    {
+        One,
+        Two,
+        Three,
+        Start,
+        Explain,
+    }
 
     enum Texts
     {
         ReadyButtonText,
+        Rank,
     }
 
-    private void Start()
-    {
-        Init();
-    }
+    int StartTimer = 0;
 
     public override void Init()
     {
@@ -41,7 +43,7 @@ public class UI_Game : UI_Scene
         Bind<Button>(typeof(Buttons));
         Bind<Text>(typeof(Texts));
         // Bind<GameObject>(typeof(GameObjects));
-        // Bind<Image>(typeof(Images));
+        Bind<RawImage>(typeof(RawImages));
 
         GetButton((int)Buttons.Ready).gameObject.BindEvent(OnButtonClickedReady);
         GetButton((int)Buttons.Exit).gameObject.BindEvent(OnButtonClickedExit);
@@ -50,7 +52,35 @@ public class UI_Game : UI_Scene
         // BindEvent(go, (PointerEventData data) => { go.gameObject.transform.position = data.position; }, Define.UIEvent.Drag);
     }
 
-    // int _score = 0;
+    private void Start()
+    {
+        Init();
+
+        GetRawImage((int)RawImages.One).gameObject.SetActive(false);
+        GetRawImage((int)RawImages.Two).gameObject.SetActive(false);
+        GetRawImage((int)RawImages.Three).gameObject.SetActive(false);
+        GetRawImage((int)RawImages.Start).gameObject.SetActive(false);
+        GetRawImage((int)RawImages.Explain).gameObject.SetActive(false);
+        GetText((int)Texts.Rank).gameObject.SetActive(false);
+    }
+
+    private void Update() {
+        if (GameManagerEx.Instance.getAllReady() && !GameManagerEx.Instance.getGameStart())
+        {
+            GetButton((int)Buttons.Ready).gameObject.SetActive(false);
+            GetButton((int)Buttons.Exit).gameObject.SetActive(false);
+            CountDown();
+        }
+        if (GameManagerEx.Instance.getGameStart())
+        {
+            GetText((int)Texts.Rank).gameObject.SetActive(true);
+            if (GameObject.Find("StartWall") == null) return;
+            GameObject.Find("StartWall").gameObject.SetActive(false);
+        }
+
+        if (GetText((int)Texts.Rank).gameObject.activeSelf)
+            RankUpdate();
+    }
 
     public void OnButtonClickedReady(PointerEventData data)
     {
@@ -68,9 +98,6 @@ public class UI_Game : UI_Scene
             GetText((int)Texts.ReadyButtonText).text = "준비";
             PlayerController.Instance._gameReady = false;
         }
-        // _score++;
-        // GetText((int)Texts.ScoreText).text = $"점수 : {_score}점";
-        
     }
 
     public void OnButtonClickedExit(PointerEventData data)
@@ -83,5 +110,53 @@ public class UI_Game : UI_Scene
         Action noAction = () => Debug.Log("On Click No Button");
 
         PopupWindowController.Instance.ShowYesNoGameExit(title, message, yesAction, noAction);
+    }
+
+    void CountDown()
+    {
+        if (StartTimer == 0) Time.timeScale = 0.0f;
+        if (StartTimer <= 165)
+        {
+            StartTimer++;
+            
+            if (StartTimer < 60) GetRawImage((int)RawImages.Explain).gameObject.SetActive(true);
+            if (StartTimer > 60) 
+            {
+                GetRawImage((int)RawImages.Explain).gameObject.SetActive(false);
+                GetRawImage((int)RawImages.Three).gameObject.SetActive(true);
+            }
+            if (StartTimer > 90) 
+            {
+                GetRawImage((int)RawImages.Three).gameObject.SetActive(false);
+                GetRawImage((int)RawImages.Two).gameObject.SetActive(true);
+            }
+            if (StartTimer > 120) 
+            {
+                GetRawImage((int)RawImages.Two).gameObject.SetActive(false);
+                GetRawImage((int)RawImages.One).gameObject.SetActive(true);
+            }
+            if (StartTimer > 150) 
+            {
+                GetRawImage((int)RawImages.One).gameObject.SetActive(false);
+                GetRawImage((int)RawImages.Start).gameObject.SetActive(true);
+                // StartCoroutine(RunFadeOut());
+            }
+            if (StartTimer >= 165)
+            {
+                GetRawImage((int)RawImages.Start).gameObject.SetActive(false);
+                Time.timeScale = 1.0f;
+                GameManagerEx.Instance.setGameStart();
+            }
+        }
+    }
+
+    void RankUpdate()
+    {
+        int rank = GameManagerEx.Instance.Players.Count;
+        GameObject player = GameObject.Find("@Player");
+        for(int i = 1; i < GameManagerEx.Instance.Players.Count; i++)
+            if (player.GetComponent<PlayerController>().getDist() < GameManagerEx.Instance.Players[i].GetComponent<PlayerController>().getDist()) i--;
+
+        GetText((int)Texts.Rank).text = rank + "  /  " + Managers.Network.getGameMaxPlayer();
     }
 }

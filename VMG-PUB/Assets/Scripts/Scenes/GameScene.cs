@@ -38,14 +38,16 @@ public class GameScene : BaseScene
     }
 
     private void Update() {
-        if (GameManagerEx.Instance.readyCheck())
-            Debug.Log("start & change UI");
-        // else
-        //     Debug.Log("not ready");
+        if (GameManagerEx.Instance.readyCheck() && !GameManagerEx.Instance.getGameStart())
+        {
+            // Debug.Log("start & change UI");
+            GameManagerEx.Instance.setAllReady();
+        }
     }
 
     public override void Clear()
     {
-
+        Destroy(GameManagerEx.Instance);
+        Debug.Log("GameManagerEx Destoryed");
     }
 }
