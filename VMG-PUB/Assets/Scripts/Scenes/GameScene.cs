@@ -29,11 +29,23 @@ public class GameScene : BaseScene
             Debug.Log("make cam");
         }
 
+        GameObject chat = null;
+        // 초기화
+        chat = GameObject.Find("@Chatting");
+
+        if (chat == null)
+        {
+            chat = new GameObject { name = "@Chatting"};
+            chat.AddComponent<ChatManager>();
+            chat.AddComponent<PhotonView>();
+        }
+
         SceneType = Define.Scene.Game;
         cam.name = "@Main Camera";
         // Managers.UI.ShowSceneUI<UI_Inven>();
         Managers.UI.ShowSceneUI<UI_Game>();
         Managers.UI.ShowPopupUI<PopupWindowController>();
+        Managers.UI.ShowPopupUI<UI_Chat>();
         // DontDestroyOnLoad(Managers.UI.ShowPopupUI<PopupWindowController>());
     }
 
