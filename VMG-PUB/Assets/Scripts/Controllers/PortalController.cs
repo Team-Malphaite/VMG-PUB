@@ -33,13 +33,13 @@ public class PortalController : MonoBehaviourPunCallbacks
             {
                 if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Square)
                 {
-                    _scene = Define.Scene.Voting;
+                    Managers.Network._scene = Define.Scene.Voting;
                     go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Voting;
-                    Managers.Network.LeaveRoom();
-                    Managers.Scene.LoadScene(Define.Scene.Voting);
-                    Managers.Network.OnLogin();
-                    // Managers.Scene._portalCheck = false;
-                    PlayerController.Instance._portalCheck = false;
+                    PhotonNetwork.LeaveRoom();
+                    // Managers.Scene.LoadScene(Define.Scene.Voting);
+                    // Managers.Network.OnLogin();
+                    // PlayerController.Instance._portalCheck = false;
+                    Managers.Network.OnLeftRoom();
                 }
 
                 // if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Square)
@@ -55,13 +55,13 @@ public class PortalController : MonoBehaviourPunCallbacks
 
                 else if (go.GetComponent<PlayerController>()._mode == PlayerController.modeState.Voting)
                 {
-                    _scene = Define.Scene.Square;
+                    Managers.Network._scene = Define.Scene.Square;
                     go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
-                    Managers.Network.LeaveRoom();
-                    Managers.Scene.LoadScene(Define.Scene.Square);
-                    Managers.Network.OnLogin();
-                    // Managers.Scene._portalCheck = false;
-                    PlayerController.Instance._portalCheck = false;
+                    PhotonNetwork.LeaveRoom();
+                    // Managers.Scene.LoadScene(Define.Scene.Square);
+                    // Managers.Network.OnLogin();
+                    // PlayerController.Instance._portalCheck = false;
+                    Managers.Network.OnLeftRoom();
                 }
             }
         }

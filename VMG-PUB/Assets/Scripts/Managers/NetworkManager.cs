@@ -11,10 +11,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public string gameVersion = "1.0";
     GameObject player = null;
 
-    byte maxPlayers = 2;
+    byte maxPlayers = 1;
     int maxTime = 120;
 
-    Define.Scene _scene = Define.Scene.Square;
+    public Define.Scene _scene;// = Define.Scene.Square;
     
     // void Awake()
     // {
@@ -42,21 +42,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         if (SceneManager.GetActiveScene().name == "Square")
         {
-            _scene = Define.Scene.Square;
             PhotonNetwork.JoinOrCreateRoom("Square", new RoomOptions{MaxPlayers = 3}, null);
             Debug.Log("Joined Square !!!");
             Debug.Log(_scene);
         }
         else if (SceneManager.GetActiveScene().name == "Voting")
         {
-            _scene = Define.Scene.Voting;
             PhotonNetwork.JoinOrCreateRoom("Voting", new RoomOptions{MaxPlayers = 3}, null);
             Debug.Log("Joined Voting !!!");
             Debug.Log(_scene);
         }
         else if (SceneManager.GetActiveScene().name == "Game")
         {
-            _scene = Define.Scene.Game;
             // PhotonNetwork.JoinRandomOrCreateRoom("Game", new RoomOptions{MaxPlayers = 3}, null);
             JoinGameRoom();
             Debug.Log("Joined Game !!!");
@@ -99,13 +96,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             DontDestroyOnLoad(player);
         }
     }
-    
-    public void LeaveRoom()
-    {
-        PhotonNetwork.LeaveRoom();
-        Debug.Log("Leave Room");
-        PhotonNetwork.JoinLobby();
-    }
 
     public byte getGameMaxPlayer()
     {
@@ -115,5 +105,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public int getGameTime()
     {
         return maxTime;
+    }
+
+    public override void OnLeftRoom()
+    {
+        PhotonNetwork.JoinLobby();
+        if (_scene == Define.Scene.Square)
+            Managers.Scene.LoadScene(Define.Scene.Square);
+        else if (_scene == Define.Scene.Game)
+            Managers.Scene.LoadScene(Define.Scene.Game);
+        else if (_scene == Define.Scene.Voting)
+            Managers.Scene.LoadScene(Define.Scene.Voting);
+        Managers.Network.OnLogin();
+        // Managers.Scene._portalCheck = false;
+        PlayerController.Instance._portalCheck = false;
     }
 }
