@@ -74,8 +74,8 @@ public class UI_Game : UI_Scene
         if (GameManagerEx.Instance.getGameStart())
         {
             GetText((int)Texts.Rank).gameObject.SetActive(true);
-            if (GameObject.Find("StartWall") == null) return;
-            GameObject.Find("StartWall").gameObject.SetActive(false);
+            if (GameObject.Find("StartWall") != null)
+                GameObject.Find("StartWall").gameObject.SetActive(false);
         }
 
         if (GetText((int)Texts.Rank).gameObject.activeSelf)
