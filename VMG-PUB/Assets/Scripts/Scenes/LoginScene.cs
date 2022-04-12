@@ -33,8 +33,8 @@ public class LoginScene : BaseScene
                 Managers.Scene.LoadScene(Define.Scene.Select);
           
         }
-        /*
-        if(Managers.Scene._logincheck == true)
+        
+      /*  if(Managers.Scene._logincheck == true)
         {
               //Managers.Scene.LoadScene(Define.Scene.Select);
 
@@ -49,7 +49,8 @@ public class LoginScene : BaseScene
 
             }
             
-        }*/
+        }
+        */
     }
 
     public override void Clear()

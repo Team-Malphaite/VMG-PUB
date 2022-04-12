@@ -65,7 +65,7 @@ public class UI_SelectInfoInput : UI_Popup
         Debug.Log("click yes button");
         Debug.Log(selectCharacterName + "을 최종 선택했어요");
         Debug.Log(nick.text + "가 최종 이름했어요");
-        /*Debug.Log(AuthHandler.Instance.emailAddress + "가 현재 접속중인이메일주소");
+       /* Debug.Log(AuthHandler.Instance.emailAddress + "가 현재 접속중인이메일주소");
 
         AuthHandler.Instance.name = nick.text;
         AuthHandler.Instance.charcter = selectCharacterName;
