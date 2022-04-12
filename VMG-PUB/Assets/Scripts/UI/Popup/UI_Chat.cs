@@ -29,7 +29,15 @@ public class UI_Chat : UI_Popup
 
     public enum ScrollRects
     {
-        scrollRect,
+        ScrollRect,
+    }
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != null)
+            Destroy(gameObject);
     }
 
     // Start is called before the first frame update
@@ -46,16 +54,12 @@ public class UI_Chat : UI_Popup
         base.Init();
 
         Bind<Button>(typeof(Buttons));
-        Debug.Log("Button Debug");
         Bind<Text>(typeof(Texts));
-        Debug.Log("Text Debug");
         Bind<InputField>(typeof(InputFields));
-        Debug.Log("InputField Debug");
         Bind<ScrollRect>(typeof(ScrollRects));
-        Debug.Log("ScrollRect Debug");
         // GameObject go = GetImage((int)Images.ItemIcon).gameObject;
         inputs = GetInputField((int)InputFields.input);
-        scrolls = GetScrollRect((int)ScrollRects.scrollRect);
+        scrolls = GetScrollRect((int)ScrollRects.ScrollRect);
         logs = GetText((int)Texts.chatLog);
         
 

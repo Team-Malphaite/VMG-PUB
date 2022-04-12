@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class SquareScene : BaseScene
 {
@@ -28,6 +29,7 @@ public class SquareScene : BaseScene
         {
             chat = new GameObject { name = "@Chatting"};
             chat.AddComponent<ChatManager>();
+            chat.AddComponent<PhotonView>();
         }
         // Managers.UI.ShowSceneUI<UI_Inven>();
         Managers.UI.ShowSceneUI<UI_Square>();
