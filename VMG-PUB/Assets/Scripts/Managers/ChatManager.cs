@@ -38,8 +38,8 @@ public class ChatManager : MonoBehaviourPunCallbacks
         //UI_Chat.Instance.scrolls = GameObject.Find("scrollRect");
         // if (Input.GetKeyDown(KeyCode.Return) && !UI_Chat.uiinstance.input.isFocused)
         //     UI_Chat.uiinstance.SendButtonOnclicked();
-        //if (Input.GetKeyDown(KeyCode.Return) && !UI_Chat.Instance.inputs.isFocused)
-         //   UI_Chat.Instance.SendButtonOnclicked();
+        // if (Input.GetKeyDown(KeyCode.Return) && !UI_Chat.Instance.inputs.isFocused)
+        //     UI_Chat.Instance.SendButtonOnclicked();
     }
 
     // [PunRPC]
