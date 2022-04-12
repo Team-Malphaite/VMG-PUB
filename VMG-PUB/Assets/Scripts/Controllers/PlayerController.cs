@@ -240,7 +240,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 if (GameManagerEx.Instance.getAllReady() && GameManagerEx.Instance.getGameStart()) //photonView.RPC("closeGameRoom", RpcTarget.All);
                     PhotonNetwork.CurrentRoom.IsOpen = false;
                 StopToObstacle();
-                Dist = Vector3.Distance(transform.position, GameObject.Find("Gate3").transform.position);
+                photonView.RPC("setDistChange", RpcTarget.All);
             }
         }
     }
@@ -276,6 +276,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.CurrentRoom.IsOpen = false;
         // Debug.Log("현재 게임 방 닫힘");
+    }
+
+    [PunRPC]
+    public void setDistChange()
+    {
+        Dist = Vector3.Distance(transform.position, GameObject.Find("Gate3").transform.position);
     }
 
     public float getDist()
