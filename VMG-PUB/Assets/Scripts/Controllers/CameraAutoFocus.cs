@@ -57,7 +57,7 @@ public class CameraAutoFocus : MonoBehaviour
     private float y = 0.0f;
 
     //y값 제한
-    public float yMinLimit = 13f;
+    public float yMinLimit = -15f;
     public float yMaxLimit = 80f;
 
     //앵글의 최소,최대 제한
@@ -80,7 +80,11 @@ public class CameraAutoFocus : MonoBehaviour
         x = angles.y;
         y = angles.x;
 
-        if (SceneManager.GetActiveScene().name == "Game") dist = 8;
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            dist = 8;
+            yMinLimit = 0f;
+        }
      }
 
 
