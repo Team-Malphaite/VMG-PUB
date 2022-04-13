@@ -80,6 +80,7 @@ public class CameraAutoFocus : MonoBehaviour
         x = angles.y;
         y = angles.x;
 
+        if (SceneManager.GetActiveScene().name == "Game") dist = 8;
      }
 
 
