@@ -11,9 +11,9 @@ public class GameManagerEx : MonoBehaviour, IPunObservable
     [SerializeField]
     public List<GameObject> Players = new List<GameObject>();
     [SerializeField]
-    bool allReady = false;
+    public bool allReady = false;
     [SerializeField]
-    bool gameStart = false;
+    public bool gameStart = false;
     
     private void Awake()
     { 
@@ -100,7 +100,7 @@ public class GameManagerEx : MonoBehaviour, IPunObservable
                 stream.SendNext(gameStart);
                 Debug.Log("동기화 전송");
             }
-            else
+            else if (stream.IsReading)
             {          
                 this.allReady = (bool)stream.ReceiveNext();
                 this.gameStart = (bool)stream.ReceiveNext();
