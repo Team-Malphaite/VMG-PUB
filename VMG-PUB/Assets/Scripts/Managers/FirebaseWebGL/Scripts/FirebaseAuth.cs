@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
         public static extern void SetDocument(string collectionPath, string documentId, string oneValue,string twoValue,string threeValue, string objectName,string callback,string fallback);
 
         [DllImport("__Internal")]
-        public static extern void GetDocument(string collectionPath, string documentId, string objectName, string callback, string fallback);
+        public static extern void GetDocument(string collectionPath, string documentId, string objectName, string callback, string nameCallback,string fallback);
 
 
 
