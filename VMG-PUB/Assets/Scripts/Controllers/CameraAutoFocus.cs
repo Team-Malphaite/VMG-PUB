@@ -111,10 +111,12 @@ public class CameraAutoFocus : MonoBehaviour
             {
                 dist = 7f;
             }
-
-            //카메라 회전속도 계산
-            x += Input.GetAxis("Mouse X") * xSpeed * 0.015f;
-            y -= Input.GetAxis("Mouse Y") * ySpeed * 0.015f;
+            if (Input.GetMouseButton(1))
+            {
+                //카메라 회전속도 계산
+                x += Input.GetAxis("Mouse X") * xSpeed * 0.015f;
+                y -= Input.GetAxis("Mouse Y") * ySpeed * 0.015f;
+            }
 
             //앵글값 정하기
             //y값의 Min과 MaX 없애면 y값이 360도 계속 돎
@@ -123,10 +125,19 @@ public class CameraAutoFocus : MonoBehaviour
 
             //카메라 위치 변화 계산
             Quaternion rotation = Quaternion.Euler(y, x, 0);
-            Vector3 position = rotation * new Vector3(0, 0.0f, -dist) + target.position + new Vector3(0.0f, 0, 0.0f);
+            Vector3 position = rotation * new Vector3(0, 0.0f, -dist) + target.position + new Vector3(0.0f, 0.7f, 0.0f);
+            // Vector3 position = rotation * new Vector3(0, 0.0f, -dist) + target.position + new Vector3(0.0f, 0, 0.0f);
 
-            transform.rotation = rotation;
-            transform.position = position;
+            if (Input.GetMouseButton(1))
+            {
+                transform.rotation = rotation;
+                transform.position = position;
+            }
+            else
+            {
+                transform.position = position;
+            }
+            
         }
         else if (target && SceneManager.GetActiveScene().name == "Game")
         {
@@ -145,9 +156,12 @@ public class CameraAutoFocus : MonoBehaviour
                 dist = 10f;
             }
 
-            //카메라 회전속도 계산
-            x += Input.GetAxis("Mouse X") * xSpeed * 0.015f;
-            y -= Input.GetAxis("Mouse Y") * ySpeed * 0.015f;
+            if (Input.GetMouseButton(1))
+            {
+                //카메라 회전속도 계산
+                x += Input.GetAxis("Mouse X") * xSpeed * 0.015f;
+                y -= Input.GetAxis("Mouse Y") * ySpeed * 0.015f;
+            }
 
             //앵글값 정하기
             //y값의 Min과 MaX 없애면 y값이 360도 계속 돎
@@ -156,10 +170,18 @@ public class CameraAutoFocus : MonoBehaviour
 
             //카메라 위치 변화 계산
             Quaternion rotation = Quaternion.Euler(y, x, 0);
-            Vector3 position = rotation * new Vector3(0, 0.0f, -dist) + target.position + new Vector3(0.0f, 0, 0.0f);
+            Vector3 position = rotation * new Vector3(0, 0.0f, -dist) + target.position + new Vector3(0.0f, 0.7f, 0.0f);
+            // Vector3 position = rotation * new Vector3(0, 0.0f, -dist) + target.position + new Vector3(0.0f, 0, 0.0f);
 
-            transform.rotation = rotation;
-            transform.position = position;
+            if (Input.GetMouseButton(1))
+            {
+                transform.rotation = rotation;
+                transform.position = position;
+            }
+            else
+            {
+                transform.position = position;
+            }
         }
     }
 }
