@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7120771473100567786}
   - component: {fileID: 4484520253588593394}
   - component: {fileID: 7921431102192777581}
+  - component: {fileID: 6064532006500592666}
   m_Layer: 0
   m_Name: ContainerDoor (2)
   m_TagString: Untagged
@@ -81,6 +82,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6064532006500592666
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4101756518856689290}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4453806867672132484, guid: e746f91a09b87d546ac6c612c71259b1, type: 3}
 --- !u!1 &5199911698678099134
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,6 +107,7 @@ GameObject:
   - component: {fileID: 1405390985526401916}
   - component: {fileID: 4078238512627868960}
   - component: {fileID: 5371009421915195146}
+  - component: {fileID: 916491798340566407}
   m_Layer: 0
   m_Name: ContainerDoor (1)
   m_TagString: Untagged
@@ -162,6 +178,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &916491798340566407
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5199911698678099134}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4453806867672132484, guid: e746f91a09b87d546ac6c612c71259b1, type: 3}
 --- !u!1 &6104194058708092004
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,6 +203,7 @@ GameObject:
   - component: {fileID: 7371828870311379554}
   - component: {fileID: 528653035796113328}
   - component: {fileID: 7384746089858518683}
+  - component: {fileID: 3213001819829773385}
   m_Layer: 0
   m_Name: ContainerDoor
   m_TagString: Untagged
@@ -243,6 +274,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3213001819829773385
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6104194058708092004}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4453806867672132484, guid: e746f91a09b87d546ac6c612c71259b1, type: 3}
 --- !u!1 &8157853627357439672
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +299,7 @@ GameObject:
   - component: {fileID: 9020336003316350996}
   - component: {fileID: 7313901924371736930}
   - component: {fileID: 2648556296164605255}
+  - component: {fileID: 4955074544909574865}
   m_Layer: 0
   m_Name: ContainerDoor (3)
   m_TagString: Untagged
@@ -324,6 +370,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4955074544909574865
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8157853627357439672}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4453806867672132484, guid: e746f91a09b87d546ac6c612c71259b1, type: 3}
 --- !u!1 &8633995106888532455
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +482,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -745928167409971724, guid: e746f91a09b87d546ac6c612c71259b1, type: 3}
 --- !u!54 &3241296015690200505
@@ -437,7 +497,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
