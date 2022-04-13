@@ -6,7 +6,7 @@ using Photon.Realtime;
 using UnityStandardAssets.Utility;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviourPunCallbacks
+public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
     public static PlayerController Instance;
     [SerializeField]
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool _goalCheck = false;
     public bool _gameReady = false;
     public float Dist;
+    Vector3 gate3location = new Vector3(415.91f, 30.86997f, 150.0001f);
     public enum moveState
     {
         Moving,
@@ -233,14 +234,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
             else if(SceneManager.GetActiveScene().name.Equals("Game"))
             {
-                _mode = modeState.Game;
+                // _mode = modeState.Game;
                 photonView.RPC("gameMode", RpcTarget.All);
-                if (_gameReady) photonView.RPC("setReady", RpcTarget.All);
-                else if (!_gameReady)photonView.RPC("setUnReady", RpcTarget.All);
-                if (GameManagerEx.Instance.getAllReady() && GameManagerEx.Instance.getGameStart()) //photonView.RPC("closeGameRoom", RpcTarget.All);
-                    PhotonNetwork.CurrentRoom.IsOpen = false;
+                // if (_gameReady && !GameManagerEx.Instance.getGameStart()) photonView.RPC("setReady", RpcTarget.All);
+                // else if (!_gameReady && !GameManagerEx.Instance.getGameStart())photonView.RPC("setUnReady", RpcTarget.All);
+
+                // if (GameManagerEx.Instance.getAllReady() && GameManagerEx.Instance.getGameStart()) //photonView.RPC("closeGameRoom", RpcTarget.All);
+                //     PhotonNetwork.CurrentRoom.IsOpen = false;
+                // if (GameManagerEx.Instance.getGameStart())
+                //     photonView.RPC("setDistChange", RpcTarget.All);
+                if (GameManagerEx.Instance.getGameStart())
+                    setDistChange();
                 StopToObstacle();
-                photonView.RPC("setDistChange", RpcTarget.All);
             }
         }
     }
@@ -271,21 +276,39 @@ public class PlayerController : MonoBehaviourPunCallbacks
         // Debug.Log("전부 unReady 송신");
     }
 
-    [PunRPC]
-    public void closeGameRoom()
-    {
-        PhotonNetwork.CurrentRoom.IsOpen = false;
-        // Debug.Log("현재 게임 방 닫힘");
-    }
+    // [PunRPC]
+    // public void closeGameRoom()
+    // {
+    //     PhotonNetwork.CurrentRoom.IsOpen = false;
+    //     // Debug.Log("현재 게임 방 닫힘");
+    // }
 
-    [PunRPC]
+    // [PunRPC]
     public void setDistChange()
     {
-        Dist = Vector3.Distance(transform.position, GameObject.Find("Gate3").transform.position);
+        Dist = Vector3.Distance(transform.position, gate3location);
     }
 
     public float getDist()
     {
         return Dist;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)        
+    {
+            if (stream.IsWriting)
+            {             
+                stream.SendNext(_gameReady);
+                stream.SendNext(Dist);
+                // stream.SendNext(transform.localScale);
+                Debug.Log("player 동기화 전송");
+            }
+            else
+            {          
+                this._gameReady = (bool)stream.ReceiveNext();
+                this.Dist = (float)stream.ReceiveNext();
+                // this.transform.localScale = (Vector3)stream.ReceiveNext();
+                Debug.Log("player 동기화 받음");
+            }
     }
 }

@@ -162,8 +162,13 @@ public class UI_Game : UI_Scene
     {
         int rank = GameManagerEx.Instance.Players.Count;
         for(int i = 1; i < GameManagerEx.Instance.Players.Count; i++)
-            if (player.GetComponent<PlayerController>().getDist() < GameManagerEx.Instance.Players[i].GetComponent<PlayerController>().getDist()) i--;
+        {
+            if (player.GetComponent<PlayerController>().getDist() < GameManagerEx.Instance.Players[i].GetComponent<PlayerController>().getDist()) rank--;
+            // Debug.Log("본인"+player.GetComponent<PlayerController>().getDist());
+            // Debug.Log(i+"번째"+GameManagerEx.Instance.Players[i].GetComponent<PlayerController>().getDist());
+        }
 
+        // Debug.Log(rank);
         GetText((int)Texts.Rank).text = rank + "  /  " + Managers.Network.getGameMaxPlayer();
     }
 }
