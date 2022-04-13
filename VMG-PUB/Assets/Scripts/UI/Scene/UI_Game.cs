@@ -30,6 +30,7 @@ public class UI_Game : UI_Scene
         Finished,
         Victory,
         ReturnSquare,
+        NextVictory,
     }
 
     enum Texts
@@ -44,6 +45,7 @@ public class UI_Game : UI_Scene
     public RawImage Finished;
     public RawImage Victory;
     public RawImage ReturnSquare;
+    public RawImage NextVictory;
     [SerializeField]
     int rank;
 
@@ -75,11 +77,13 @@ public class UI_Game : UI_Scene
         GetRawImage((int)RawImages.Finished).gameObject.SetActive(false);
         GetRawImage((int)RawImages.Victory).gameObject.SetActive(false);
         GetRawImage((int)RawImages.ReturnSquare).gameObject.SetActive(false);
+        GetRawImage((int)RawImages.NextVictory).gameObject.SetActive(false);
         GetText((int)Texts.Rank).gameObject.SetActive(false);
 
         Finished = GetRawImage((int)RawImages.Finished);
         Victory = GetRawImage((int)RawImages.Victory);
         ReturnSquare = GetRawImage((int)RawImages.ReturnSquare);
+        NextVictory = GetRawImage((int)RawImages.NextVictory);
 
         rank = GameManagerEx.Instance.Players.Count;
     }
@@ -189,18 +193,18 @@ public class UI_Game : UI_Scene
                 {
                     FinishTimer++;
                     
-                    if (FinishTimer < 90) Victory.gameObject.SetActive(true);
-                    if (FinishTimer > 90) 
+                    if (FinishTimer < 60) Victory.gameObject.SetActive(true);
+                    if (FinishTimer > 60) 
                     {
                         Victory.gameObject.SetActive(false);
                         Finished.gameObject.SetActive(true);
                     }
-                    if (FinishTimer > 150) 
+                    if (FinishTimer > 90) 
                     {
                         Finished.gameObject.SetActive(false);
                         ReturnSquare.gameObject.SetActive(true);
                     }
-                    if (FinishTimer >= 300)
+                    if (FinishTimer >= 240)
                     {
                         Time.timeScale = 1.0f;
                         player.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
@@ -217,13 +221,18 @@ public class UI_Game : UI_Scene
                 {
                     FinishTimer++;
                     
-                    if (FinishTimer < 90) Finished.gameObject.SetActive(true);
-                    if (FinishTimer > 150) 
+                    if (FinishTimer < 60) Finished.gameObject.SetActive(true);
+                    if (FinishTimer > 60) 
                     {
                         Finished.gameObject.SetActive(false);
+                        NextVictory.gameObject.SetActive(true);
+                    }
+                    if (FinishTimer > 90) 
+                    {
+                        NextVictory.gameObject.SetActive(false);
                         ReturnSquare.gameObject.SetActive(true);
                     }
-                    if (FinishTimer >= 300)
+                    if (FinishTimer >= 240)
                     {
                         Time.timeScale = 1.0f;
                         player.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
