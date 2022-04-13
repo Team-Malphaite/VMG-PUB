@@ -24,11 +24,12 @@ public class GoalController : MonoBehaviourPunCallbacks
         if (go.GetComponent<PlayerController>()._goalCheck)
         {
             Debug.Log("골인");
-            go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
-            go.GetComponent<PlayerController>()._goalCheck = false;
-            Managers.Network._scene = Define.Scene.Square;
-            PhotonNetwork.LeaveRoom();
-            Managers.Network.OnLeftRoom();
+            GameManagerEx.Instance.setGameFinished();
+
+            // go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
+            // Managers.Network._scene = Define.Scene.Square;
+            // PhotonNetwork.LeaveRoom();
+            // Managers.Network.OnLeftRoom();
             // Managers.Scene.LoadScene(Define.Scene.Square);
             // Managers.Network.OnLogin();
         }

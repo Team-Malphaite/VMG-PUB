@@ -11,9 +11,10 @@ public class GameManagerEx : MonoBehaviour, IPunObservable
     [SerializeField]
     public List<GameObject> Players = new List<GameObject>();
     [SerializeField]
-    public bool allReady = false;
+    bool allReady = false;
     [SerializeField]
-    public bool gameStart = false;
+    bool gameStart = false;
+    bool isFinished = false;
     
     private void Awake()
     { 
@@ -38,6 +39,8 @@ public class GameManagerEx : MonoBehaviour, IPunObservable
                 Debug.Log("add player");
             }
         }
+
+        if (isFinished) Debug.Log(isFinished);
     }
 
     public bool readyCheck()
@@ -92,18 +95,30 @@ public class GameManagerEx : MonoBehaviour, IPunObservable
         return gameStart;
     }
 
+    public void setGameFinished()
+    {
+        isFinished = true;
+    }
+
+    public bool getGameFinished()
+    {
+        return isFinished;
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)        
     {
             if (stream.IsWriting)
             {             
                 stream.SendNext(allReady);
                 stream.SendNext(gameStart);
+                stream.SendNext(isFinished);
                 Debug.Log("동기화 전송");
             }
             else if (stream.IsReading)
             {          
                 this.allReady = (bool)stream.ReceiveNext();
                 this.gameStart = (bool)stream.ReceiveNext();
+                this.isFinished = (bool)stream.ReceiveNext();
                 Debug.Log("동기화 받음");
             }
     }

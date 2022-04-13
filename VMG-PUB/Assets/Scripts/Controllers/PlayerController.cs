@@ -236,12 +236,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 // _mode = modeState.Game;
                 photonView.RPC("gameMode", RpcTarget.All);
-                if (_gameReady && !GameManagerEx.Instance.getGameStart()) photonView.RPC("setReady", RpcTarget.All);
-                else if (!_gameReady && !GameManagerEx.Instance.getGameStart())photonView.RPC("setUnReady", RpcTarget.All);
                 if (GameManagerEx.Instance.getGameStart())
                 {
                     PhotonNetwork.CurrentRoom.IsOpen = false;
                     photonView.RPC("setDistChange", RpcTarget.All);
+                    if (GameManagerEx.Instance.getGameFinished()) Managers.Input.KeyAction -= OnKeyBoard;
+                }
+                else
+                {
+                    if (_gameReady) photonView.RPC("setReady", RpcTarget.All);
+                    else photonView.RPC("setUnReady", RpcTarget.All);
                 }
                 StopToObstacle();
             }
@@ -282,9 +286,21 @@ public class PlayerController : MonoBehaviourPunCallbacks
     // }
 
     [PunRPC]
-    public void setDistChange()
+    void setDistChange()
     {
         Dist = Vector3.Distance(transform.position, gate3location);
+    }
+
+    [PunRPC]
+    void setGoalCheckTrue()
+    {
+        _goalCheck = true;
+    }
+
+    [PunRPC]
+    void setGoalCheckFalse()
+    {
+        _goalCheck = false;
     }
 
     public float getDist()
