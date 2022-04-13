@@ -27,6 +27,9 @@ public class UI_Game : UI_Scene
         Three,
         Start,
         Explain,
+        Finished,
+        Victory,
+        ReturnSquare,
     }
 
     enum Texts
@@ -36,6 +39,13 @@ public class UI_Game : UI_Scene
     }
 
     int StartTimer = 0;
+    int FinishTimer = 0;
+
+    public RawImage Finished;
+    public RawImage Victory;
+    public RawImage ReturnSquare;
+    [SerializeField]
+    int rank;
 
     public override void Init()
     {
@@ -62,7 +72,16 @@ public class UI_Game : UI_Scene
         GetRawImage((int)RawImages.Three).gameObject.SetActive(false);
         GetRawImage((int)RawImages.Start).gameObject.SetActive(false);
         GetRawImage((int)RawImages.Explain).gameObject.SetActive(false);
+        GetRawImage((int)RawImages.Finished).gameObject.SetActive(false);
+        GetRawImage((int)RawImages.Victory).gameObject.SetActive(false);
+        GetRawImage((int)RawImages.ReturnSquare).gameObject.SetActive(false);
         GetText((int)Texts.Rank).gameObject.SetActive(false);
+
+        Finished = GetRawImage((int)RawImages.Finished);
+        Victory = GetRawImage((int)RawImages.Victory);
+        ReturnSquare = GetRawImage((int)RawImages.ReturnSquare);
+
+        rank = GameManagerEx.Instance.Players.Count;
     }
 
     private void Update() {
@@ -85,6 +104,8 @@ public class UI_Game : UI_Scene
 
         if (GetText((int)Texts.Rank).gameObject.activeSelf)
             RankUpdate();
+
+        GameFinishCountDown();
     }
 
     public void OnButtonClickedReady(PointerEventData data)
@@ -158,9 +179,65 @@ public class UI_Game : UI_Scene
         }
     }
 
+    void GameFinishCountDown()
+    {
+        if (GameManagerEx.Instance.getGameFinished())
+            if (rank == 1)
+            {
+                if (FinishTimer == 0) Time.timeScale = 0.0f;
+                if (FinishTimer <= 300)
+                {
+                    FinishTimer++;
+                    
+                    if (FinishTimer < 90) Victory.gameObject.SetActive(true);
+                    if (FinishTimer > 90) 
+                    {
+                        Victory.gameObject.SetActive(false);
+                        Finished.gameObject.SetActive(true);
+                    }
+                    if (FinishTimer > 150) 
+                    {
+                        Finished.gameObject.SetActive(false);
+                        ReturnSquare.gameObject.SetActive(true);
+                    }
+                    if (FinishTimer >= 300)
+                    {
+                        Time.timeScale = 1.0f;
+                        player.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
+                        Managers.Network._scene = Define.Scene.Square;
+                        PhotonNetwork.LeaveRoom();
+                        Managers.Network.OnLeftRoom();
+                    }
+                }
+            }
+            else if (rank != 1)
+            {
+                if (FinishTimer == 0) Time.timeScale = 0.0f;
+                if (FinishTimer <= 300)
+                {
+                    FinishTimer++;
+                    
+                    if (FinishTimer < 90) Finished.gameObject.SetActive(true);
+                    if (FinishTimer > 150) 
+                    {
+                        Finished.gameObject.SetActive(false);
+                        ReturnSquare.gameObject.SetActive(true);
+                    }
+                    if (FinishTimer >= 300)
+                    {
+                        Time.timeScale = 1.0f;
+                        player.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
+                        Managers.Network._scene = Define.Scene.Square;
+                        PhotonNetwork.LeaveRoom();
+                        Managers.Network.OnLeftRoom();
+                    }
+                }
+            }
+    }
+
     void RankUpdate()
     {
-        int rank = GameManagerEx.Instance.Players.Count;
+        rank = GameManagerEx.Instance.Players.Count;
         for(int i = 1; i < GameManagerEx.Instance.Players.Count; i++)
         {
             if (player.GetComponent<PlayerController>().getDist() < GameManagerEx.Instance.Players[i].GetComponent<PlayerController>().getDist()) rank--;
