@@ -15,6 +15,7 @@ public class GameManagerEx : MonoBehaviour, IPunObservable
     [SerializeField]
     bool gameStart = false;
     bool isFinished = false;
+    bool musicChange = true;
     
     private void Awake()
     { 
@@ -38,6 +39,14 @@ public class GameManagerEx : MonoBehaviour, IPunObservable
                 Players.Add(player);
                 Debug.Log("add player");
             }
+        }
+
+        if (getGameStart() && musicChange)
+        {
+            Camera.main.GetComponent<AudioSource>().clip = Managers.Resource.Load<AudioClip>("BGM/Upbeat-Forever");
+            Camera.main.GetComponent<AudioSource>().loop = true;
+            Camera.main.GetComponent<AudioSource>().Play();
+            musicChange = false;
         }
 
         if (isFinished) Debug.Log(isFinished);
