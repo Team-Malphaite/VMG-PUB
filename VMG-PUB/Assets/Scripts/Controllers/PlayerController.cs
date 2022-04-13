@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 Cam.GetComponent<AudioSource>().Play();
             }
 
-            gameObject.GetComponentInChildren<TextMesh>().text = PhotonNetwork.NickName;
+            photonView.RPC("setNick", RpcTarget.All);
 
             Managers.Input.KeyAction -= OnKeyBoard;
             Managers.Input.KeyAction += OnKeyBoard;
@@ -262,12 +262,22 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     PhotonNetwork.CurrentRoom.IsOpen = false;
                     photonView.RPC("setDistChange", RpcTarget.All);
+                    photonView.RPC("setNick", RpcTarget.All);
                     if (GameManagerEx.Instance.getGameFinished()) Managers.Input.KeyAction -= OnKeyBoard;
                 }
                 else
                 {
-                    if (_gameReady) photonView.RPC("setReady", RpcTarget.All);
-                    else photonView.RPC("setUnReady", RpcTarget.All);
+                    if (_gameReady)
+                    {
+                        photonView.RPC("setReady", RpcTarget.All);
+                        photonView.RPC("readyShow", RpcTarget.All);
+                    }
+                    else
+                    {
+                        photonView.RPC("setUnReady", RpcTarget.All);
+                        photonView.RPC("readyShow", RpcTarget.All);
+                    }
+                    
                 }
                 StopToObstacle();
             }
@@ -328,5 +338,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public float getDist()
     {
         return Dist;
+    }
+
+    [PunRPC]
+    void setNick()
+    {
+        gameObject.GetComponentInChildren<TextMesh>().text = PhotonNetwork.NickName;
+    }
+
+    [PunRPC]
+    void readyShow()
+    {
+        if (_gameReady) gameObject.GetComponentInChildren<TextMesh>().text = PhotonNetwork.NickName + '\n' + "raedy";
+        else gameObject.GetComponentInChildren<TextMesh>().text = PhotonNetwork.NickName + '\n' + "unready";
     }
 }
