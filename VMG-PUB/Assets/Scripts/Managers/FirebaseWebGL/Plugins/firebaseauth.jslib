@@ -65,13 +65,13 @@ mergeInto(LibraryManager.library, {
         }
     },
 
-    GetDocument: function (collectionPath, documentId, objectName, callback, fallback) {
+    GetDocument: function (collectionPath, documentId, objectName, callback,nameCallback, fallback) {
         var parsedPath = UTF8ToString(collectionPath);
         var parsedId = UTF8ToString(documentId);
         var parsedObjectName = UTF8ToString(objectName);
         var parsedCallback = UTF8ToString(callback);
+        var parsedNameCallback = UTF8ToString(nameCallback);
         var parsedFallback = UTF8ToString(fallback);
-        var resultData = null;
 
         try {
             firebase.firestore().collection(parsedPath).doc(parsedId).get().then(function (doc) {
@@ -82,7 +82,9 @@ mergeInto(LibraryManager.library, {
                     
                    // userBuffer.character - 지정 문서의 밸류 값 character의 value ex. userBuffer.Email - 이메일주소 값이 리턴됨
          
-                    unityInstance.Module.SendMessage(parsedObjectName, parsedCallback,JSON.stringify(userBuffer.character));                    
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedCallback,JSON.stringify(userBuffer.character));   
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedNameCallback,JSON.stringify(userBuffer.name));                    
+                 
                     //unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(doc.data()));
                 } else {
                     unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, "null");

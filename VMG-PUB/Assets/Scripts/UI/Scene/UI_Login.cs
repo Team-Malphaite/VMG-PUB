@@ -27,7 +27,8 @@ public class UI_Login : UI_Scene
     {
         Init();
     }
-   /* private void Update() {
+    /*
+    private void Update() {
         if(AuthHandler.Instance.statusText =="Success: signed in with Google!")
             {   
 
@@ -72,7 +73,7 @@ public class UI_Login : UI_Scene
               Action okAction = () => Debug.Log("On Click Login Ok Button");
                PopupWindowController.Instance.ShowOkLogin(title, message, okAction);
    
-           // AuthHandler.Instance.SignInWithGoogle();
+            //AuthHandler.Instance.SignInWithGoogle();
             
 
 

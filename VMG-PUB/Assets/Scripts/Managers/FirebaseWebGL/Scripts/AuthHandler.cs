@@ -51,6 +51,11 @@ using UnityEngine.UI;
         {
                 charcter= string.Join("" , Infotext.Split('"'));
         }
+        private void ReadPlayerName(string Infotext)
+        {
+                name= string.Join("" , Infotext.Split('"'));
+
+        }
 
          //public static AuthHandler Instance; // singleton 변수
 
@@ -64,7 +69,7 @@ using UnityEngine.UI;
           public void SetDocument() =>  //사용자가 처음 로그인할때 사용자 정보 저장(문서 작성 - 컬렉션도 없을때 ) 
             FirebaseAuth.SetDocument("user",  emailAddress,  emailAddress , charcter , name , gameObject.name,"DisplayInfo", "DisplayError");
           public void GetDocument() =>   //데베 읽기 - 캐릭터 정보 읽어옴
-            FirebaseAuth.GetDocument("user", emailAddress, gameObject.name, "ReadPlayerData",  "DisplayError");
+            FirebaseAuth.GetDocument("user", emailAddress, gameObject.name, "ReadPlayerData", "ReadPlayerName", "DisplayError");
 
 
  

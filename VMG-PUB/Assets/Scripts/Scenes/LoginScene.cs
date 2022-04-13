@@ -33,8 +33,8 @@ public class LoginScene : BaseScene
                 Managers.Scene.LoadScene(Define.Scene.Select);
           
         }
-        
-      /*  if(Managers.Scene._logincheck == true)
+        /*
+        if(Managers.Scene._logincheck == true)
         {
               //Managers.Scene.LoadScene(Define.Scene.Select);
 
@@ -43,14 +43,16 @@ public class LoginScene : BaseScene
 
             }
             else{
+                    Debug.Log("로그인한 사람 이름"+AuthHandler.Instance.name);
+
                  Managers.Scene.LoadScene(Define.Scene.Square);
                   Managers.Network.OnLogin();
   
 
             }
             
-        }
-        */
+        }*/
+        
     }
 
     public override void Clear()
