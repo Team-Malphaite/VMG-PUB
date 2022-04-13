@@ -54,6 +54,26 @@ public class PlayerController : MonoBehaviourPunCallbacks
             // DontDestroyOnLoad(Camera.main);
             Camera.main.GetComponent<CameraAutoFocus>().target = tr;
             Cam = Camera.main.gameObject;
+
+            if (SceneManager.GetActiveScene().name == "Square")
+            {
+                Cam.GetComponent<AudioSource>().clip = Managers.Resource.Load<AudioClip>("BGM/Ghostrifter-Official-Soaring");
+                Cam.GetComponent<AudioSource>().loop = true;
+                Cam.GetComponent<AudioSource>().Play();
+            }
+            else if (SceneManager.GetActiveScene().name == "Voting")
+            {
+                Cam.GetComponent<AudioSource>().clip = Managers.Resource.Load<AudioClip>("BGM/fm-freemusic-cheerful-whistling");
+                Cam.GetComponent<AudioSource>().loop = true;
+                Cam.GetComponent<AudioSource>().Play();
+            }
+            else if (SceneManager.GetActiveScene().name == "Game")
+            {
+                Cam.GetComponent<AudioSource>().clip = Managers.Resource.Load<AudioClip>("BGM/alex-productions-happy-and-fun-background-music");
+                Cam.GetComponent<AudioSource>().loop = true;
+                Cam.GetComponent<AudioSource>().Play();
+            }
+
             Managers.Input.KeyAction -= OnKeyBoard;
             Managers.Input.KeyAction += OnKeyBoard;
         
