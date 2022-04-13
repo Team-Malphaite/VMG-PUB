@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 Cam.GetComponent<AudioSource>().Play();
             }
 
+            gameObject.GetComponentInChildren<TextMesh>().text = PhotonNetwork.NickName;
+
             Managers.Input.KeyAction -= OnKeyBoard;
             Managers.Input.KeyAction += OnKeyBoard;
         
