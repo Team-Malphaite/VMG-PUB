@@ -770,7 +770,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: "\uC774\uB984\uC744 \uC785\uB825\uD558\uC790!"
 --- !u!1 &7848149173760441701
 GameObject:
   m_ObjectHideFlags: 0
