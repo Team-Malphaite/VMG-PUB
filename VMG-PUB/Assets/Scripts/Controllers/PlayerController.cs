@@ -6,7 +6,7 @@ using Photon.Realtime;
 using UnityStandardAssets.Utility;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     public static PlayerController Instance;
     [SerializeField]
@@ -236,15 +236,13 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
             {
                 // _mode = modeState.Game;
                 photonView.RPC("gameMode", RpcTarget.All);
-                // if (_gameReady && !GameManagerEx.Instance.getGameStart()) photonView.RPC("setReady", RpcTarget.All);
-                // else if (!_gameReady && !GameManagerEx.Instance.getGameStart())photonView.RPC("setUnReady", RpcTarget.All);
-
-                // if (GameManagerEx.Instance.getAllReady() && GameManagerEx.Instance.getGameStart()) //photonView.RPC("closeGameRoom", RpcTarget.All);
-                //     PhotonNetwork.CurrentRoom.IsOpen = false;
-                // if (GameManagerEx.Instance.getGameStart())
-                //     photonView.RPC("setDistChange", RpcTarget.All);
+                if (_gameReady && !GameManagerEx.Instance.getGameStart()) photonView.RPC("setReady", RpcTarget.All);
+                else if (!_gameReady && !GameManagerEx.Instance.getGameStart())photonView.RPC("setUnReady", RpcTarget.All);
                 if (GameManagerEx.Instance.getGameStart())
-                    setDistChange();
+                {
+                    PhotonNetwork.CurrentRoom.IsOpen = false;
+                    photonView.RPC("setDistChange", RpcTarget.All);
+                }
                 StopToObstacle();
             }
         }
@@ -283,7 +281,7 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     //     // Debug.Log("현재 게임 방 닫힘");
     // }
 
-    // [PunRPC]
+    [PunRPC]
     public void setDistChange()
     {
         Dist = Vector3.Distance(transform.position, gate3location);
@@ -292,23 +290,5 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
     public float getDist()
     {
         return Dist;
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)        
-    {
-            if (stream.IsWriting)
-            {             
-                stream.SendNext(_gameReady);
-                stream.SendNext(Dist);
-                // stream.SendNext(transform.localScale);
-                Debug.Log("player 동기화 전송");
-            }
-            else
-            {          
-                this._gameReady = (bool)stream.ReceiveNext();
-                this.Dist = (float)stream.ReceiveNext();
-                // this.transform.localScale = (Vector3)stream.ReceiveNext();
-                Debug.Log("player 동기화 받음");
-            }
     }
 }
