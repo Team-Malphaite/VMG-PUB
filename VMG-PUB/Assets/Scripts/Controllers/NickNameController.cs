@@ -25,7 +25,7 @@ public class NickNameController : MonoBehaviourPunCallbacks
     void setNick()
     {
         GetComponent<TextMesh>().text = PhotonNetwork.LocalPlayer.NickName;
-        Debug.Log(PhotonNetwork.LocalPlayer.NickName);
+        //Debug.Log(PhotonNetwork.LocalPlayer.NickName);
     }
 
     [PunRPC]
