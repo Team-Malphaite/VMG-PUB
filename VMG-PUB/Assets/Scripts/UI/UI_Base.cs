@@ -45,6 +45,7 @@ public abstract class UI_Base : MonoBehaviourPunCallbacks
     protected GameObject GetGameObject(int idx) { return Get<GameObject>(idx); }
     protected ScrollRect GetScrollRect(int idx) { return Get<ScrollRect>(idx); }
     protected InputField GetInputField(int idx) { return Get<InputField>(idx); }
+    //protected ScrollView GetScrollView(int idx) { return Get<ScrollView>(idx); }
 
     public static void BindEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
     {
