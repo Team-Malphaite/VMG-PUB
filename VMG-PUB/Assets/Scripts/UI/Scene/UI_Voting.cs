@@ -13,7 +13,13 @@ public class UI_Voting : UI_Scene
     // }
     //public ScrollRect scrollListView = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
     public ScrollRect voteListView;
-    public ScrollRect test1;
+    public InputField voteNames;
+    public InputField voteFirsts;
+    public InputField voteSeconds;
+    public InputField voteThirds;
+    public InputField voteFourths;
+    public InputField voteFifths;
+
     
     public enum ScrollRects
     {
@@ -23,12 +29,25 @@ public class UI_Voting : UI_Scene
     public enum Buttons
     {
         voteList,
-        voteMake
+        voteMake,
+        makeButton
     }
 
     public enum Texts
     {
-        Balance, Account
+        Balance,
+        Account,
+
+    }
+
+    public enum InputFields
+    {
+        voteName,
+        voteFirst,
+        voteSecond,
+        voteThird,
+        voteFourth,
+        voteFifth,
     }
 
     // enum GameObjects
@@ -46,6 +65,13 @@ public class UI_Voting : UI_Scene
         Init();
 
         voteListView.gameObject.SetActive(false);
+        voteNames.gameObject.SetActive(false);
+        voteFirsts.gameObject.SetActive(false);
+        voteSeconds.gameObject.SetActive(false);
+        voteThirds.gameObject.SetActive(false);
+        voteFourths.gameObject.SetActive(false);
+        voteFifths.gameObject.SetActive(false);
+        makeButton.gameObject.SetActive(false);
     }
 
     public override void Init()
@@ -55,6 +81,7 @@ public class UI_Voting : UI_Scene
         Bind<Button>(typeof(Buttons));
         Bind<Text>(typeof(Texts));
         Bind<ScrollRect>(typeof(ScrollRects));
+        Bind<InputField>(typeof(InputFields));
 
         //scrollListView = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         
@@ -66,11 +93,18 @@ public class UI_Voting : UI_Scene
         // Bind<Image>(typeof(Images));
 
         voteListView = GetScrollRect((int)ScrollRects.scrollListView);
+        voteNames = GetInputField((int)InputFields.voteName);
+        voteFirsts = GetInputField((int)InputFields.voteFirst);
+        voteSeconds = GetInputField((int)InputFields.voteSecond);
+        voteThirds = GetInputField((int)InputFields.voteThird);
+        voteFourths = GetInputField((int)InputFields.voteFourth);
+        voteFifths = GetInputField((int)InputFields.voteFifth);
         //test1 = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         //voteListView = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         //scrollListView = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         GetButton((int)Buttons.voteList).gameObject.BindEvent(OnButtonListClicked);
         GetButton((int)Buttons.voteMake).gameObject.BindEvent(OnButtonMakeClicked);
+        GetButton((int)Buttons.makeButton).gameObject.BindEvent(OnMakeButtonCliked);
         
 
         // GameObject go = GetImage((int)Images.ItemIcon).gameObject;
@@ -83,9 +117,6 @@ public class UI_Voting : UI_Scene
     {
         GameObject go = EventSystem.current.currentSelectedGameObject;
         
-        
-        
-
         if(voteListView.gameObject.activeSelf == true)
         {
             voteListView.gameObject.SetActive(false);
@@ -117,14 +148,44 @@ public class UI_Voting : UI_Scene
     public void OnButtonMakeClicked(PointerEventData data)
     {
         GameObject go = EventSystem.current.currentSelectedGameObject;
-        if(go.name.Equals("voteMake")){
-            string title = "투표만들기";
-            string message = "투표 만들기";
-            Action okAction = () => Debug.Log("On Click Ok Button");
+        // if(go.name.Equals("voteMake")){
+        //     string title = "투표만들기";
+        //     string message = "투표 만들기";
+        //     Action okAction = () => Debug.Log("On Click Ok Button");
 
-            PopupWindowController.Instance.ShowOk(title, message, okAction);
+        //     PopupWindowController.Instance.ShowOk(title, message, okAction);
+        // }
+
+        if(voteNames.gameObject.activeSelf == true)
+        {
+            voteNames.gameObject.SetActive(false);
+            voteFirsts.gameObject.SetActive(false);
+            voteSeconds.gameObject.SetActive(false);
+            voteThirds.gameObject.SetActive(false);
+            voteFourths.gameObject.SetActive(false);
+            voteFifths.gameObject.SetActive(false);
+            makeButton.gameObject.SetActive(false);
+        }
+        else{
+            voteNames.gameObject.SetActive(true);
+            voteFirsts.gameObject.SetActive(true);
+            voteSeconds.gameObject.SetActive(true);
+            voteThirds.gameObject.SetActive(true);
+            voteFourths.gameObject.SetActive(true);
+            voteFifths.gameObject.SetActive(true);
+            makeButton.gameObject.SetActive(true);
         }
         
         
+    }
+    public void OnMakeButtonCliked(PointerEventData data)
+    {
+        string name = voteNames.text;
+        string first = voteFirsts.text;
+        string second = voteSeconds.text;    
+        string third = voteThirds.text;
+        string fourth = voteFourths.text;
+        string fifth = voteFifths.text;
+        Debug.Log(name+first+second+third+fourth+fifth);
     }
 }
