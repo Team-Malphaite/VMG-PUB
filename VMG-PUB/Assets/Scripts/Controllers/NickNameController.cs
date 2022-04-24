@@ -21,51 +21,41 @@ public class NickNameController : MonoBehaviourPunCallbacks
 
             transform.rotation = Camera.main.transform.rotation;
 
-            // if (player.GetComponent<PlayerController>()._mode == PlayerController.modeState.Game && !GameManagerEx.Instance.getGameStart())
-            // {
-            //     photonView.RPC("readyShow", RpcTarget.OthersBuffered, nick);
-            //     // GetComponent<TextMesh>().text = nick;
-            // }
-            //     // if (player.GetComponent<PlayerController>()._gameReady) GetComponent<TextMesh>().text = nick + "\nready";
-            //     // else GetComponent<TextMesh>().text = nick + "\nunready";
-            // // else GetComponent<TextMesh>().text = nick;
-            // else
-            // {
-            //     photonView.RPC("setNick", RpcTarget.OthersBuffered, nick);
-            //     GetComponent<TextMesh>().text = nick;
-            // }
-        }
-
-        if (player.GetComponent<PlayerController>()._mode == PlayerController.modeState.Game && !GameManagerEx.Instance.getGameStart())
+            if (player.GetComponent<PlayerController>()._mode == PlayerController.modeState.Game)
             {
-                photonView.RPC("readyShow", RpcTarget.AllBuffered);
-                // GetComponent<TextMesh>().text = nick;
+                if (!GameManagerEx.Instance.getGameStart())
+                    if (player.GetComponent<PlayerController>()._gameReady)
+                        photonView.RPC("readyShowReady", RpcTarget.AllBuffered);
+                    else
+                        photonView.RPC("readyShowUnready", RpcTarget.AllBuffered);
+                else
+                    photonView.RPC("setNick", RpcTarget.AllBuffered);
             }
-                // if (player.GetComponent<PlayerController>()._gameReady) GetComponent<TextMesh>().text = nick + "\nready";
-                // else GetComponent<TextMesh>().text = nick + "\nunready";
-            // else GetComponent<TextMesh>().text = nick;
             else
             {
-                // photonView.RPC("setNick", RpcTarget.OthersBuffered, nick);
-                // GetComponent<TextMesh>().text = nick;
-                nicknameUI.text = photonView.Owner.NickName;
+                photonView.RPC("setNick", RpcTarget.AllBuffered);
             }
+        }
     }
 
-    // [PunRPC]
-    // void setNick(string nick)
-    // {
-    //     // GetComponent<TextMesh>().text = PhotonNetwork.LocalPlayer.NickName;
-    //     //Debug.Log(PhotonNetwork.LocalPlayer.NickName);
-    //     this.nick = nick;
-    //     GetComponent<TextMesh>().text = nick;
-    // }
+    [PunRPC]
+    void setNick()
+    {
+        // GetComponent<TextMesh>().text = PhotonNetwork.LocalPlayer.NickName;
+        //Debug.Log(PhotonNetwork.LocalPlayer.NickName);
+        nicknameUI.text = photonView.Owner.NickName;
+    }
 
     [PunRPC]
-    void readyShow()
+    void readyShowReady()
     {
-        if (player.GetComponent<PlayerController>()._gameReady) nicknameUI.text =  photonView.Owner.NickName + '\n' + "ready";
-        else nicknameUI.text = photonView.Owner.NickName + '\n' + "unready";
+        nicknameUI.text = photonView.Owner.NickName + '\n' + "ready";
+    }
+
+    [PunRPC]
+    void readyShowUnready()
+    {
+        nicknameUI.text =  photonView.Owner.NickName + '\n' + "unready";
     }
 }
 
