@@ -19,6 +19,7 @@ public class UI_Voting : UI_Scene
     public InputField voteThirds;
     public InputField voteFourths;
     public InputField voteFifths;
+    public Button makeButtons;
 
     
     public enum ScrollRects
@@ -71,7 +72,7 @@ public class UI_Voting : UI_Scene
         voteThirds.gameObject.SetActive(false);
         voteFourths.gameObject.SetActive(false);
         voteFifths.gameObject.SetActive(false);
-        makeButton.gameObject.SetActive(false);
+        makeButtons.gameObject.SetActive(false);
     }
 
     public override void Init()
@@ -99,6 +100,7 @@ public class UI_Voting : UI_Scene
         voteThirds = GetInputField((int)InputFields.voteThird);
         voteFourths = GetInputField((int)InputFields.voteFourth);
         voteFifths = GetInputField((int)InputFields.voteFifth);
+        makeButtons = GetButton((int)Buttons.makeButton);
         //test1 = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         //voteListView = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         //scrollListView = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
@@ -164,7 +166,7 @@ public class UI_Voting : UI_Scene
             voteThirds.gameObject.SetActive(false);
             voteFourths.gameObject.SetActive(false);
             voteFifths.gameObject.SetActive(false);
-            makeButton.gameObject.SetActive(false);
+            makeButtons.gameObject.SetActive(false);
         }
         else{
             voteNames.gameObject.SetActive(true);
@@ -173,7 +175,7 @@ public class UI_Voting : UI_Scene
             voteThirds.gameObject.SetActive(true);
             voteFourths.gameObject.SetActive(true);
             voteFifths.gameObject.SetActive(true);
-            makeButton.gameObject.SetActive(true);
+            makeButtons.gameObject.SetActive(true);
         }
         
         
