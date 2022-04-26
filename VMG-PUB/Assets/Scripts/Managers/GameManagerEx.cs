@@ -16,6 +16,7 @@ public class GameManagerEx : MonoBehaviour, IPunObservable
     bool gameStart = false;
     bool isFinished = false;
     bool musicChange = true;
+    bool gameOver = false;
     
     private void Awake()
     { 
@@ -112,6 +113,16 @@ public class GameManagerEx : MonoBehaviour, IPunObservable
     public bool getGameFinished()
     {
         return isFinished;
+    }
+
+    public void setGameOver()
+    {
+        gameOver = true;
+    }
+
+    public bool getGameOver()
+    {
+        return gameOver;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)        
