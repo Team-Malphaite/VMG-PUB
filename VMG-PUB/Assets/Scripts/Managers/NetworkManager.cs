@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    public string NickName = "test1";
+    public string NickName = "hohyun";
     public string gameVersion = "1.0";
     GameObject player = null;
 

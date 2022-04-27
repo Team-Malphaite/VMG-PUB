@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class UI_Voting : UI_Scene
 {
+    public static UI_Voting Instance = null;
     // enum voteListViews
     // {
     //     scrollListView
@@ -20,7 +21,7 @@ public class UI_Voting : UI_Scene
     public InputField voteFourths;
     public InputField voteFifths;
     public Button makeButtons;
-
+    public Text walletAddress;
     
     public enum ScrollRects
     {
@@ -36,8 +37,7 @@ public class UI_Voting : UI_Scene
 
     public enum Texts
     {
-        Balance,
-        Account,
+        walletAddress
 
     }
 
@@ -75,6 +75,10 @@ public class UI_Voting : UI_Scene
         makeButtons.gameObject.SetActive(false);
     }
 
+    private void Awake() {
+        Instance = this;
+    }
+
     public override void Init()
     {
         base.Init();
@@ -101,6 +105,7 @@ public class UI_Voting : UI_Scene
         voteFourths = GetInputField((int)InputFields.voteFourth);
         voteFifths = GetInputField((int)InputFields.voteFifth);
         makeButtons = GetButton((int)Buttons.makeButton);
+        walletAddress = GetText((int)Texts.walletAddress);
         //test1 = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         //voteListView = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         //scrollListView = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
@@ -111,6 +116,11 @@ public class UI_Voting : UI_Scene
 
         // GameObject go = GetImage((int)Images.ItemIcon).gameObject;
         // BindEvent(go, (PointerEventData data) => { go.gameObject.transform.position = data.position; }, Define.UIEvent.Drag);
+    }
+
+    private void Update()
+    {
+        setWalletAddress(walletAddress.text);
     }
 
     // int _score = 0;
@@ -189,5 +199,22 @@ public class UI_Voting : UI_Scene
         string fourth = voteFourths.text;
         string fifth = voteFifths.text;
         Debug.Log(name+first+second+third+fourth+fifth);
+    }
+
+    public void setWalletAddress(string account)
+    {
+        walletAddress.text = account;
+        Debug.Log(account);
+        // if(Metamask.Instance._metamaskCheck == true)
+        // {
+        //     walletAddress.text = account;
+        //     Debug.Log(account);
+        // }
+        // else
+        // {
+        //     walletAddress.text = "0x00000000000000000000000000000000000000";
+        //     // Metamask.Instance.setcheckmetamask(true);
+        // }
+        
     }
 }

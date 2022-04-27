@@ -22,8 +22,10 @@ public class SquareScene : BaseScene
         cam.name = "@Main Camera";
         
         GameObject chat = null;
+        GameObject metamask = null;
         // 초기화
         chat = GameObject.Find("@Chatting");
+        metamask = GameObject.Find("@Metamask");
 
         if (chat == null)
         {
@@ -31,11 +33,17 @@ public class SquareScene : BaseScene
             chat.AddComponent<ChatManager>();
             chat.AddComponent<PhotonView>();
         }
+        
+        if (metamask == null)
+        {
+            chat = new GameObject { name = "@Metamask"};
+            chat.AddComponent<Metamask>();    
+        }
         // Managers.UI.ShowSceneUI<UI_Inven>();
         Managers.UI.ShowSceneUI<UI_Square>();
         Managers.UI.ShowPopupUI<PopupWindowController>();
         Managers.UI.ShowPopupUI<UI_Chat>();
-        
+        DontDestroyOnLoad(metamask);
         // DontDestroyOnLoad(Managers.UI.ShowPopupUI<PopupWindowController>());
     }
 
