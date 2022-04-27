@@ -13,6 +13,7 @@ public class UI_Game : UI_Scene
     {
         Ready,
         Exit,
+        MusicOnOff,
     }
 
     // enum GameObjects
@@ -40,12 +41,13 @@ public class UI_Game : UI_Scene
         ReadyButtonText,
         Rank,
         Timer,
+        MusicText,
     }
 
-    int StartTimer = 0;
-    int FinishTimer = 0;
+    // int StartTimer = 0;
+    // int FinishTimer = 0;
 
-    float m_TotalSeconds = 1 * 60;
+    // float m_TotalSeconds = 5 * 60;
     string m_Timer = @"00:00";
 
     RawImage Finished;
@@ -90,6 +92,7 @@ public class UI_Game : UI_Scene
         GetRawImage((int)RawImages.GameOver).gameObject.SetActive(false);
         GetText((int)Texts.Rank).gameObject.SetActive(false);
         GetText((int)Texts.Timer).gameObject.SetActive(false);
+        GetButton((int)Buttons.MusicOnOff).gameObject.BindEvent(OnButtonClickedMusic);
 
         Finished = GetRawImage((int)RawImages.Finished);
         Victory = GetRawImage((int)RawImages.Victory);
@@ -163,41 +166,58 @@ public class UI_Game : UI_Scene
         PopupWindowController.Instance.ShowYesNoGameExit(title, message, yesAction, noAction);
     }
 
+    public void OnButtonClickedMusic(PointerEventData data)
+    {
+        GameObject go = EventSystem.current.currentSelectedGameObject;
+
+        if (GetText((int)Texts.MusicText).text == "음악끄기")
+        {
+            GetText((int)Texts.MusicText).text = "음악켜기";
+            Camera.main.GetComponent<AudioSource>().Pause();
+        }
+        else
+        {
+            GetText((int)Texts.MusicText).text = "음악끄기";
+            Camera.main.GetComponent<AudioSource>().Play();
+        }
+        
+    }
+
     void CountDown()
     {
         // if (StartTimer == 0) Time.timeScale = 0.0f;
-        if (StartTimer <= 195)
+        if (GameManagerEx.Instance.getStarterTimer() <= 225)
         {
-            StartTimer++;
+            GameManagerEx.Instance.setStarterTimerPlus();
             
-            if (StartTimer < 60) GetRawImage((int)RawImages.Explain).gameObject.SetActive(true);
-            if (StartTimer > 60) 
+            if (GameManagerEx.Instance.getStarterTimer() < 60) GetRawImage((int)RawImages.Explain).gameObject.SetActive(true);
+            if (GameManagerEx.Instance.getStarterTimer() > 60) 
             {
                 GetRawImage((int)RawImages.Explain).gameObject.SetActive(false);
                 GetRawImage((int)RawImages.TimeExplain).gameObject.SetActive(true);
             }
-            if (StartTimer > 90) 
+            if (GameManagerEx.Instance.getStarterTimer() > 120) 
             {
                 GetRawImage((int)RawImages.TimeExplain).gameObject.SetActive(false);
                 GetRawImage((int)RawImages.Three).gameObject.SetActive(true);
             }
-            if (StartTimer > 120) 
+            if (GameManagerEx.Instance.getStarterTimer() > 150) 
             {
                 GetRawImage((int)RawImages.Three).gameObject.SetActive(false);
                 GetRawImage((int)RawImages.Two).gameObject.SetActive(true);
             }
-            if (StartTimer > 150) 
+            if (GameManagerEx.Instance.getStarterTimer() > 180) 
             {
                 GetRawImage((int)RawImages.Two).gameObject.SetActive(false);
                 GetRawImage((int)RawImages.One).gameObject.SetActive(true);
             }
-            if (StartTimer > 180) 
+            if (GameManagerEx.Instance.getStarterTimer() > 210) 
             {
                 GetRawImage((int)RawImages.One).gameObject.SetActive(false);
                 GetRawImage((int)RawImages.Start).gameObject.SetActive(true);
                 // StartCoroutine(RunFadeOut());
             }
-            if (StartTimer >= 195)
+            if (GameManagerEx.Instance.getStarterTimer() >= 225)
             {
                 GetRawImage((int)RawImages.Start).gameObject.SetActive(false);
                 // Time.timeScale = 1.0f;
@@ -212,22 +232,22 @@ public class UI_Game : UI_Scene
             if (rank == 1)
             {
                 // if (FinishTimer == 0) Time.timeScale = 0.0f;
-                if (FinishTimer <= 300)
+                if (GameManagerEx.Instance.getFinishTimer() <= 300)
                 {
-                    FinishTimer++;
+                    GameManagerEx.Instance.setFinishTimerPlus();
                     
-                    if (FinishTimer < 60) Victory.gameObject.SetActive(true);
-                    if (FinishTimer > 60) 
+                    if (GameManagerEx.Instance.getFinishTimer() < 60) Victory.gameObject.SetActive(true);
+                    if (GameManagerEx.Instance.getFinishTimer() > 60) 
                     {
                         Victory.gameObject.SetActive(false);
                         Finished.gameObject.SetActive(true);
                     }
-                    if (FinishTimer > 90) 
+                    if (GameManagerEx.Instance.getFinishTimer() > 90) 
                     {
                         Finished.gameObject.SetActive(false);
                         ReturnSquare.gameObject.SetActive(true);
                     }
-                    if (FinishTimer >= 240)
+                    if (GameManagerEx.Instance.getFinishTimer() >= 240)
                     {
                         // Time.timeScale = 1.0f;
                         player.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
@@ -240,22 +260,22 @@ public class UI_Game : UI_Scene
             else if (rank != 1)
             {
                 // if (FinishTimer == 0) Time.timeScale = 0.0f;
-                if (FinishTimer <= 300)
+                if (GameManagerEx.Instance.getFinishTimer() <= 300)
                 {
-                    FinishTimer++;
+                    GameManagerEx.Instance.setFinishTimerPlus();
                     
-                    if (FinishTimer < 60) Finished.gameObject.SetActive(true);
-                    if (FinishTimer > 60) 
+                    if (GameManagerEx.Instance.getFinishTimer() < 60) Finished.gameObject.SetActive(true);
+                    if (GameManagerEx.Instance.getFinishTimer() > 60) 
                     {
                         Finished.gameObject.SetActive(false);
                         NextVictory.gameObject.SetActive(true);
                     }
-                    if (FinishTimer > 90) 
+                    if (GameManagerEx.Instance.getFinishTimer() > 90) 
                     {
                         NextVictory.gameObject.SetActive(false);
                         ReturnSquare.gameObject.SetActive(true);
                     }
-                    if (FinishTimer >= 240)
+                    if (GameManagerEx.Instance.getFinishTimer() >= 240)
                     {
                         // Time.timeScale = 1.0f;
                         player.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
@@ -283,14 +303,14 @@ public class UI_Game : UI_Scene
 
     void TimerUpdate()
     {
-        m_TotalSeconds -= Time.deltaTime;
+        GameManagerEx.Instance.setMinusTotalSecond(Time.deltaTime);
 
-        TimeSpan timespan = TimeSpan.FromSeconds(m_TotalSeconds);
+        TimeSpan timespan = TimeSpan.FromSeconds(GameManagerEx.Instance.getTotalSecond());
         string timer = string.Format("{0:00}:{1:00}", timespan.Minutes, timespan.Seconds);
 
         GetText((int)Texts.Timer).text = timer;
 
-        if (m_TotalSeconds <= 0) 
+        if (GameManagerEx.Instance.getTotalSecond() <= 0) 
         { 
             SetZero(); 
             GameManagerEx.Instance.setGameOver();
@@ -300,7 +320,7 @@ public class UI_Game : UI_Scene
     void SetZero() 
     { 
         m_Timer = @"00:00";
-        m_TotalSeconds = 0;
+        GameManagerEx.Instance.setZeroTotalSecond();
     }
 
     void GameOverUpdate()
@@ -308,27 +328,27 @@ public class UI_Game : UI_Scene
         //
         if (GameManagerEx.Instance.getGameOver())
         {
-            if (FinishTimer <= 300)
+            if (GameManagerEx.Instance.getFinishTimer() <= 300)
                 {
-                    FinishTimer++;
+                    GameManagerEx.Instance.setFinishTimerPlus();
                     
-                    if (FinishTimer < 60) GameOver.gameObject.SetActive(true);
-                    if (FinishTimer > 60) 
+                    if (GameManagerEx.Instance.getFinishTimer() < 60) GameOver.gameObject.SetActive(true);
+                    if (GameManagerEx.Instance.getFinishTimer() > 60) 
                     {
                         GameOver.gameObject.SetActive(false);
                         Finished.gameObject.SetActive(true);
                     }
-                    if (FinishTimer > 90) 
+                    if (GameManagerEx.Instance.getFinishTimer() > 90) 
                     {
                         Finished.gameObject.SetActive(false);
                         NextVictory.gameObject.SetActive(true);
                     }
-                    if (FinishTimer > 120) 
+                    if (GameManagerEx.Instance.getFinishTimer() > 120) 
                     {
                         NextVictory.gameObject.SetActive(false);
                         ReturnSquare.gameObject.SetActive(true);
                     }
-                    if (FinishTimer >= 270)
+                    if (GameManagerEx.Instance.getFinishTimer() >= 270)
                     {
                         // Time.timeScale = 1.0f;
                         player.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;

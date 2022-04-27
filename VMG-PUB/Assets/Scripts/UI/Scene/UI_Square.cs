@@ -13,11 +13,13 @@ public class UI_Square : UI_Scene
         Ranking,
         Explain,
         Logout,
+        MusicOnOff,
     }
 
     enum Texts
     {
         Balance,
+        MusicText,
     }
 
     // enum GameObjects
@@ -44,10 +46,11 @@ public class UI_Square : UI_Scene
         // Bind<GameObject>(typeof(GameObjects));
         // Bind<Image>(typeof(Images));
 
-        GetButton((int)Buttons.Game).gameObject.BindEvent(OnButtonClicked);
-        GetButton((int)Buttons.Ranking).gameObject.BindEvent(OnButtonClicked);
-        GetButton((int)Buttons.Explain).gameObject.BindEvent(OnButtonClicked);
-        GetButton((int)Buttons.Logout).gameObject.BindEvent(OnButtonClicked);
+        GetButton((int)Buttons.Game).gameObject.BindEvent(OnButtonClickedGame);
+        GetButton((int)Buttons.Ranking).gameObject.BindEvent(OnButtonClickedRanking);
+        GetButton((int)Buttons.Explain).gameObject.BindEvent(OnButtonClickedExplain);
+        GetButton((int)Buttons.Logout).gameObject.BindEvent(OnButtonClickedLogout);
+        GetButton((int)Buttons.MusicOnOff).gameObject.BindEvent(OnButtonClickedMusic);
 
         // GameObject go = GetImage((int)Images.ItemIcon).gameObject;
         // BindEvent(go, (PointerEventData data) => { go.gameObject.transform.position = data.position; }, Define.UIEvent.Drag);
@@ -55,45 +58,65 @@ public class UI_Square : UI_Scene
 
     // int _score = 0;
 
-    public void OnButtonClicked(PointerEventData data)
+    public void OnButtonClickedRanking(PointerEventData data)
     {
         GameObject go = EventSystem.current.currentSelectedGameObject;
-        if(go.name.Equals("Ranking"))
-        {
-            string title = "게임 랭킹";
-            string message = "랭킹 내용";
-            Action okAction = () => Debug.Log("On Click Ok Button");
+        string title = "게임 랭킹";
+        string message = "랭킹 내용";
+        Action okAction = () => Debug.Log("On Click Ok Button");
 
-            PopupWindowController.Instance.ShowOk(title, message, okAction);
-        }
-        if(go.name.Equals("Explain"))
-        {
-            string title = "설명서";
-            string message = "설명 내용";
-            Action okAction = () => Debug.Log("On Click Ok Button");
+        PopupWindowController.Instance.ShowOk(title, message, okAction);
+    }
 
-            PopupWindowController.Instance.ShowOk(title, message, okAction);
-        }
-        if(go.name.Equals("Logout"))
-        {
-            string title = "로그아웃";
-            string message = "로그아웃 하시겠습니까?";
-            Action yesAction = () => Debug.Log("On Click Yes Button");
-            Action noAction = () => Debug.Log("On Click No Button");
+    public void OnButtonClickedExplain(PointerEventData data)
+    {
+        GameObject go = EventSystem.current.currentSelectedGameObject;
+        
+        string title = "설명서";
+        string message = "설명 내용";
+        Action okAction = () => Debug.Log("On Click Ok Button");
 
-            PopupWindowController.Instance.ShowYesNo(title, message, yesAction, noAction);
-        }
-        if(go.name.Equals("Game"))
-        {
-            string title = "게임";
-            string message = "게임에 입장하시겠습니까?";
-            Action yesAction = () => Debug.Log("On Click Yes Button");
-            Action noAction = () => Debug.Log("On Click No Button");
+        PopupWindowController.Instance.ShowOk(title, message, okAction);
+    }
 
-            PopupWindowController.Instance.ShowYesNoGame(title, message, yesAction, noAction);
+    public void OnButtonClickedLogout(PointerEventData data)
+    {
+        GameObject go = EventSystem.current.currentSelectedGameObject;
+        
+        string title = "로그아웃";
+        string message = "로그아웃 하시겠습니까?";
+        Action yesAction = () => Debug.Log("On Click Yes Button");
+        Action noAction = () => Debug.Log("On Click No Button");
+
+        PopupWindowController.Instance.ShowYesNo(title, message, yesAction, noAction);
+    }
+
+    public void OnButtonClickedGame(PointerEventData data)
+    {
+        GameObject go = EventSystem.current.currentSelectedGameObject;
+        
+        string title = "게임";
+        string message = "게임에 입장하시겠습니까?";
+        Action yesAction = () => Debug.Log("On Click Yes Button");
+        Action noAction = () => Debug.Log("On Click No Button");
+
+        PopupWindowController.Instance.ShowYesNoGame(title, message, yesAction, noAction);
+    }
+
+    public void OnButtonClickedMusic(PointerEventData data)
+    {
+        GameObject go = EventSystem.current.currentSelectedGameObject;
+
+        if (GetText((int)Texts.MusicText).text == "음악끄기")
+        {
+            GetText((int)Texts.MusicText).text = "음악켜기";
+            Camera.main.GetComponent<AudioSource>().Pause();
         }
-        // _score++;
-        // GetText((int)Texts.ScoreText).text = $"점수 : {_score}점";
+        else
+        {
+            GetText((int)Texts.MusicText).text = "음악끄기";
+            Camera.main.GetComponent<AudioSource>().Play();
+        }
         
     }
 }
