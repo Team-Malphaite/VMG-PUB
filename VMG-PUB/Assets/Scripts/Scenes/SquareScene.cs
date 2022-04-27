@@ -36,15 +36,14 @@ public class SquareScene : BaseScene
         
         if (metamask == null)
         {
-            chat = new GameObject { name = "@Metamask"};
-            chat.AddComponent<Metamask>();    
+            metamask = new GameObject { name = "@Metamask"};
+            metamask.AddComponent<Metamask>();    
         }
         // Managers.UI.ShowSceneUI<UI_Inven>();
         Managers.UI.ShowSceneUI<UI_Square>();
         Managers.UI.ShowPopupUI<PopupWindowController>();
         Managers.UI.ShowPopupUI<UI_Chat>();
         DontDestroyOnLoad(metamask);
-        // DontDestroyOnLoad(Managers.UI.ShowPopupUI<PopupWindowController>());
     }
 
     public override void Clear()
