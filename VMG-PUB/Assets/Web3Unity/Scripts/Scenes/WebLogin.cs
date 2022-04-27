@@ -53,6 +53,12 @@ public class WebLogin : MonoBehaviour
         // load next scene
         Debug.Log("web login connect");
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+        // 이거 보팅룸에 들어 갔을때만 출력하는 예외처리
+        //Metamask.Instance.setcheckmetamask(); 
+        UI_Voting.Instance.setWalletAddress(account);
+        
+
     }
 
     public void OnSkip()
