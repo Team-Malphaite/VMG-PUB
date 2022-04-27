@@ -32,13 +32,14 @@ public class UI_Voting : UI_Scene
     {
         voteList,
         voteMake,
-        makeButton
+        makeButton,
+        MusicOnOff,
     }
 
     public enum Texts
     {
-        walletAddress
-
+        walletAddress,
+        MusicText,
     }
 
     public enum InputFields
@@ -112,6 +113,7 @@ public class UI_Voting : UI_Scene
         GetButton((int)Buttons.voteList).gameObject.BindEvent(OnButtonListClicked);
         GetButton((int)Buttons.voteMake).gameObject.BindEvent(OnButtonMakeClicked);
         GetButton((int)Buttons.makeButton).gameObject.BindEvent(OnMakeButtonCliked);
+        GetButton((int)Buttons.MusicOnOff).gameObject.BindEvent(OnButtonClickedMusic);
         
 
         // GameObject go = GetImage((int)Images.ItemIcon).gameObject;
@@ -215,6 +217,23 @@ public class UI_Voting : UI_Scene
         //     walletAddress.text = "0x00000000000000000000000000000000000000";
         //     // Metamask.Instance.setcheckmetamask(true);
         // }
+        
+    }
+
+    public void OnButtonClickedMusic(PointerEventData data)
+    {
+        GameObject go = EventSystem.current.currentSelectedGameObject;
+
+        if (GetText((int)Texts.MusicText).text == "음악끄기")
+        {
+            GetText((int)Texts.MusicText).text = "음악켜기";
+            Camera.main.GetComponent<AudioSource>().Pause();
+        }
+        else
+        {
+            GetText((int)Texts.MusicText).text = "음악끄기";
+            Camera.main.GetComponent<AudioSource>().Play();
+        }
         
     }
 }
