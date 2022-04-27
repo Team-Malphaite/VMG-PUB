@@ -5,6 +5,7 @@ using System;
 using UnityEngine.UI;
 using Photon.Pun;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public abstract class UI_Base : MonoBehaviourPunCallbacks
 {
@@ -46,6 +47,7 @@ public abstract class UI_Base : MonoBehaviourPunCallbacks
     protected ScrollRect GetScrollRect(int idx) { return Get<ScrollRect>(idx); }
     protected InputField GetInputField(int idx) { return Get<InputField>(idx); }
     //protected ScrollView GetScrollView(int idx) { return Get<ScrollView>(idx); }
+    protected TMP_InputField GetTMP_InputField(int idx) { return Get<TMP_InputField>(idx); }
 
     public static void BindEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
     {

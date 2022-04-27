@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class UI_SelectInfoInput : UI_Popup
 {
     public static UI_SelectInfoInput Instance;
     public Button nextButton;
     public Button backButton;
-    public InputField nick;
+    public TMP_InputField nick;
     GameObject background;
     public string selectCharacterName;
     enum Buttons
@@ -41,7 +42,7 @@ public class UI_SelectInfoInput : UI_Popup
         nextButton = GetButton((int)Buttons.Next);
         backButton = GetButton((int)Buttons.Back);
         background = GetGameObject((int)GameObjects.Background).gameObject;
-        nick = GetInputField((int)InputFields.Nick);
+        nick = GetTMP_InputField((int)InputFields.Nick);
         ShowOff();
         selectCharacterName = Camera.main.GetComponent<SelectCameraController>().selectCharacterName;
     }
@@ -51,11 +52,11 @@ public class UI_SelectInfoInput : UI_Popup
 
         Bind<Button>(typeof(Buttons));
         Bind<GameObject>(typeof(GameObjects));
-        Bind<InputField>(typeof(InputFields));
+        Bind<TMP_InputField>(typeof(InputFields));
 
         GetButton((int)Buttons.Next).gameObject.BindEvent(OnButtonClickedNext);
         GetButton((int)Buttons.Back).gameObject.BindEvent(OnButtonClickedBack);
-        GetInputField((int)InputFields.Nick).gameObject.BindEvent(OnInputFieldClicked);
+        GetTMP_InputField((int)InputFields.Nick).gameObject.BindEvent(OnInputFieldClicked);
 
     }
 

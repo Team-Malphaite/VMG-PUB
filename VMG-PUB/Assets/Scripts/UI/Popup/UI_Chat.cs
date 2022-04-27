@@ -5,11 +5,12 @@ using UnityEngine;
 using Photon.Realtime;
 using Photon.Pun;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class UI_Chat : UI_Popup
 {
     public static UI_Chat Instance;
-    public InputField inputs;
+    public TMP_InputField inputs;
     public ScrollRect scrolls;
     public Text logs;
     public enum Buttons
@@ -55,10 +56,10 @@ public class UI_Chat : UI_Popup
 
         Bind<Button>(typeof(Buttons));
         Bind<Text>(typeof(Texts));
-        Bind<InputField>(typeof(InputFields));
+        Bind<TMP_InputField>(typeof(InputFields));
         Bind<ScrollRect>(typeof(ScrollRects));
         // GameObject go = GetImage((int)Images.ItemIcon).gameObject;
-        inputs = GetInputField((int)InputFields.input);
+        inputs = GetTMP_InputField((int)InputFields.input);
         scrolls = GetScrollRect((int)ScrollRects.ScrollRect);
         logs = GetText((int)Texts.chatLog);
         
