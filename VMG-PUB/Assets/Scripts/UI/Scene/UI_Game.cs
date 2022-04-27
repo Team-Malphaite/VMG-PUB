@@ -45,7 +45,7 @@ public class UI_Game : UI_Scene
     int StartTimer = 0;
     int FinishTimer = 0;
 
-    float m_TotalSeconds = 5 * 60;
+    float m_TotalSeconds = 1 * 60;
     string m_Timer = @"00:00";
 
     RawImage Finished;
