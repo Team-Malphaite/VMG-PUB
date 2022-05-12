@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
 using TMPro;
+using System.Threading;
 
 public class UI_SelectInfoInput : UI_Popup
 {
@@ -66,14 +67,34 @@ public class UI_SelectInfoInput : UI_Popup
         Debug.Log("click yes button");
         Debug.Log(selectCharacterName + "을 최종 선택했어요");
         Debug.Log(nick.text + "가 최종 이름했어요");
-      /*  Debug.Log(AuthHandler.Instance.emailAddress + "가 현재 접속중인이메일주소");
+        //파이어베이스 부분
+        /*
+        Debug.Log(AuthHandler.Instance.emailAddress + "가 현재 접속중인이메일주소");
+        AuthHandler.Instance.name=nick.text;
+        AuthHandler.Instance.GetDocumentNameCheck();
+        Debug.Log("현재 name 의 값 ="+AuthHandler.Instance.name);
+        Invoke("checkName",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌*/
 
-        AuthHandler.Instance.name = nick.text;
-        AuthHandler.Instance.charcter = selectCharacterName;
-        AuthHandler.Instance.SetDocument();*/
+
 
         Managers.Scene.LoadScene(Define.Scene.Square);
-        Managers.Network.OnLogin();
+        Managers.Network.OnLogin();  
+    }
+    void checkName()
+    {
+         if(AuthHandler.Instance.statusText == "null"){ //중복되는 이름이 없을때 실행돼서 로그인 됨 
+
+          AuthHandler.Instance.name = nick.text;
+          AuthHandler.Instance.charcter = selectCharacterName;
+          AuthHandler.Instance.SetDocument();
+          Managers.Network.NickName = AuthHandler.Instance.name;
+          Managers.Scene.LoadScene(Define.Scene.Square);
+          Managers.Network.OnLogin();
+    
+        }else{
+            Debug.Log("중복되는 이름 있어요");
+            nick.text ="중복되는 이름 있어요";
+       }  
     }
     
     public void OnButtonClickedBack(PointerEventData data)

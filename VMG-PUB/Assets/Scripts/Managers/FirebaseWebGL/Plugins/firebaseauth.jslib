@@ -97,6 +97,34 @@ mergeInto(LibraryManager.library, {
             unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
         }
     },
+     GetDocumentNameCheck: function ( checkName,objectName, callback, fallback) {   //이름 중복체크하는 함수 
+         var parsedCheckName = UTF8ToString(checkName);
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedCallback = UTF8ToString(callback);
+        var parsedFallback = UTF8ToString(fallback);
+        var userBuffer =null;
+
+        try {
+            firebase.firestore().collection("user").where("name", "==", parsedCheckName).get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc){//조건에 맞는 데이터 없으면 실행이안됨
+                    userBuffer=doc.data();//doc데이터를 내가 지정한 문서로 분해  - 이렇게하는 이유는 파이어베이스에서 리턴을 자신들의 방법으로 하기때문
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedCallback,JSON.stringify(userBuffer.character));                    
+                   
+                });
+                if(userBuffer == null){ // 데이터가 없어서 null 상태 그대로임
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedCallback,"null");      
+                                    console.log(userBuffer);
+              
+                }
+                
+            }).catch(function(error) {
+                unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+            });
+
+        } catch (error) {
+            unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
+        }
+    },
 
 ////////////////////////////////////////////////////////////
 

@@ -27,8 +27,8 @@ public class UI_Login : UI_Scene
     {
         Init();
     }
-    /*
-    private void Update() {
+    //파이어베이스 부분
+  /*  private void Update() {
         if(AuthHandler.Instance.statusText =="Success: signed in with Google!")
             {   
 
@@ -37,6 +37,8 @@ public class UI_Login : UI_Scene
               Action okAction = () => Debug.Log("On Click Login Ok Button");
               AuthHandler.Instance.GetUserAuthDataEmail();
               AuthHandler.Instance.GetDocument();
+              Managers.Network.NickName = AuthHandler.Instance.name;
+
               Debug.Log("On Click Login Ok Button 어스 핸들러의 캐릭터값 = "+ AuthHandler.Instance.charcter);
              
               PopupWindowController.Instance.ShowOkLogin(title, message, okAction);
@@ -72,8 +74,8 @@ public class UI_Login : UI_Scene
               string message = "로그인 체크";
               Action okAction = () => Debug.Log("On Click Login Ok Button");
                PopupWindowController.Instance.ShowOkLogin(title, message, okAction);
-   
-            //AuthHandler.Instance.SignInWithGoogle();
+   //파이어베이스 부분
+           // AuthHandler.Instance.SignInWithGoogle();
             
 
 

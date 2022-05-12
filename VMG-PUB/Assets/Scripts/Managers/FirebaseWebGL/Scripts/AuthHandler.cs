@@ -37,11 +37,14 @@ using UnityEngine.UI;
         private void DisplayError(string errortext)
         {
             statusText = errortext;
+            Debug.Log("로그인 체크 결과 값 = "+statusText);
         }
  
         private void DisPlayInfo(string Infotext)
         {
             statusText = Infotext;
+            Debug.Log("로그인 체크 결과 값 = "+statusText);
+
         }
         private void GetEmailData(string Infotext)
         {
@@ -54,7 +57,6 @@ using UnityEngine.UI;
         private void ReadPlayerName(string Infotext)
         {
                 name= string.Join("" , Infotext.Split('"'));
-
         }
 
          //public static AuthHandler Instance; // singleton 변수
@@ -70,6 +72,9 @@ using UnityEngine.UI;
             FirebaseAuth.SetDocument("user",  emailAddress,  emailAddress , charcter , name , gameObject.name,"DisplayInfo", "DisplayError");
           public void GetDocument() =>   //데베 읽기 - 캐릭터 정보 읽어옴
             FirebaseAuth.GetDocument("user", emailAddress, gameObject.name, "ReadPlayerData", "ReadPlayerName", "DisplayError");
+       public void GetDocumentNameCheck() =>  
+            FirebaseAuth.GetDocumentNameCheck(name , gameObject.name , "DisPlayInfo",  "DisplayError");
+
 
 
  
