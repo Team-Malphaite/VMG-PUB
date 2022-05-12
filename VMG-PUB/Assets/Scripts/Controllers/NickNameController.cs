@@ -15,11 +15,12 @@ public class NickNameController : MonoBehaviourPunCallbacks
     }
     void Update()
     {
+        transform.rotation = Camera.main.transform.rotation;
         if (photonView.IsMine)
         {
             player = GameObject.Find("@Player");
 
-            transform.rotation = Camera.main.transform.rotation;
+            // transform.rotation = Camera.main.transform.rotation;
 
             if (player.GetComponent<PlayerController>()._mode == PlayerController.modeState.Game)
             {
@@ -43,18 +44,23 @@ public class NickNameController : MonoBehaviourPunCallbacks
     {
         // GetComponent<TextMesh>().text = PhotonNetwork.LocalPlayer.NickName;
         //Debug.Log(PhotonNetwork.LocalPlayer.NickName);
+
+        //nicknameUI.text = AuthHandler.Instance.name;
+
         nicknameUI.text = photonView.Owner.NickName;
     }
 
     [PunRPC]
     void readyShowReady()
-    {
+    {        //nicknameUI.text = AuthHandler.Instance.name + '\n' + "ready";
+
         nicknameUI.text = photonView.Owner.NickName + '\n' + "ready";
     }
 
     [PunRPC]
     void readyShowUnready()
-    {
+    {        //nicknameUI.text =  AuthHandler.Instance.name + '\n' + "unready";
+
         nicknameUI.text =  photonView.Owner.NickName + '\n' + "unready";
     }
 }

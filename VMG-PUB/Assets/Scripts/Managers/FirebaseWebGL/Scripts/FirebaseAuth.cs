@@ -16,6 +16,8 @@ using System.Runtime.InteropServices;
 
         [DllImport("__Internal")]
         public static extern void GetDocument(string collectionPath, string documentId, string objectName, string callback, string nameCallback,string fallback);
+       [DllImport("__Internal")]
+        public static extern void GetDocumentNameCheck(string parsedCheckName,string objectName, string callback, string fallback);
 
 
 
