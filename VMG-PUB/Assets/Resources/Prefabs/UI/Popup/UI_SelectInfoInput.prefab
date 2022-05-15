@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 3582439817074966579}
   - component: {fileID: 4598283314647168943}
   - component: {fileID: 5767960766762680939}
+  - component: {fileID: 7445475437747460463}
   m_Layer: 5
   m_Name: Nick
   m_TagString: Untagged
@@ -296,6 +297,19 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
+--- !u!114 &7445475437747460463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167358860138151778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc33a39070010f94fb1c2dd721c1286d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showHtmlElement: 0
 --- !u!1 &1275107798324052265
 GameObject:
   m_ObjectHideFlags: 0
