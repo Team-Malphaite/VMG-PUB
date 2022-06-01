@@ -28,6 +28,7 @@ public class UI_Login : UI_Scene
         Init();
     }
     //파이어베이스 부분
+    /*
     private void Update() {
         if(AuthHandler.Instance.statusText =="Success: signed in with Google!")
             {   
@@ -47,7 +48,7 @@ public class UI_Login : UI_Scene
             }
             
 
-    }
+    }*/
   
 
     public override void Init()
@@ -70,13 +71,13 @@ public class UI_Login : UI_Scene
         GameObject go = EventSystem.current.currentSelectedGameObject;
         if(go.name.Equals("LoginButton"))
         {
-          /* string title = "로그인 통과";
+           string title = "로그인 통과";
               string message = "로그인 체크";
               Action okAction = () => Debug.Log("On Click Login Ok Button");
                PopupWindowController.Instance.ShowOkLogin(title, message, okAction);
-               */
+               
    //파이어베이스 부분
-            AuthHandler.Instance.SignInWithGoogle();
+           // AuthHandler.Instance.SignInWithGoogle();
             
 
 

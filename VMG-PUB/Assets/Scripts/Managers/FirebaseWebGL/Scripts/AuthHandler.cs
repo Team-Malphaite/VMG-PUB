@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
  
@@ -20,6 +21,8 @@ using UnityEngine.UI;
         public string vote3=null;
         public string vote4=null;
         public string vote5=null;
+
+        public List<string> voteSubjectData = new List<string> (); //보트 제목이 들어가는 리스트
 
 
         private void Start()
@@ -66,6 +69,15 @@ using UnityEngine.UI;
         {
                 name= string.Join("" , Infotext.Split('"'));
         }
+         private void getVoteData(string Infotext)
+        {
+                Debug.Log(Infotext);
+                voteSubjectData.Add(Infotext);
+                Debug.Log(voteSubjectData);
+                
+
+                
+        }
 
          //public static AuthHandler Instance; // singleton 변수
 
@@ -86,9 +98,11 @@ using UnityEngine.UI;
         public void GetDocumentNameCheck() =>  
             FirebaseAuth.GetDocumentNameCheck(name , gameObject.name , "DisPlayInfo",  "DisplayError");
 
-
         public void SetVoteDocument() =>  //보트를 db에 저장하는 코드 
             FirebaseAuth.SetVoteDocument("vote",  voteSubject,  vote1 , vote2 , vote3,vote4,vote5 ,name, gameObject.name,"DisplayInfo", "DisplayError");
+
+        public void GetAllVoteDocument() =>  //보트를 db에 저장하는 코드 
+            FirebaseAuth.GetAllVoteDocument(gameObject.name,"getVoteData", "DisplayError");
  
 
  

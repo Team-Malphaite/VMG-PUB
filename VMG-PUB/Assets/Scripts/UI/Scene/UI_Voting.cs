@@ -130,6 +130,18 @@ public class UI_Voting : UI_Scene
     public void OnButtonListClicked(PointerEventData data)
     {
         GameObject go = EventSystem.current.currentSelectedGameObject;
+
+
+
+
+        ////////////////파이어 베이스부분
+        //AuthHandler.Instance.voteSubjectData.Clear(); // 데이터 받아오기전 그전 데이터 남아있을수도있으니 삭제
+       // AuthHandler.Instance.GetAllVoteDocument(); // 데이터 받아서 votesubjectData에 저장
+
+
+
+
+
         
         if(voteListView.gameObject.activeSelf == true)
         {
@@ -201,18 +213,26 @@ public class UI_Voting : UI_Scene
         string fourth = voteFourths.text;
         string fifth = voteFifths.text;
 
+
+
+
+
         ///파이어베이스부분 vote db에 쓰기 
+        /*
         AuthHandler.Instance.voteSubject=voteNames.text;
         AuthHandler.Instance.vote1 = voteFirsts.text;
         AuthHandler.Instance.vote2= voteSeconds.text;
         AuthHandler.Instance.vote3= voteThirds.text;
         AuthHandler.Instance.vote4= voteFourths.text;
         AuthHandler.Instance.vote5= voteFifths.text;
-        AuthHandler.Instance.SetVoteDocument();
+        AuthHandler.Instance.SetVoteDocument();*/
 
 
 
-        Debug.Log("현재 로그인한사람 이름 : "+AuthHandler.Instance.name);
+
+
+
+
         // 만들기 버튼 클릭시 list에 출력 가능. 
         // db에 각각의 데이터 저장 
 
