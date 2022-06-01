@@ -68,8 +68,6 @@ public class UI_Voting : UI_Scene
     private void Start()
     {
         Init();
-        
-        voteListView = GetComponent<ScrollRect>();
 
         voteListView.gameObject.SetActive(false);
         voteNames.gameObject.SetActive(false);
@@ -79,6 +77,8 @@ public class UI_Voting : UI_Scene
         voteFourths.gameObject.SetActive(false);
         voteFifths.gameObject.SetActive(false);
         makeButtons.gameObject.SetActive(false);
+
+        // voteListView = GetComponent<ScrollRect>();
     }
 
     private void Awake() {
