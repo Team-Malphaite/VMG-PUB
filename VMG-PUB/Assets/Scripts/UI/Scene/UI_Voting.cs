@@ -122,7 +122,7 @@ public class UI_Voting : UI_Scene
 
     private void Update()
     {
-        setWalletAddress(walletAddress.text);
+        //setWalletAddress(walletAddress.text);
     }
 
     // int _score = 0;
@@ -201,6 +201,13 @@ public class UI_Voting : UI_Scene
         string fourth = voteFourths.text;
         string fifth = voteFifths.text;
         Debug.Log(name+first+second+third+fourth+fifth);
+        // 만들기 버튼 클릭시 list에 출력 가능. 
+        // db에 각각의 데이터 저장 
+
+        // 4개투표를 -> list -> list길이를 받아서 그것만큼 버튼생성해주는거지 
+        // 데이터별로 (1번 -> 6개) 
+        // 투표테이블 -> 이름 == 이름  -> 1번 투표에대한 내용을 호출 >> 
+
     }
 
     public void setWalletAddress(string account)
