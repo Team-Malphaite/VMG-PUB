@@ -14,6 +14,9 @@ public class UI_Voting : UI_Scene
     // }
     //public ScrollRect scrollListView = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
     public ScrollRect voteListView;
+    public float space = 50f;
+    public GameObject uiPrefab;
+    public List<RectTransform> uiObjects = new List<RectTransform>();
     public InputField voteNames;
     public InputField voteFirsts;
     public InputField voteSeconds;
@@ -65,6 +68,8 @@ public class UI_Voting : UI_Scene
     private void Start()
     {
         Init();
+        
+        voteListView = GetComponent<ScrollRect>();
 
         voteListView.gameObject.SetActive(false);
         voteNames.gameObject.SetActive(false);
@@ -220,6 +225,20 @@ public class UI_Voting : UI_Scene
         // 데이터별로 (1번 -> 6개) 
         // 투표테이블 -> 이름 == 이름  -> 1번 투표에대한 내용을 호출 >> 
 
+    }
+
+    public void AddNewUiObject()
+    {
+        var newUi = Instantiate(uiPrefab, voteListView.content).GetComponent<RectTransform>();
+        uiObjects.Add(newUi);
+
+        float y = 0f;
+        for(int i =0; i< uiObjects.Count;i++)
+        {
+            uiObjects[i].anchoredPosition = new Vector2(0f,-y);
+            y += uiObjects[i].sizeDelta.y + space;
+        }
+        voteListView.content.sizeDelta = new Vector2(voteListView.content.sizeDelta.x,y);
     }
 
     public void setWalletAddress(string account)
