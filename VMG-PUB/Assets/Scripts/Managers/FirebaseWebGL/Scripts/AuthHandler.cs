@@ -14,6 +14,14 @@ using UnityEngine.UI;
         public string name=null; // 사용자 닉네임
         public string charcter=null;
 
+        public string voteSubject=null;
+        public string vote1=null;
+        public string vote2=null;
+        public string vote3=null;
+        public string vote4=null;
+        public string vote5=null;
+
+
         private void Start()
         {
             if (Application.platform != RuntimePlatform.WebGLPlayer)
@@ -66,16 +74,22 @@ using UnityEngine.UI;
         public void SignInWithGoogle() =>
             FirebaseAuth.SignInWithGoogle(gameObject.name, "DisPlayInfo", "DisplayError");
  
-         public void GetUserAuthDataEmail() =>//사용자의 이메일 정보 받아옴 이를 토대로 데이터 베이스 생성시킨다.
+        public void GetUserAuthDataEmail() =>//사용자의 이메일 정보 받아옴 이를 토대로 데이터 베이스 생성시킨다.
             FirebaseAuth.GetUserAuthDataEmail(gameObject.name, "GetEmailData", "DisplayError");
-          public void SetDocument() =>  //사용자가 처음 로그인할때 사용자 정보 저장(문서 작성 - 컬렉션도 없을때 ) 
+
+        public void SetDocument() =>  //사용자가 처음 로그인할때 사용자 정보 저장(문서 작성 - 컬렉션도 없을때 ) 
             FirebaseAuth.SetDocument("user",  emailAddress,  emailAddress , charcter , name , gameObject.name,"DisplayInfo", "DisplayError");
-          public void GetDocument() =>   //데베 읽기 - 캐릭터 정보 읽어옴
+            
+        public void GetDocument() =>   //데베 읽기 - 캐릭터 정보 읽어옴
             FirebaseAuth.GetDocument("user", emailAddress, gameObject.name, "ReadPlayerData", "ReadPlayerName", "DisplayError");
-       public void GetDocumentNameCheck() =>  
+
+        public void GetDocumentNameCheck() =>  
             FirebaseAuth.GetDocumentNameCheck(name , gameObject.name , "DisPlayInfo",  "DisplayError");
 
 
+        public void SetVoteDocument() =>  //보트를 db에 저장하는 코드 
+            FirebaseAuth.SetVoteDocument("vote",  voteSubject,  vote1 , vote2 , vote3,vote4,vote5 ,name, gameObject.name,"DisplayInfo", "DisplayError");
+ 
 
  
        // public void CreateUserWithEmailAndPassword() =>

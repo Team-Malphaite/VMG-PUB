@@ -200,7 +200,19 @@ public class UI_Voting : UI_Scene
         string third = voteThirds.text;
         string fourth = voteFourths.text;
         string fifth = voteFifths.text;
-        Debug.Log(name+first+second+third+fourth+fifth);
+
+        ///파이어베이스부분 vote db에 쓰기 
+        AuthHandler.Instance.voteSubject=voteNames.text;
+        AuthHandler.Instance.vote1 = voteFirsts.text;
+        AuthHandler.Instance.vote2= voteSeconds.text;
+        AuthHandler.Instance.vote3= voteThirds.text;
+        AuthHandler.Instance.vote4= voteFourths.text;
+        AuthHandler.Instance.vote5= voteFifths.text;
+        AuthHandler.Instance.SetVoteDocument();
+
+
+
+        Debug.Log("현재 로그인한사람 이름 : "+AuthHandler.Instance.name);
         // 만들기 버튼 클릭시 list에 출력 가능. 
         // db에 각각의 데이터 저장 
 

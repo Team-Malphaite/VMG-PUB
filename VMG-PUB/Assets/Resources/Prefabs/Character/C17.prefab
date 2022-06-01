@@ -1422,7 +1422,6 @@ MonoBehaviour:
   _portalCheck: 0
   _goalCheck: 0
   _gameReady: 0
-  _metamaskCheck: 0
   Dist: 0
   _move: 1
   _mode: 0
