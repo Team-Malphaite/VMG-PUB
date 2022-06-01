@@ -157,30 +157,20 @@ mergeInto(LibraryManager.library, {
             unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
         }
     },
-     GetAllVoteDocument: function (collectionPath, documentId, objectName, callback,nameCallback, fallback) {
-        var parsedPath = UTF8ToString(collectionPath);
-        var parsedId = UTF8ToString(documentId);
+     GetAllVoteDocument: function ( objectName, callback, fallback) {   
         var parsedObjectName = UTF8ToString(objectName);
         var parsedCallback = UTF8ToString(callback);
-        var parsedNameCallback = UTF8ToString(nameCallback);
         var parsedFallback = UTF8ToString(fallback);
-
+        var userBuffer =null;
+        var i=1;        
         try {
-            firebase.firestore().collection(parsedPath).doc(parsedId).get().then(function (doc) {
+            firebase.firestore().collection("vote").get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc){
+                       
 
-                if (doc.exists) {
-                    
-                    var userBuffer=doc.data();//doc데이터를 내가 지정한 문서로 분해  - 이렇게하는 이유는 파이어베이스에서 리턴을 자신들의 방법으로 하기때문
-                    
-                   // userBuffer.character - 지정 문서의 밸류 값 character의 value ex. userBuffer.Email - 이메일주소 값이 리턴됨
-         
-                    unityInstance.Module.SendMessage(parsedObjectName, parsedCallback,JSON.stringify(userBuffer.character));   
-                    unityInstance.Module.SendMessage(parsedObjectName, parsedNameCallback,JSON.stringify(userBuffer.name));                    
-                 
-                    //unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, JSON.stringify(doc.data()));
-                } else {
-                    unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, "null");
-                }
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedCallback,JSON.stringify(doc.id));                    
+                });
+                
             }).catch(function(error) {
                 unityInstance.Module.SendMessage(parsedObjectName, parsedFallback, JSON.stringify(error, Object.getOwnPropertyNames(error)));
             });
@@ -191,12 +181,7 @@ mergeInto(LibraryManager.library, {
     },
 
 ////////////////////////////////////////////////////////////
-db.collection("cities").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-    });
-});
+
  /////////////////// 
 
 

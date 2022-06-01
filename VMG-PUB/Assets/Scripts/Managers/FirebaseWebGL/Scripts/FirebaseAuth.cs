@@ -20,7 +20,9 @@ using System.Runtime.InteropServices;
         public static extern void GetDocumentNameCheck(string parsedCheckName,string objectName, string callback, string fallback);
         [DllImport("__Internal")]
         public static extern void SetVoteDocument(string collectionPath, string documentId, string oneValue,string twoValue,string threeValue,string fourValue,string fiveValue,string owner ,string objectName,string callback,string fallback);
- 
+        [DllImport("__Internal")]
+        public static extern void GetAllVoteDocument(string objectName,string callback,string fallback);
+
 
         
     }
