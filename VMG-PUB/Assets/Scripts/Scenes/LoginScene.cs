@@ -28,13 +28,13 @@ public class LoginScene : BaseScene
         //     DontDestroyOnLoad(net);
         //     Managers.Network.OnLogin();
         // }
-        if(Managers.Scene._logincheck == true)
+       /* if(Managers.Scene._logincheck == true)
         {
                 Managers.Scene.LoadScene(Define.Scene.Select);
           
-        }
+        }*/
         //파이어베이스부분
-        /*
+        
         
         if(Managers.Scene._logincheck == true)
         {
@@ -53,7 +53,7 @@ public class LoginScene : BaseScene
 
             }
             
-        }*/
+        }
         
     }
 
