@@ -9,11 +9,11 @@ public class WebGLSendContractExample : MonoBehaviour
     async public void OnSendContract()
     {
         // smart contract method to call
-        string method = "addTotal";
+        string method = "countTotal";
         // abi in json format
-        string abi = "[ { \"inputs\": [ { \"internalType\": \"uint8\", \"name\": \"_myArg\", \"type\": \"uint8\" } ], \"name\": \"addTotal\", \"outputs\": [], \"stateMutability\": \"nonpayable\", \"type\": \"function\" }, { \"inputs\": [], \"name\": \"myTotal\", \"outputs\": [ { \"internalType\": \"uint256\", \"name\": \"\", \"type\": \"uint256\" } ], \"stateMutability\": \"view\", \"type\": \"function\" } ]";
+        string abi = "[{ \"inputs\": [{ \"internalType\": \"uint8\", \"name\": \"_myArg\", \"type\": \"uint8\" }], \"name\": \"addTotal\", \"outputs\": [], 	\"stateMutability\": \"nonpayable\", \"type\": \"function\" },{ \"inputs\": [], \"name\": \"countTotal\", \"outputs\": [{\"internalType\": \"uint256\", \"name\": \"\", \"type\": \"uint256\"}],\"stateMutability\": \"view\",\"type\": \"function\"}]";
         // address of contract
-        string contract = "0x7286Cf0F6E80014ea75Dbc25F545A3be90F4904F";
+        string contract = "0x1F62Df9FC6E733Cb4781aB58E5aB15688E0c1261";
         // array of arguments for contract
         string args = "[\"1\"]";
         // value in wei
