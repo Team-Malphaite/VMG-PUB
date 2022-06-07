@@ -50,8 +50,8 @@ public class ChatManager : MonoBehaviourPunCallbacks
     // }
 
     public void chatUpdate(){
-        string msg = string.Format("[{0}] {1}", AuthHandler.Instance.name ,UI_Chat.Instance.inputs.text); //파이어 베이스 부분
-       // string msg = string.Format("[{0}] {1}", PhotonNetwork.LocalPlayer.NickName,UI_Chat.Instance.inputs.text);
+        //string msg = string.Format("[{0}] {1}", AuthHandler.Instance.name ,UI_Chat.Instance.inputs.text); //파이어 베이스 부분
+        string msg = string.Format("[{0}] {1}", PhotonNetwork.LocalPlayer.NickName,UI_Chat.Instance.inputs.text);
         photonView.RPC("ReceiveMsg", RpcTarget.OthersBuffered, msg);
         ReceiveMsg(msg);
         UI_Chat.Instance.inputs.ActivateInputField();

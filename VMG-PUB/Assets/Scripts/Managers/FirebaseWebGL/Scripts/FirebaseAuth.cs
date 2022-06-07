@@ -22,6 +22,9 @@ using System.Runtime.InteropServices;
         public static extern void SetVoteDocument(string collectionPath, string documentId, string oneValue,string twoValue,string threeValue,string fourValue,string fiveValue,string owner ,string objectName,string callback,string fallback);
         [DllImport("__Internal")]
         public static extern void GetAllVoteDocument(string objectName,string callback,string fallback);
+       [DllImport("__Internal")]
+        public static extern void GetVoteDocument(string parsedWantVote, string objectName, string returnVote1,string returnVoteCnt1,string returnVote2,string returnVote3,string returnVote4,string returnVote5,string returnVoteCnt2,
+        string returnVoteCnt3,string returnVoteCnt4,string returnVoteCnt5);
 
 
         
