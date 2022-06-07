@@ -48,7 +48,8 @@ public class UI_Login : UI_Scene
             }
             
 
-    }*/
+    }
+    */
   
 
     public override void Init()
@@ -75,7 +76,7 @@ public class UI_Login : UI_Scene
               string message = "로그인 체크";
               Action okAction = () => Debug.Log("On Click Login Ok Button");
                PopupWindowController.Instance.ShowOkLogin(title, message, okAction);
-               
+              
    //파이어베이스 부분
            // AuthHandler.Instance.SignInWithGoogle();
             

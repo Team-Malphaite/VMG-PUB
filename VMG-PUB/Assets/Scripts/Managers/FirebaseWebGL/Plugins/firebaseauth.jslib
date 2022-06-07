@@ -142,7 +142,8 @@ mergeInto(LibraryManager.library, {
         var parsedCallback = Pointer_stringify(callback);
         var parsedFallback = Pointer_stringify(fallback);
 
-        var parseToObject={"Subject":parsedId,"vote1": parsedOneValue , "vote2": parsedTwoValue,"vote3": parsedThreeValue,"vote4": parsedFourValue,"vote5": parsedFiveValue ,"owner" : parsedOwner }; // 유니티로 받아온 문자를 자바스크립트 객체로 변환
+        var parseToObject={"Subject":parsedId,"vote1": parsedOneValue , "vote2": parsedTwoValue,"vote3": parsedThreeValue,"vote4": parsedFourValue,"vote5": parsedFiveValue ,"owner" : parsedOwner 
+        ,"vote1Cnt":0,"vote2Cnt":0,"vote3Cnt":0,"vote4Cnt":0,"vote5Cnt":0}; // 유니티로 받아온 문자를 자바스크립트 객체로 변환
         var parseToJson=JSON.stringify(parseToObject); //자바스크립트 객체를 json 으로 변환하기 위해 문자열로 변환
 
         try {
@@ -181,6 +182,58 @@ mergeInto(LibraryManager.library, {
     },
 
 ////////////////////////////////////////////////////////////
+GetVoteDocument: function ( WantVote,objectName, returnVote1,returnVoteCnt1,returnVote2,returnVote3,returnVote4,returnVote5, returnVoteCnt2,returnVoteCnt3,returnVoteCnt4,returnVoteCnt5) {  
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedWantVote = UTF8ToString(WantVote);
+        var voteBuffer =null;
+        var parsedreturnVote1 = UTF8ToString(returnVote1);
+        var parsedreturnVote2 = UTF8ToString(returnVote2);
+        var parsedreturnVote3 = UTF8ToString(returnVote3);
+        var parsedreturnVote4 = UTF8ToString(returnVote4);
+        var parsedreturnVote5 = UTF8ToString(returnVote5);
+        var parsedreturnVoteCnt1 = UTF8ToString(returnVoteCnt1);
+        var parsedreturnVoteCnt2 = UTF8ToString(returnVoteCnt2);
+        var parsedreturnVoteCnt3 = UTF8ToString(returnVoteCnt3);
+        var parsedreturnVoteCnt4 = UTF8ToString(returnVoteCnt4);
+        var parsedreturnVoteCnt5 = UTF8ToString(returnVoteCnt5);
+
+
+        try {
+            firebase.firestore().collection("vote").where("Subject", "==", parsedWantVote).get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc){//조건에 맞는 데이터 없으면 실행이안됨
+                    voteBuffer=doc.data();//doc데이터를 내가 지정한 문서로 분해  - 이렇게하는 이유는 파이어베이스에서 리턴을 자신들의 방법으로 하기때문
+
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedreturnVote1,JSON.stringify(voteBuffer.vote1));                    
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedreturnVote2,JSON.stringify(voteBuffer.vote2));                    
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedreturnVote3,JSON.stringify(voteBuffer.vote3));                    
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedreturnVote4,JSON.stringify(voteBuffer.vote4));                    
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedreturnVote5,JSON.stringify(voteBuffer.vote5));   
+
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedreturnVoteCnt1,JSON.stringify(voteBuffer.vote1Cnt));   
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedreturnVoteCnt2,JSON.stringify(voteBuffer.vote2Cnt));   
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedreturnVoteCnt3,JSON.stringify(voteBuffer.vote3Cnt));   
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedreturnVoteCnt4,JSON.stringify(voteBuffer.vote4Cnt));   
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedreturnVoteCnt5,JSON.stringify(voteBuffer.vote5Cnt));   
+
+
+
+
+                   
+                });
+                if(userBuffer == null){ // 데이터가 없어서 null 상태 그대로임
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedCallback,"null");      
+                                    console.log(voteBuffer);
+              
+                }
+                
+            }).catch(function(error) {
+            });
+
+        } catch (error) {
+        }
+    },
+
+
 
  /////////////////// 
 
