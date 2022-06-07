@@ -25,6 +25,17 @@ public class UI_Voting : UI_Scene
     public InputField voteFifths;
     public Button makeButtons;
     public Text walletAddress;
+    public Button btn1;
+    public Button btn2;
+    public Button btn3;
+    public Button chooseButton1;
+    public Button chooseButton2;
+    public Button chooseButton3;
+    public Button chooseButton4;
+    public Button chooseButton5;
+    public Button sendContract;
+    public Text votingName;
+    
     
     public enum ScrollRects
     {
@@ -37,12 +48,22 @@ public class UI_Voting : UI_Scene
         voteMake,
         makeButton,
         MusicOnOff,
+        Btn1,
+        Btn2,
+        Btn3,
+        chooseBtn1,
+        chooseBtn2,
+        chooseBtn3,
+        chooseBtn4,
+        chooseBtn5,
+        sendContract
     }
 
     public enum Texts
     {
         walletAddress,
         MusicText,
+        votingName
     }
 
     public enum InputFields
@@ -77,6 +98,13 @@ public class UI_Voting : UI_Scene
         voteFourths.gameObject.SetActive(false);
         voteFifths.gameObject.SetActive(false);
         makeButtons.gameObject.SetActive(false);
+        chooseButton1.gameObject.SetActive(false);
+        chooseButton2.gameObject.SetActive(false);
+        chooseButton3.gameObject.SetActive(false);
+        chooseButton4.gameObject.SetActive(false);
+        chooseButton5.gameObject.SetActive(false);
+        votingName.gameObject.SetActive(false);
+        sendContract.gameObject.SetActive(false);
 
         // voteListView = GetComponent<ScrollRect>();
     }
@@ -94,7 +122,7 @@ public class UI_Voting : UI_Scene
         Bind<ScrollRect>(typeof(ScrollRects));
         Bind<InputField>(typeof(InputFields));
 
-        //scrollListView = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
+        // scrollListView = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         
 
         //Image presentStageImage = scrollListView.content.GetChild(i).GetComponent<Image>();
@@ -112,6 +140,20 @@ public class UI_Voting : UI_Scene
         voteFifths = GetInputField((int)InputFields.voteFifth);
         makeButtons = GetButton((int)Buttons.makeButton);
         walletAddress = GetText((int)Texts.walletAddress);
+        btn1 = GetButton((int)Buttons.Btn1);
+        btn2 = GetButton((int)Buttons.Btn2);
+        btn3 = GetButton((int)Buttons.Btn3);
+        votingName = GetText((int)Texts.votingName);
+        chooseButton1 = GetButton((int)Buttons.chooseBtn1);
+        chooseButton2 = GetButton((int)Buttons.chooseBtn2);
+        chooseButton3 = GetButton((int)Buttons.chooseBtn3);
+        chooseButton4 = GetButton((int)Buttons.chooseBtn4);
+        chooseButton5 = GetButton((int)Buttons.chooseBtn5);
+        sendContract = GetButton((int)Buttons.sendContract);
+        
+        
+
+        
         //test1 = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         //voteListView = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
         //scrollListView = GameObject.Find("Scroll View").GetComponent<ScrollRect>();
@@ -119,6 +161,7 @@ public class UI_Voting : UI_Scene
         GetButton((int)Buttons.voteMake).gameObject.BindEvent(OnButtonMakeClicked);
         GetButton((int)Buttons.makeButton).gameObject.BindEvent(OnMakeButtonCliked);
         GetButton((int)Buttons.MusicOnOff).gameObject.BindEvent(OnButtonClickedMusic);
+        GetButton((int)Buttons.Btn1).gameObject.BindEvent(OnBtn1ChooseClicked);
         
 
         // GameObject go = GetImage((int)Images.ItemIcon).gameObject;
@@ -134,10 +177,9 @@ public class UI_Voting : UI_Scene
 
     public void OnButtonListClicked(PointerEventData data)
     {
+
+        // db에서 불러와서 출력 
         GameObject go = EventSystem.current.currentSelectedGameObject;
-
-
-
 
         ////////////////파이어 베이스부분
         //AuthHandler.Instance.voteSubjectData.Clear(); // 데이터 받아오기전 그전 데이터 남아있을수도있으니 삭제
@@ -145,16 +187,27 @@ public class UI_Voting : UI_Scene
 
 
 
-
+        // db에서 받아온 이름들을 배열에 집어넣고 배열length만큼 버튼 동적 생성 addnewobject() 함수사용 동적으로 힐당된 버튼들에 이름배열에
 
         
+
         if(voteListView.gameObject.activeSelf == true)
         {
             voteListView.gameObject.SetActive(false);
+            btn1.gameObject.SetActive(false);
+            btn2.gameObject.SetActive(false);
+            btn3.gameObject.SetActive(false);
         }
         else{
             voteListView.gameObject.SetActive(true);
+            btn1.gameObject.SetActive(true);
+            btn2.gameObject.SetActive(true);
+            btn3.gameObject.SetActive(true);
         }
+
+
+
+        //  AddNewUiObject(); -> 버튼 ui
         // GameObject go = EventSystem.current.currentSelectedGameObject;
         // if(go.name.Equals("voteList"))
         // {
@@ -176,6 +229,35 @@ public class UI_Voting : UI_Scene
         // GetText((int)Texts.ScoreText).text = $"점수 : {_score}점";
         
     }
+    public void OnBtn1ChooseClicked(PointerEventData data)
+    {
+        GameObject go = EventSystem.current.currentSelectedGameObject;
+        // 투표용지를 여는 코드 
+        if(btn1.gameObject.activeSelf == true)
+        {
+            chooseButton1.gameObject.SetActive(true);
+            chooseButton2.gameObject.SetActive(true);
+            chooseButton3.gameObject.SetActive(true);
+            chooseButton4.gameObject.SetActive(true);
+            chooseButton5.gameObject.SetActive(true);
+            votingName.gameObject.SetActive(true);
+            sendContract.gameObject.SetActive(true);
+            
+            
+        }
+        else{
+            chooseButton1.gameObject.SetActive(false);
+            chooseButton2.gameObject.SetActive(false);
+            chooseButton3.gameObject.SetActive(false);
+            chooseButton4.gameObject.SetActive(false);
+            chooseButton5.gameObject.SetActive(false);
+            votingName.gameObject.SetActive(false);
+            sendContract.gameObject.SetActive(false);    
+        }
+
+    }
+
+
     public void OnButtonMakeClicked(PointerEventData data)
     {
         GameObject go = EventSystem.current.currentSelectedGameObject;
@@ -218,10 +300,6 @@ public class UI_Voting : UI_Scene
         string fourth = voteFourths.text;
         string fifth = voteFifths.text;
 
-
-
-
-
         ///파이어베이스부분 vote db에 쓰기 
         /*
         AuthHandler.Instance.voteSubject=voteNames.text;
@@ -231,12 +309,6 @@ public class UI_Voting : UI_Scene
         AuthHandler.Instance.vote4= voteFourths.text;
         AuthHandler.Instance.vote5= voteFifths.text;
         AuthHandler.Instance.SetVoteDocument();*/
-
-
-
-
-
-
 
         // 만들기 버튼 클릭시 list에 출력 가능. 
         // db에 각각의 데이터 저장 
