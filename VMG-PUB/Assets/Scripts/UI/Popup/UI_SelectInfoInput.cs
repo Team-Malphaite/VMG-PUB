@@ -74,11 +74,12 @@ public class UI_SelectInfoInput : UI_Popup
         AuthHandler.Instance.GetDocumentNameCheck();
         Debug.Log("현재 name 의 값 ="+AuthHandler.Instance.name);
         Invoke("checkName",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌
+        */
 
-*/
+
 
         Managers.Scene.LoadScene(Define.Scene.Square);
-        Managers.Network.OnLogin();  
+        Managers.Network.OnLogin(); 
     }
     void checkName()
     {
