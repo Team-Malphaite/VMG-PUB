@@ -28,7 +28,7 @@ public class UI_Login : UI_Scene
         Init();
     }
     //파이어베이스 부분
-    /*
+  /*  
     private void Update() {
         if(AuthHandler.Instance.statusText =="Success: signed in with Google!")
             {   
@@ -48,8 +48,8 @@ public class UI_Login : UI_Scene
             }
             
 
-    }*/
-    
+    }
+    */
   
 
     public override void Init()
@@ -78,7 +78,7 @@ public class UI_Login : UI_Scene
                PopupWindowController.Instance.ShowOkLogin(title, message, okAction);
             
    //파이어베이스 부분
-           // AuthHandler.Instance.SignInWithGoogle();
+          // AuthHandler.Instance.SignInWithGoogle();
             
 
 

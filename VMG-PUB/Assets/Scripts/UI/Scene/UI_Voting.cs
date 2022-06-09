@@ -45,6 +45,11 @@ public class UI_Voting : UI_Scene
     public Text btn2Text;
     public Text btn3Text;
 
+    public int nowvote=0;
+    public int checkvote1=0;
+    public int checkvote2=0;
+    public int checkvote3=0;
+    
     public enum ScrollRects
     {
         scrollListView,
@@ -193,7 +198,13 @@ public class UI_Voting : UI_Scene
         GetButton((int)Buttons.Btn1).gameObject.BindEvent(OnBtn1ChooseClicked);
         GetButton((int)Buttons.Btn2).gameObject.BindEvent(OnBtn2ChooseClicked);
         GetButton((int)Buttons.Btn3).gameObject.BindEvent(OnBtn3ChooseClicked);
-        
+
+        GetButton((int)Buttons.chooseBtn1).gameObject.BindEvent(vote1ChooseClicked);
+        GetButton((int)Buttons.chooseBtn2).gameObject.BindEvent(vote2ChooseClicked);
+        GetButton((int)Buttons.chooseBtn3).gameObject.BindEvent(vote3ChooseClicked);
+       GetButton((int)Buttons.chooseBtn4).gameObject.BindEvent(vote4ChooseClicked);
+        GetButton((int)Buttons.chooseBtn5).gameObject.BindEvent(vote5ChooseClicked);
+
         
 
         // GameObject go = GetImage((int)Images.ItemIcon).gameObject;
@@ -245,7 +256,7 @@ public class UI_Voting : UI_Scene
         }
         else{
             //파이어베이스부분
-            /*
+    /*        
             AuthHandler.Instance.voteSubjectData.Clear(); // 데이터 받아오기전 그전 데이터 남아있을수도있으니 삭제
             AuthHandler.Instance.GetAllVoteDocument(); // 데이터 받아서 votesubjectData에 저장
             
@@ -293,17 +304,17 @@ public class UI_Voting : UI_Scene
 
 
 
-               ////////////////파이어 베이스부분
-/*
+  /*             ////////////////파이어 베이스부분
+
             votingName.text =AuthHandler.Instance.wantvote;
             chBtn1T.text=AuthHandler.Instance.vote1 + "  :  " + AuthHandler.Instance.voteCnt1;
             chBtn2T.text=AuthHandler.Instance.vote2 + "  :  " + AuthHandler.Instance.voteCnt2;
             chBtn3T.text=AuthHandler.Instance.vote3 + "  :  " + AuthHandler.Instance.voteCnt3;
             chBtn4T.text=AuthHandler.Instance.vote4 + "  :  " + AuthHandler.Instance.voteCnt4;
             chBtn5T.text=AuthHandler.Instance.vote5 + "  :  " + AuthHandler.Instance.voteCnt5;
-
-
 */
+
+
 
     }
     public void OnBtn1ChooseClicked(PointerEventData data)
@@ -322,8 +333,8 @@ public class UI_Voting : UI_Scene
             AuthHandler.Instance.wantvote =tmp;
             Debug.Log("tmp 값 = "+tmp);
             AuthHandler.Instance.GetVoteDocument();
-     */       
-            
+            */
+            nowvote=1;            
             Invoke("btn1data",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌
   
         }
@@ -363,8 +374,8 @@ public class UI_Voting : UI_Scene
             chBtn4T.text=AuthHandler.Instance.vote4 + "  :  " + AuthHandler.Instance.voteCnt4;
             chBtn5T.text=AuthHandler.Instance.vote5 + "  :  " + AuthHandler.Instance.voteCnt5;
 
-
 */
+
 
     }
     public void OnBtn2ChooseClicked(PointerEventData data)
@@ -382,7 +393,8 @@ public class UI_Voting : UI_Scene
             Debug.Log("tmp 값 = "+tmp);
             AuthHandler.Instance.GetVoteDocument();
             
-       */     
+           */
+            nowvote=2;
             Invoke("btn2data",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌
   
         }
@@ -421,7 +433,6 @@ public class UI_Voting : UI_Scene
             chBtn3T.text=AuthHandler.Instance.vote3 + "  :  " + AuthHandler.Instance.voteCnt3;
             chBtn4T.text=AuthHandler.Instance.vote4 + "  :  " + AuthHandler.Instance.voteCnt4;
             chBtn5T.text=AuthHandler.Instance.vote5 + "  :  " + AuthHandler.Instance.voteCnt5;
-
 */
 
 
@@ -443,8 +454,9 @@ public class UI_Voting : UI_Scene
             AuthHandler.Instance.wantvote =tmp;
             Debug.Log("tmp 값 = "+tmp);
             AuthHandler.Instance.GetVoteDocument();
-            
-       */     
+            */
+          
+            nowvote=3;
             Invoke("btn3data",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌
   
         }
@@ -493,6 +505,255 @@ public class UI_Voting : UI_Scene
         
         
     }
+
+///////////////////////////////////////////////파이어 베이스 투표지 1~5번 까지 코드    
+  
+    public void vote1ChooseClicked(PointerEventData data){
+        if(nowvote==1){
+            if(checkvote1==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote1Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+                checkvote1=1;
+
+            }
+            else{
+                Debug.Log("이미 첫번째 보트는 투표했네요");
+            }
+ 
+        } else if(nowvote==2){
+            if(checkvote2==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote1Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+
+                checkvote2=1;
+
+            }
+            else{
+                Debug.Log("이미 두번째 보트는 투표했네요");
+            }
+
+        } else if(nowvote==3){
+            if(checkvote3==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote1Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+
+                checkvote3=1;
+
+            }
+            else{
+                Debug.Log("이미 세번째 보트는 투표했네요");
+            }
+
+        }
+        else
+        {
+            Debug.Log("이미 셋 다 투표했습니다");
+        }
+
+    }
+    public void vote2ChooseClicked(PointerEventData data){
+        if(nowvote==1){
+            if(checkvote1==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote2Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+                checkvote1=1;
+
+            }
+            else{
+                Debug.Log("이미 첫번째 보트는 투표했네요");
+            }
+ 
+        } else if(nowvote==2){
+            if(checkvote2==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote2Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+
+                checkvote2=1;
+
+            }
+            else{
+                Debug.Log("이미 두번째 보트는 투표했네요");
+            }
+
+        } else if(nowvote==3){
+            if(checkvote3==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote2Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+
+                checkvote3=1;
+
+            }
+            else{
+                Debug.Log("이미 세번째 보트는 투표했네요");
+            }
+
+        }
+        else
+        {
+            Debug.Log("이미 셋 다 투표했습니다");
+        }
+
+    }
+    public void vote3ChooseClicked(PointerEventData data){
+        if(nowvote==1){
+            if(checkvote1==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote3Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+                checkvote1=1;
+
+            }
+            else{
+                Debug.Log("이미 첫번째 보트는 투표했네요");
+            }
+ 
+        } else if(nowvote==2){
+            if(checkvote2==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote3Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+
+                checkvote2=1;
+
+            }
+            else{
+                Debug.Log("이미 두번째 보트는 투표했네요");
+            }
+
+        } else if(nowvote==3){
+            if(checkvote3==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote3Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+
+                checkvote3=1;
+
+            }
+            else{
+                Debug.Log("이미 세번째 보트는 투표했네요");
+            }
+
+        }
+        else
+        {
+            Debug.Log("이미 셋 다 투표했습니다");
+        }
+
+    } 
+    public void vote4ChooseClicked(PointerEventData data){
+        if(nowvote==1){
+            if(checkvote1==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote4Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+                checkvote1=1;
+
+            }
+            else{
+                Debug.Log("이미 첫번째 보트는 투표했네요");
+            }
+ 
+        } else if(nowvote==2){
+            if(checkvote2==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote4Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+
+                checkvote2=1;
+
+            }
+            else{
+                Debug.Log("이미 두번째 보트는 투표했네요");
+            }
+
+        } else if(nowvote==3){
+            if(checkvote3==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote4Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+
+                checkvote3=1;
+
+            }
+            else{
+                Debug.Log("이미 세번째 보트는 투표했네요");
+            }
+
+        }
+        else
+        {
+            Debug.Log("이미 셋 다 투표했습니다");
+        }
+
+    }
+    public void vote5ChooseClicked(PointerEventData data){
+        if(nowvote==1){
+            if(checkvote1==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote5Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+                checkvote1=1;
+
+            }
+            else{
+                Debug.Log("이미 첫번째 보트는 투표했네요");
+            }
+ 
+        } else if(nowvote==2){
+            if(checkvote2==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote5Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+
+                checkvote2=1;
+
+            }
+            else{
+                Debug.Log("이미 두번째 보트는 투표했네요");
+            }
+
+        } else if(nowvote==3){
+            if(checkvote3==0)
+            {
+                 AuthHandler.Instance.focusDocument=votingName.text;
+                AuthHandler.Instance.focusField="vote5Cnt";
+                AuthHandler.Instance.IncrementFieldValue();
+
+                checkvote3=1;
+
+            }
+            else{
+                Debug.Log("이미 세번째 보트는 투표했네요");
+            }
+
+        }
+        else
+        {
+            Debug.Log("이미 셋 다 투표했습니다");
+        }
+
+    }
+///////////////////////////////////////////////파이어 베이스 투표지 1~5번 까지 코드
     public void OnMakeButtonCliked(PointerEventData data)
     {
         string name = voteNames.text;

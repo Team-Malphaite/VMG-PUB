@@ -29,7 +29,8 @@ using UnityEngine.UI;
  
         public List<string> voteSubjectData = new List<string> (); //보트 제목이 들어가는 리스트
         public string wantvote=null;
-
+        public string focusDocument=null;
+        public string focusField=null;
         private void Start()
         {
             if (Application.platform != RuntimePlatform.WebGLPlayer)
@@ -173,8 +174,11 @@ using UnityEngine.UI;
         public void GetVoteDocument() =>   //보트에대한 모든 데이터 가져오는 코드
             FirebaseAuth.GetVoteDocument(wantvote, gameObject.name,  "returnVote1","returnVoteCnt1","returnVote2","returnVote3","returnVote4","returnVote5", "returnVoteCnt2","returnVoteCnt3","returnVoteCnt4","returnVoteCnt5");
 
- 
- 
+        public void IncrementFieldValue() =>  //보트 1,2,3을 가져오는 코드
+            FirebaseAuth.IncrementFieldValue(focusDocument,focusField,gameObject.name,"DisplayInfo", "DisplayError");
+
+             
+
        // public void CreateUserWithEmailAndPassword() =>
            ///d FirebaseAuth.CreateUserWithEmailAndPassword(emailInput.text, passwordInput.text, gameObject.name, "DisPlayInfo", "DisplayError");
  
