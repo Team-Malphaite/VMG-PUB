@@ -6,6 +6,7 @@ using System;
 using Photon.Pun;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 /// <summary>
 /// 팝업 윈도우를 띄워주는 클래스
@@ -16,6 +17,7 @@ public class PopupWindowController : UI_Popup
     public static PopupWindowController Instance; // singleton 변수
     public GameObject go;
 
+    public int setNum=0;
     Define.Scene _scene = Define.Scene.Square;
 
     public bool useBackground = true;
@@ -596,26 +598,31 @@ public class PopupWindowController : UI_Popup
         ClosePopupUI();
     }
 
-    public void OnClickYesButtonGame(PointerEventData data)
+    async public void OnClickYesButtonGame(PointerEventData data)
     {
-        if (okAction != null)
-            okAction();
-        // Managers.Scene._portalCheck = true;
-        if (go.GetComponent<PhotonView>().IsMine)
-            PlayerController.Instance._mode = PlayerController.modeState.Game;
-        Debug.Log("눌림");
-        // ClosePopupWindow();
-        ClosePopupUI();
+        Task k =  tokenManager.Instance.transfer("0x8011f59c67b50a32264c7558A78286fE3623AcBc", "1");
+        await k;
+        if (setNum == 1){
 
-        if(go.GetComponent<PhotonView>().IsMine)
-        {
-            Managers.Network._scene = Define.Scene.Game;
-            go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Game;
-            PhotonNetwork.LeaveRoom();
-            Managers.Network.OnLeftRoom();
-            // Managers.Scene.LoadScene(_scene);
-            // Managers.Network.OnLogin();
-            // Managers.Scene._portalCheck = false;
+            if (okAction != null)
+                okAction();
+            // Managers.Scene._portalCheck = true;
+            if (go.GetComponent<PhotonView>().IsMine)
+                PlayerController.Instance._mode = PlayerController.modeState.Game;
+            Debug.Log("눌림");
+            // ClosePopupWindow();
+            ClosePopupUI();
+
+            if(go.GetComponent<PhotonView>().IsMine)
+            {
+                Managers.Network._scene = Define.Scene.Game;
+                go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Game;
+                PhotonNetwork.LeaveRoom();
+                Managers.Network.OnLeftRoom();
+                // Managers.Scene.LoadScene(_scene);
+                // Managers.Network.OnLogin();
+                // Managers.Scene._portalCheck = false;
+            }
         }
     }
 
