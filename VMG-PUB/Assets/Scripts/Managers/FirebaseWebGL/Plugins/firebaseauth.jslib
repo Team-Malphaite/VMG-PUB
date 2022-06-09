@@ -232,7 +232,31 @@ GetVoteDocument: function ( WantVote,objectName, returnVote1,returnVoteCnt1,retu
         } catch (error) {
         }
     },
+    // vote 1 증가 모듈
+    IncrementFieldValue: function ( documentId, field, objectName, callback, fallback) {
+        var parsedId = UTF8ToString(documentId);
+        var parsedField = UTF8ToString(field);
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedCallback = UTF8ToString(callback);
+        var parsedFallback = UTF8ToString(fallback);
 
+        try {
+
+            var value = {};
+            value[parsedField] = firebase.firestore.FieldValue.increment(1);
+            console.log(parsedField)
+
+            firebase.firestore().collection("vote").doc(parsedId).update(value).then(function() {
+                unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, "Success: incremented " + parsedField + " by " + increment);
+                            console.log("increment Success")
+
+            })
+                .catch(function(error) {
+                });
+
+        } catch (error) {
+        }
+    },
 
 
  /////////////////// 

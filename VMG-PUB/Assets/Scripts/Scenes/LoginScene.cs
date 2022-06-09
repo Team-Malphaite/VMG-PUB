@@ -36,8 +36,8 @@ public class LoginScene : BaseScene
         }
         
         //파이어베이스부분
-        /*
         
+        /*
         if(Managers.Scene._logincheck == true)
         {
               //Managers.Scene.LoadScene(Define.Scene.Select);
