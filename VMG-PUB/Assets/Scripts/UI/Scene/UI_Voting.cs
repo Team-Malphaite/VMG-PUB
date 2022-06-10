@@ -214,7 +214,7 @@ public class UI_Voting : UI_Scene
     private void Update()
     {
         // 메타마스크 테스트 시 주석 풀기
-        //setWalletAddress(walletAddress.text);
+        setWalletAddress(walletAddress.text);
     }
 
     // int _score = 0;
