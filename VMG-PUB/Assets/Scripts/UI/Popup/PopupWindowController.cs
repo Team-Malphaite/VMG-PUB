@@ -425,7 +425,7 @@ public class PopupWindowController : UI_Popup
         
         // 메타마스크 sdk 실행 코드 
         WebLogin.Instance.OnLogin();
-        
+        //tokenManager.Instance.transfer("0x390A76258925dDC904c806F16158b1050A7CD895", "1");
         // Managers.Scene._portalCheck = true;
         if (go.GetComponent<PhotonView>().IsMine)
             PlayerController.Instance._portalCheck = true;
