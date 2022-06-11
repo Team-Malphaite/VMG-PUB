@@ -9,14 +9,14 @@ public class WebGLSendContractExample : MonoBehaviour
     async public void OnSendContract()
     {
         // smart contract method to call
-        string method = "countTotal";
+        string method = "voteChecked";
         // abi in json format
-        string abi = "[{ \"inputs\": [], \"name\": \"addTotal\", \"outputs\": [], 	\"stateMutability\": \"nonpayable\", \"type\": \"function\" },{ \"inputs\": [], \"name\": \"countTotal\", \"outputs\": [{\"internalType\": \"uint256\", \"name\": \"\", \"type\": \"uint256\"}],\"stateMutability\": \"view\",\"type\": \"function\"}]";
+        string abi = "";
         // string abi = "[{ \"inputs\": [{ \"internalType\": \"uint8\", \"name\": \"_myArg\", \"type\": \"uint8\" }], \"name\": \"addTotal\", \"outputs\": [], 	\"stateMutability\": \"nonpayable\", \"type\": \"function\" },{ \"inputs\": [], \"name\": \"countTotal\", \"outputs\": [{\"internalType\": \"uint256\", \"name\": \"\", \"type\": \"uint256\"}],\"stateMutability\": \"view\",\"type\": \"function\"}]";
         // address of contract
-        string contract = "0x90A401C3D943e55c3C762BBc2754183ec60a4582";
+        string contract = "0x634bBf63A693856Afd0C63B1949dFaC73FaE0DF8";
         // array of arguments for contract
-        string args = "[\"1\"]";
+        string args = "[]";
         // value in wei
         string value = "0";
         // gas limit OPTIONAL
@@ -33,6 +33,14 @@ public class WebGLSendContractExample : MonoBehaviour
     }
 }
 #endif
+
+
+
+
+
+
+
+
 
 
 
