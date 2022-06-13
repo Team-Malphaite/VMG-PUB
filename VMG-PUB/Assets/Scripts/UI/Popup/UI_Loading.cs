@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 public class UI_Loading : UI_Popup
 {
@@ -10,11 +11,10 @@ public class UI_Loading : UI_Popup
     {
         Loading,
     }
-
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         Init();
-        
     }
 
     public override void Init()
@@ -24,10 +24,10 @@ public class UI_Loading : UI_Popup
         Bind<RawImage>(typeof(RawImages));
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
         if (GameObject.Find("@Player") == null) return;
         else GetRawImage((int)RawImages.Loading).gameObject.SetActive(false);
     }
-
 }
