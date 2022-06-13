@@ -27,7 +27,9 @@ using System.Runtime.InteropServices;
         string returnVoteCnt3,string returnVoteCnt4,string returnVoteCnt5);
 
        [DllImport("__Internal")]
-        public static extern void IncrementFieldValue(string documentId, string field,string objectName,string callback,string fallback);
+        public static extern void IncrementFieldValue(string documentId, string field,string votingPerson,string objectName,string callback,string fallback);
+      [DllImport("__Internal")]
+        public static extern void GetVoteCheckDocument(string WantVote, string name,string objectName,string returnVoteCheck);
 
 
         

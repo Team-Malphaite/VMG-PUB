@@ -233,18 +233,19 @@ GetVoteDocument: function ( WantVote,objectName, returnVote1,returnVoteCnt1,retu
         }
     },
     // vote 1 증가 모듈
-    IncrementFieldValue: function ( documentId, field, objectName, callback, fallback) {
+    IncrementFieldValue: function ( documentId, field,votingPerson, objectName, callback, fallback) {
         var parsedId = UTF8ToString(documentId);
         var parsedField = UTF8ToString(field);
         var parsedObjectName = UTF8ToString(objectName);
         var parsedCallback = UTF8ToString(callback);
         var parsedFallback = UTF8ToString(fallback);
+        var parsedvotingPerson= UTF8ToString(votingPerson);
 
         try {
 
             var value = {};
             value[parsedField] = firebase.firestore.FieldValue.increment(1);
-            console.log(parsedField)
+            value[parsedvotingPerson] = 1;
 
             firebase.firestore().collection("vote").doc(parsedId).update(value).then(function() {
                 unityInstance.Module.SendMessage(parsedObjectName, parsedCallback, "Success: incremented " + parsedField + " by " + increment);
@@ -257,7 +258,43 @@ GetVoteDocument: function ( WantVote,objectName, returnVote1,returnVoteCnt1,retu
         } catch (error) {
         }
     },
+    ////////////////////////////////////////////보트했는지 안했는지 체크하는 모듈
+    GetVoteCheckDocument: function ( WantVote,name,objectName,returnVoteCheck) {  
+        var parsedObjectName = UTF8ToString(objectName);
+        var parsedWantVote = UTF8ToString(WantVote);
+        var parsedreturnVoteCheck = UTF8ToString(returnVoteCheck);
+        var parsedname= UTF8ToString(name);
+        var voteBuffer =null;
 
+
+        try {
+            firebase.firestore().collection("vote").where("Subject", "==", parsedWantVote).get().then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc){
+                    voteBuffer=doc.data();
+                    console.log(voteBuffer.hasOwnProperty(parsedname));
+
+                    if (voteBuffer.hasOwnProperty(parsedname)){
+                    console.log("데이터있음");
+
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedreturnVoteCheck,"notnull");                    
+
+                    }else{
+                                            console.log("데이터없음");
+
+                    unityInstance.Module.SendMessage(parsedObjectName, parsedreturnVoteCheck,"null");                    
+
+                    }
+
+                   
+                });
+                
+            }).catch(function(error) {
+            });
+
+        } catch (error) {
+        }
+    },
+///
 
  /////////////////// 
 
