@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool _gameReady = false;
     public float Dist;
     Vector3 gate3location = new Vector3(415.91f, 30.86997f, 150.0001f);
+    int rank = 0;
     public enum moveState
     {
         Moving,
@@ -332,5 +333,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public float getDist()
     {
         return Dist;
+    }
+
+    public void setRank(int changeRank)
+    {
+        rank = changeRank;
+    }
+
+    public int getRank()
+    {
+        return rank;
     }
 }
