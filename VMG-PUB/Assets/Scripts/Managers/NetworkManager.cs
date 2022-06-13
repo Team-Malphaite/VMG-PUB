@@ -42,13 +42,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         if (SceneManager.GetActiveScene().name == "Square")
         {
-            PhotonNetwork.JoinOrCreateRoom("Square", new RoomOptions{MaxPlayers = 3}, null);
+            PhotonNetwork.JoinOrCreateRoom("Square", new RoomOptions{MaxPlayers = 10}, null);
             Debug.Log("Joined Square !!!");
             Debug.Log(_scene);
         }
         else if (SceneManager.GetActiveScene().name == "Voting")
         {
-            PhotonNetwork.JoinOrCreateRoom("Voting", new RoomOptions{MaxPlayers = 3}, null);
+            PhotonNetwork.JoinOrCreateRoom("Voting", new RoomOptions{MaxPlayers = 10}, null);
             Debug.Log("Joined Voting !!!");
             Debug.Log(_scene);
         }
@@ -88,7 +88,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
            Debug.Log("문자열 처리한 뒤에 AuthHandler.Instance.charcter ="+ buffer) ;
             player = PhotonNetwork.Instantiate("Prefabs/Character/" + AuthHandler.Instance.charcter, new Vector3(0, 0, -5), Quaternion.identity);
             */
-
             player = PhotonNetwork.Instantiate("Prefabs/Character/" +  UI_SelectInfoInput.Instance.selectCharacterName, new Vector3(0, 0, -5), Quaternion.identity);
             if(SceneManager.GetActiveScene().name == "Game")
             {

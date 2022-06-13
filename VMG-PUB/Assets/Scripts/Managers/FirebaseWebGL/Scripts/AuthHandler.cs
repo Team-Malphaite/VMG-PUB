@@ -31,6 +31,10 @@ using UnityEngine.UI;
         public string wantvote=null;
         public string focusDocument=null;
         public string focusField=null;
+
+
+        public string voteCheck=null;
+
         private void Start()
         {
             if (Application.platform != RuntimePlatform.WebGLPlayer)
@@ -144,6 +148,13 @@ using UnityEngine.UI;
 
         }
 
+
+        private void returnVoteCheck(string Infotext)
+        {
+            voteCheck = Infotext;
+            Debug.Log(voteCheck);
+
+        }
 /////////////
 
          //public static AuthHandler Instance; // singleton 변수
@@ -175,9 +186,12 @@ using UnityEngine.UI;
             FirebaseAuth.GetVoteDocument(wantvote, gameObject.name,  "returnVote1","returnVoteCnt1","returnVote2","returnVote3","returnVote4","returnVote5", "returnVoteCnt2","returnVoteCnt3","returnVoteCnt4","returnVoteCnt5");
 
         public void IncrementFieldValue() =>  //보트 1,2,3을 가져오는 코드
-            FirebaseAuth.IncrementFieldValue(focusDocument,focusField,gameObject.name,"DisplayInfo", "DisplayError");
+            FirebaseAuth.IncrementFieldValue(focusDocument,focusField,name,gameObject.name,"DisplayInfo", "DisplayError");
+       
+       public void GetVoteCheckDocument() =>   //보트했는지 안했는지 체크
+            FirebaseAuth.GetVoteCheckDocument(focusDocument,name,gameObject.name, "returnVoteCheck");
 
-             
+          
 
        // public void CreateUserWithEmailAndPassword() =>
            ///d FirebaseAuth.CreateUserWithEmailAndPassword(emailInput.text, passwordInput.text, gameObject.name, "DisPlayInfo", "DisplayError");
