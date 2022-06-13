@@ -38,7 +38,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -324, y: -93.072}
+  m_AnchoredPosition: {x: -323.99997, y: -93.07205}
   m_SizeDelta: {x: 616.4642, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4359430493004447737
@@ -435,8 +435,13 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
+<<<<<<< Updated upstream
   m_AnchoredPosition: {x: 17, y: -28.002}
   m_SizeDelta: {x: 433.379, y: 56.0046}
+=======
+  m_AnchoredPosition: {x: -323.99997, y: -465.40643}
+  m_SizeDelta: {x: 616.46, y: 45.5613}
+>>>>>>> Stashed changes
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6484744746447495748
 CanvasRenderer:
@@ -752,10 +757,17 @@ RectTransform:
   m_Father: {fileID: 7897920967524315509}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< Updated upstream
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: 0}
+=======
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -323.99997, y: -394.00003}
+  m_SizeDelta: {x: 616.46, y: 45.5613}
+>>>>>>> Stashed changes
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2381912677514439682
 CanvasRenderer:
@@ -2225,7 +2237,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -323.99994, y: -250.88907}
+  m_AnchoredPosition: {x: -323.99997, y: -250.88907}
   m_SizeDelta: {x: 616.46, y: 47.2903}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5255145513160092302
@@ -2551,7 +2563,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -324, y: -174.46}
+  m_AnchoredPosition: {x: -323.99997, y: -174.45998}
   m_SizeDelta: {x: 616.46, y: 45.5613}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6588918923021113505
@@ -2869,6 +2881,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4834418088725216886}
   m_OnClick:
     m_PersistentCalls:
+<<<<<<< Updated upstream
       m_Calls: []
 --- !u!1 &5614874308800710474
 GameObject:
@@ -2949,6 +2962,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Button
+=======
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UI_Voting, Assembly-CSharp
+        m_MethodName: AddNewUiObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+>>>>>>> Stashed changes
 --- !u!1 &5677673139309711863
 GameObject:
   m_ObjectHideFlags: 0
@@ -3411,8 +3439,13 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
+<<<<<<< Updated upstream
   m_AnchoredPosition: {x: 139.19337, y: -271.187}
   m_SizeDelta: {x: 357.3867, y: 478.374}
+=======
+  m_AnchoredPosition: {x: 137.04506, y: -271.187}
+  m_SizeDelta: {x: 353.0901, y: 478.374}
+>>>>>>> Stashed changes
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4035130770026050593
 CanvasRenderer:
@@ -3482,6 +3515,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< Updated upstream
 --- !u!1 &6629973871780996398
 GameObject:
   m_ObjectHideFlags: 0
@@ -3561,6 +3595,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Button
+=======
+>>>>>>> Stashed changes
 --- !u!1 &6864299979120785255
 GameObject:
   m_ObjectHideFlags: 0
@@ -5238,8 +5274,13 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
+<<<<<<< Updated upstream
   m_AnchoredPosition: {x: -3.1199, y: 201}
   m_SizeDelta: {x: 271.7602, y: 30}
+=======
+  m_AnchoredPosition: {x: -323.99997, y: -321.64517}
+  m_SizeDelta: {x: 616.46, y: 47.2903}
+>>>>>>> Stashed changes
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6477221827077679597
 CanvasRenderer:
