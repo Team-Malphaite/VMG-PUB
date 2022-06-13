@@ -602,6 +602,7 @@ public class PopupWindowController : UI_Popup
     {
         Task k =  tokenManager.Instance.transfer("0x8011f59c67b50a32264c7558A78286fE3623AcBc", "1");
         await k;
+        //tokenManager.Instance.OnSendContract("0x390A76258925dDC904c806F16158b1050A7CD895", 1);
         if (setNum == 1){
 
             if (okAction != null)
