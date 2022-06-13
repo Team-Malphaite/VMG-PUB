@@ -46,6 +46,13 @@ public class tokenManager : MonoBehaviour
             try {
                 string response = await Web3GL.SendContract(method, abi, contract, args, value, gasLimit, gasPrice);
                 Debug.Log(response);
+                UI_Voting.Instance.votingName.gameObject.SetActive(false);
+                UI_Voting.Instance.chooseButton1.gameObject.SetActive(false);
+                UI_Voting.Instance.chooseButton2.gameObject.SetActive(false);
+                UI_Voting.Instance.chooseButton3.gameObject.SetActive(false);
+                UI_Voting.Instance.chooseButton4.gameObject.SetActive(false);
+                UI_Voting.Instance.chooseButton5.gameObject.SetActive(false);
+                UI_Voting.Instance.sendContract.gameObject.SetActive(false);
             } catch (Exception e) {
                 Debug.LogException(e, this);
             }
