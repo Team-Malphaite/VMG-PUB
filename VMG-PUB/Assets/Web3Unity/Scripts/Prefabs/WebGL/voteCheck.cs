@@ -17,7 +17,7 @@ public class voteCheck : MonoBehaviour
         string contract = "0x0C8a739504D6d827F24B7ED80CB8e32E5229A7e3";
         // array of arguments for contract
 
-        string args = "[\"" + 1 + "\"]";
+        string args = "[]";
         // value in wei
         string value = "0";
         // gas limit OPTIONAL
