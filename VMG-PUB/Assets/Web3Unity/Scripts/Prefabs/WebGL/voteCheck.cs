@@ -9,15 +9,15 @@ public class voteCheck : MonoBehaviour
     // GameObject obj;
     async public void OnSendContract()
     {
-        // smart contract method to call
-        string method = "voteChecked";
-        // abi in json format
-        string abi = "[{\"inputs\":[],\"name\":\"voteChecked\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]";
-        // string abi = "[{ \"inputs\": [{ \"internalType\": \"uint8\", \"name\": \"_myArg\", \"type\": \"uint8\" }], \"name\": \"addTotal\", \"outputs\": [], 	\"stateMutability\": \"nonpayable\", \"type\": \"function\" },{ \"inputs\": [], \"name\": \"countTotal\", \"outputs\": [{\"internalType\": \"uint256\", \"name\": \"\", \"type\": \"uint256\"}],\"stateMutability\": \"view\",\"type\": \"function\"}]";
+        string method = "checkAndTransfer";
+            // abi in json format
+        string abi = "[{\"inputs\": [] , \"name\" : \"checkAndTransfer\", \"outputs\" : [{\"internalType\":\"bool\", \"name\" : \"\", \"type\" : \"bool\"}] , \"stateMutability\" : \"nonpayable\", \"type\" : \"function\"}, { \"inputs\": [{\"internalType\":\"address\",\"name\" : \"recipient\",\"type\" : \"address\"},{\"internalType\":\"uint256\",\"name\" : \"amount\",\"type\" : \"uint256\"}] ,\"name\" : \"gameWinnerReward\",\"outputs\" : [{\"internalType\":\"bool\",\"name\" : \"\",\"type\" : \"bool\"}] ,\"stateMutability\" : \"nonpayable\",\"type\" : \"function\" }, { \"inputs\": [] ,\"stateMutability\" : \"nonpayable\",\"type\" : \"constructor\" }, { \"inputs\": [] ,\"name\" : \"getBalance\",\"outputs\" : [{\"internalType\":\"uint256\",\"name\" : \"\",\"type\" : \"uint256\"}] ,\"stateMutability\" : \"view\",\"type\" : \"function\" }, { \"inputs\": [] ,\"name\" : \"geterc20address\",\"outputs\" : [{\"internalType\":\"address\",\"name\" : \"\",\"type\" : \"address\"}] ,\"stateMutability\" : \"view\",\"type\" : \"function\" }, { \"inputs\": [] ,\"name\" : \"token\",\"outputs\" : [{\"internalType\":\"contract ERC20\",\"name\" : \"\",\"type\" : \"address\"}] ,\"stateMutability\" : \"view\",\"type\" : \"function\" }]";
+
         // address of contract
-        string contract = "0xB960D594fa00f3263311C84058849E1E53394e94";
+        string contract = "0x0C8a739504D6d827F24B7ED80CB8e32E5229A7e3";
         // array of arguments for contract
-        string args = "[]";
+
+        string args = "[\"" + 1 + "\"]";
         // value in wei
         string value = "0";
         // gas limit OPTIONAL
@@ -35,8 +35,6 @@ public class voteCheck : MonoBehaviour
             UI_Voting.Instance.chooseButton4.gameObject.SetActive(false);
             UI_Voting.Instance.chooseButton5.gameObject.SetActive(false);
             UI_Voting.Instance.sendContract.gameObject.SetActive(false);
-     
-            
         } catch (Exception e) {
             Debug.LogException(e, this);
         }
