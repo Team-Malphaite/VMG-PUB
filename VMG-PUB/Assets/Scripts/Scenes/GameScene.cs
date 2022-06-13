@@ -46,7 +46,6 @@ public class GameScene : BaseScene
         Managers.UI.ShowSceneUI<UI_Game>();
         Managers.UI.ShowPopupUI<PopupWindowController>();
         Managers.UI.ShowPopupUI<UI_Chat>();
-        Managers.UI.ShowPopupUI<UI_Loading>();
         // DontDestroyOnLoad(Managers.UI.ShowPopupUI<PopupWindowController>());
     }
 

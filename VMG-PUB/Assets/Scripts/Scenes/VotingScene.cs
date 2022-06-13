@@ -32,7 +32,6 @@ public class VotingScene : BaseScene
         Managers.UI.ShowSceneUI<UI_Voting>();
         Managers.UI.ShowPopupUI<PopupWindowController>();
         Managers.UI.ShowPopupUI<UI_Chat>();
-        Managers.UI.ShowPopupUI<UI_Loading>();
     }
 
     public override void Clear()

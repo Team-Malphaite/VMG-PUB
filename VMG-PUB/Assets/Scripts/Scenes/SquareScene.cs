@@ -43,7 +43,6 @@ public class SquareScene : BaseScene
         Managers.UI.ShowSceneUI<UI_Square>();
         Managers.UI.ShowPopupUI<PopupWindowController>();
         Managers.UI.ShowPopupUI<UI_Chat>();
-        Managers.UI.ShowPopupUI<UI_Loading>();
         DontDestroyOnLoad(metamask);
     }
 
