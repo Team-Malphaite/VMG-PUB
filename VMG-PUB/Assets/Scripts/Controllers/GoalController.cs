@@ -23,8 +23,13 @@ public class GoalController : MonoBehaviourPunCallbacks
         // {
         if (go.GetComponent<PlayerController>()._goalCheck)
         {
+            
             Debug.Log("골인");
+
             GameManagerEx.Instance.setGameFinished();
+            if(PlayerController.Instance.getRank() == 1){
+                tokenManager.Instance.gameReward(PlayerPrefs.GetString("Account"), "2");
+            }
 
             // go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
             // Managers.Network._scene = Define.Scene.Square;

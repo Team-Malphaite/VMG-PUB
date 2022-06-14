@@ -18,6 +18,7 @@ public class PopupWindowController : UI_Popup
     public GameObject go;
 
     public int setNum=0;
+    public int setNum_login = 0;
     Define.Scene _scene = Define.Scene.Square;
 
     public bool useBackground = true;
@@ -382,6 +383,7 @@ public class PopupWindowController : UI_Popup
 
         // 팝업 윈도우 활성화
         OpenPopupWindow();
+
     }
 
     public void ShowYesNoMetamaskConnect(string title, string message, Action yesAction = null, Action noAction = null)
@@ -418,20 +420,23 @@ public class PopupWindowController : UI_Popup
         OpenPopupWindow();
     }
 
-    public void OnClickYesButtonMetamask(PointerEventData data)
+    public async void OnClickYesButtonMetamask(PointerEventData data)
     {
         if (okAction != null)
             okAction();
         
         // 메타마스크 sdk 실행 코드 
-        WebLogin.Instance.OnLogin();
+        Task b = WebLogin.Instance.OnLogin();
+        await b;
+        if(setNum_login == 1){
         //tokenManager.Instance.transfer("0x390A76258925dDC904c806F16158b1050A7CD895", "1");
         // Managers.Scene._portalCheck = true;
-        if (go.GetComponent<PhotonView>().IsMine)
-            PlayerController.Instance._portalCheck = true;
-            Debug.Log("눌림");
-            // ClosePopupWindow();
-            ClosePopupUI();
+            if (go.GetComponent<PhotonView>().IsMine)
+                PlayerController.Instance._portalCheck = true;
+                Debug.Log("눌림");
+                // ClosePopupWindow();
+                ClosePopupUI();
+        }
         
     }
 
@@ -597,32 +602,42 @@ public class PopupWindowController : UI_Popup
         // ClosePopupWindow();
         ClosePopupUI();
     }
+    
+   
 
     async public void OnClickYesButtonGame(PointerEventData data)
     {
-        Task k =  tokenManager.Instance.transfer("0x8011f59c67b50a32264c7558A78286fE3623AcBc", "1");
-        await k;
-        //tokenManager.Instance.OnSendContract("0x390A76258925dDC904c806F16158b1050A7CD895", 1);
-        if (setNum == 1){
+        if (Metamask.Instance._metamaskCheck == false){
+            Task a = WebLogin.Instance.OnLogin();
+            await a;
+        }
+        // 로그인 확인되야 뒤에코드 실행
+        if(setNum_login == 1){
+            // 관리자 계정으로 토큰 송금해야 게임입장
+            Task k =  tokenManager.Instance.transfer("0x0C8a739504D6d827F24B7ED80CB8e32E5229A7e3", "1");
+            await k;
+            //tokenManager.Instance.OnSendContract("0x390A76258925dDC904c806F16158b1050A7CD895", 1);
+            if (setNum == 1){
 
-            if (okAction != null)
-                okAction();
-            // Managers.Scene._portalCheck = true;
-            if (go.GetComponent<PhotonView>().IsMine)
-                PlayerController.Instance._mode = PlayerController.modeState.Game;
-            Debug.Log("눌림");
-            // ClosePopupWindow();
-            ClosePopupUI();
+                if (okAction != null)
+                    okAction();
+                // Managers.Scene._portalCheck = true;
+                if (go.GetComponent<PhotonView>().IsMine)
+                    PlayerController.Instance._mode = PlayerController.modeState.Game;
+                Debug.Log("눌림");
+                // ClosePopupWindow();
+                ClosePopupUI();
 
-            if(go.GetComponent<PhotonView>().IsMine)
-            {
-                Managers.Network._scene = Define.Scene.Game;
-                go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Game;
-                PhotonNetwork.LeaveRoom();
-                Managers.Network.OnLeftRoom();
-                // Managers.Scene.LoadScene(_scene);
-                // Managers.Network.OnLogin();
-                // Managers.Scene._portalCheck = false;
+                if(go.GetComponent<PhotonView>().IsMine)
+                {
+                    Managers.Network._scene = Define.Scene.Game;
+                    go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Game;
+                    PhotonNetwork.LeaveRoom();
+                    Managers.Network.OnLeftRoom();
+                    // Managers.Scene.LoadScene(_scene);
+                    // Managers.Network.OnLogin();
+                    // Managers.Scene._portalCheck = false;
+                }
             }
         }
     }

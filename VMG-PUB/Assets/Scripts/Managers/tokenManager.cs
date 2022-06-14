@@ -57,7 +57,7 @@ public class tokenManager : MonoBehaviour
                 Debug.LogException(e, this);
             }
         }
-    async public void gameReward(string recipient, int amount)
+    async public void gameReward(string recipient, string amount)
         {
             // smart contract method to call
             string method = "gameWinnerReward";

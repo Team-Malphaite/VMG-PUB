@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 // #if UNITY_WEBGL
 public class WebLogin : MonoBehaviour
@@ -33,13 +34,14 @@ public class WebLogin : MonoBehaviour
         } 
     }
 
-    public void OnLogin()
+    async public Task OnLogin()
     {
         Web3Connect();
-        OnConnected();
+        await OnConnected();
+        PopupWindowController.Instance.setNum_login = 1;
     }
 
-    async private void OnConnected()
+    async private Task OnConnected()
     {
         account = ConnectAccount();
         while (account == "") {
@@ -56,9 +58,8 @@ public class WebLogin : MonoBehaviour
 
         // 이거 보팅룸에 들어 갔을때만 출력하는 예외처리
         //Metamask.Instance.setcheckmetamask(); 
-        UI_Voting.Instance.setWalletAddress(account);
-        
-
+        //UI_Voting.Instance.setWalletAddress(account);
+    
     }
 
     public void OnSkip()
