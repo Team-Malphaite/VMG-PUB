@@ -20,6 +20,7 @@ public class UI_Square : UI_Scene
     {
         Balance,
         MusicText,
+        walletAddress,
     }
 
     // enum GameObjects
@@ -119,4 +120,5 @@ public class UI_Square : UI_Scene
         }
         
     }
+    
 }
