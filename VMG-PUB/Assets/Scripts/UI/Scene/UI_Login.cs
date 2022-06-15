@@ -51,6 +51,7 @@ public class UI_Login : UI_Scene
     }
     */
     
+    
   
 
     public override void Init()
@@ -81,7 +82,7 @@ public class UI_Login : UI_Scene
                
             
    //파이어베이스 부분
-          // AuthHandler.Instance.SignInWithGoogle();
+           //AuthHandler.Instance.SignInWithGoogle();
             
 
 

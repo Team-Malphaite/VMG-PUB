@@ -40,7 +40,8 @@ public class UI_Voting : UI_Scene
     public Text chBtn5T;
     public string tmp=null;
     public int btnlength=3;
-    
+
+
     public enum ScrollRects
     {
         scrollListView,
@@ -198,7 +199,16 @@ public class UI_Voting : UI_Scene
     {
         var newUi = Instantiate(uiPrefab, voteListView.content).GetComponent<RectTransform>();
         newUi.name = "serveybtn" +j;
+        //파이어베이스 부분
+        /*
+        newUi.GetComponent<ServeyBtn>().buttondata = AuthHandler.Instance.voteSubjectData[j];
+        newUi.GetChild(0).gameObject.GetComponent<Text>().text =AuthHandler.Instance.voteSubjectData[j];
+        */
+
+
+        
         uiObjects.Add(newUi);
+
         float y = 0f;
         for(int i =0; i< uiObjects.Count;i++)
         {
@@ -214,26 +224,26 @@ public class UI_Voting : UI_Scene
     public void parsingData()
     {
             voteListView.gameObject.SetActive(true);
+            //파이어베이스부분
+            /*
+            Debug.Log("보트서브젝트데이터 카운트 길이:"+AuthHandler.Instance.voteSubjectData.Count);
+            for(int i=0;i<AuthHandler.Instance.voteSubjectData.Count;i++)
+            {
+                AddNewUiObject(i);
+               // GameObject.find()
 
+            }
+            */
+            //로컬부분
             for(int i=0;i<btnlength;i++)
             {
                 AddNewUiObject(i);
+               // GameObject.find()
+
             }
 
             
-            //파이어베이스부분             
-            //////////////////////////////////////voteSubjectData의 길이 만큼 버튼이 필요해요////////////////
-            //////////////////////////////////////voteSubjectData의 길이 만큼 버튼이 필요해요////////////////
-            //////////////////////////////////////voteSubjectData의 길이 만큼 버튼이 필요해요////////////////
-            //////////////////////////////////////voteSubjectData의 길이 만큼 버튼이 필요해요////////////////
-/*
-            btn1Text.text = AuthHandler.Instance.voteSubjectData[0];
-            btn2Text.text = AuthHandler.Instance.voteSubjectData[1];
-            Debug.Log("버튼 1 텍스트  값 = "+AuthHandler.Instance.voteSubjectData[0]);
-            Debug.Log("버튼 2 텍스트  값 = "+AuthHandler.Instance.voteSubjectData[1]);
-            Debug.Log("버튼 3 텍스트  값 = "+AuthHandler.Instance.voteSubjectData[2]);
-            btn3Text.text = AuthHandler.Instance.voteSubjectData[2];
-*/
+
 
     }
 
@@ -246,26 +256,31 @@ public class UI_Voting : UI_Scene
         if(voteListView.gameObject.activeSelf == true)
         {
             voteListView.gameObject.SetActive(false);
+//파이어베이스부분
+            /*
+            uiObjects.Clear();
+            for(int i =0 ;i<AuthHandler.Instance.voteSubjectData.Count;i++){
 
+                Destroy(voteListView.content.GetChild(AuthHandler.Instance.voteSubjectData.Count - i -1).gameObject);
+
+
+            }
+            */
             uiObjects.Clear();
             for(int i =0 ;i<btnlength;i++){
 
                 Destroy(voteListView.content.GetChild(btnlength - i -1).gameObject);
-                // uiObjects.RemoveAt(btnlength - i);
 
-                // GameObject a=GameObject.Find("serveybtn" +i);
-                // Debug.Log("serveybtn" +i);
-                // Destroy(GameObject.Find(a));
 
             }
 
         }
         else{
             //파이어베이스부분
-       /*     
+            /*
             AuthHandler.Instance.voteSubjectData.Clear(); // 데이터 받아오기전 그전 데이터 남아있을수도있으니 삭제
             AuthHandler.Instance.GetAllVoteDocument(); // 데이터 받아서 votesubjectData에 저장
-           */ 
+            */
 
             Invoke("parsingData",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌
 
@@ -309,6 +324,30 @@ public class UI_Voting : UI_Scene
         
         
     }
+    ///////////////////////////////////////////////////투표용지 껐다 키는 함수
+    public void OnOffVotePaper(){
+            chooseButton1.gameObject.SetActive(true);
+            chooseButton2.gameObject.SetActive(true);
+            chooseButton3.gameObject.SetActive(true);
+            chooseButton4.gameObject.SetActive(true);
+            chooseButton5.gameObject.SetActive(true);
+            votingName.gameObject.SetActive(true);
+            sendContract.gameObject.SetActive(true);
+
+            votingName.text =AuthHandler.Instance.wantvote;
+            chBtn1T.text=AuthHandler.Instance.vote1 + "  :  " + AuthHandler.Instance.voteCnt1;
+            chBtn2T.text=AuthHandler.Instance.vote2 + "  :  " + AuthHandler.Instance.voteCnt2;
+            chBtn3T.text=AuthHandler.Instance.vote3 + "  :  " + AuthHandler.Instance.voteCnt3;
+            chBtn4T.text=AuthHandler.Instance.vote4 + "  :  " + AuthHandler.Instance.voteCnt4;
+            chBtn5T.text=AuthHandler.Instance.vote5 + "  :  " + AuthHandler.Instance.voteCnt5;
+
+    }
+
+
+
+
+
+    ///////////////////////////////////////////////////
 
 ///////////////////////////////////////////////파이어 베이스 투표지 1~5번 까지 코드    
     public void doingvote1(){
@@ -329,8 +368,8 @@ public class UI_Voting : UI_Scene
         AuthHandler.Instance.focusDocument=votingName.text;
         AuthHandler.Instance.GetVoteCheckDocument();
         Invoke("doingvote1",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌
-         
          */
+         
     }
     public void doingvote2(){
         if(AuthHandler.Instance.voteCheck=="null"){
@@ -388,8 +427,8 @@ public class UI_Voting : UI_Scene
          AuthHandler.Instance.focusDocument=votingName.text;
         AuthHandler.Instance.GetVoteCheckDocument();
         Invoke("doingvote4",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌
-      
-*/
+      */
+
     }
     public void doingvote5(){
         if(AuthHandler.Instance.voteCheck=="null"){
