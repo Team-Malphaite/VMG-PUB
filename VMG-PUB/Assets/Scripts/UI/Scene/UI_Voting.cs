@@ -32,6 +32,8 @@ public class UI_Voting : UI_Scene
     public Button chooseButton4;
     public Button chooseButton5;
     public Button sendContract;
+    public Button closeBtn;
+
     public Text votingName;
     public Text chBtn1T;
     public Text chBtn2T;
@@ -53,13 +55,13 @@ public class UI_Voting : UI_Scene
         voteMake,
         makeButton,
         MusicOnOff,
-
         chooseBtn1,
         chooseBtn2,
         chooseBtn3,
         chooseBtn4,
         chooseBtn5,
-        sendContract
+        sendContract,
+        closeBtn
     }
 
     public enum Texts
@@ -114,6 +116,8 @@ public class UI_Voting : UI_Scene
         chooseButton5.gameObject.SetActive(false);
         votingName.gameObject.SetActive(false);
         sendContract.gameObject.SetActive(false);
+        closeBtn.gameObject.SetActive(false);
+        
 
     }
 
@@ -157,6 +161,7 @@ public class UI_Voting : UI_Scene
         chooseButton4 = GetButton((int)Buttons.chooseBtn4);
         chooseButton5 = GetButton((int)Buttons.chooseBtn5);
         sendContract = GetButton((int)Buttons.sendContract);
+        closeBtn = GetButton((int)Buttons.closeBtn);
 
 
 
@@ -181,8 +186,10 @@ public class UI_Voting : UI_Scene
         GetButton((int)Buttons.chooseBtn1).gameObject.BindEvent(vote1ChooseClicked);
         GetButton((int)Buttons.chooseBtn2).gameObject.BindEvent(vote2ChooseClicked);
         GetButton((int)Buttons.chooseBtn3).gameObject.BindEvent(vote3ChooseClicked);
-       GetButton((int)Buttons.chooseBtn4).gameObject.BindEvent(vote4ChooseClicked);
+        GetButton((int)Buttons.chooseBtn4).gameObject.BindEvent(vote4ChooseClicked);
         GetButton((int)Buttons.chooseBtn5).gameObject.BindEvent(vote5ChooseClicked);
+        GetButton((int)Buttons.closeBtn).gameObject.BindEvent(closeBtnClicked);
+        
 
         
 
@@ -333,6 +340,8 @@ public class UI_Voting : UI_Scene
             chooseButton5.gameObject.SetActive(true);
             votingName.gameObject.SetActive(true);
             sendContract.gameObject.SetActive(true);
+            closeBtn.gameObject.SetActive(true);
+        
 
             votingName.text =AuthHandler.Instance.wantvote;
             chBtn1T.text=AuthHandler.Instance.vote1 + "  :  " + AuthHandler.Instance.voteCnt1;
@@ -503,6 +512,20 @@ public class UI_Voting : UI_Scene
         //     walletAddress.text = "0x00000000000000000000000000000000000000";
         //     // Metamask.Instance.setcheckmetamask(true);
         // }
+        
+    }
+
+    public void closeBtnClicked(PointerEventData data)
+    {
+        GameObject go = EventSystem.current.currentSelectedGameObject;
+        chooseButton1.gameObject.SetActive(false);
+        chooseButton2.gameObject.SetActive(false);
+        chooseButton3.gameObject.SetActive(false);
+        chooseButton4.gameObject.SetActive(false);
+        chooseButton5.gameObject.SetActive(false);
+        sendContract.gameObject.SetActive(false);
+        closeBtn.gameObject.SetActive(false);
+        
         
     }
 
