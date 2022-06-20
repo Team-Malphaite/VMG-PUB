@@ -84,7 +84,7 @@ public class tokenManager : MonoBehaviour
             }
         }
 
-    async public Task<BigInteger> getBalance(string getAccount)
+    async public void getBalance(string getAccount)
     {
         string chain = "ethereum";
         string network = "rinkeby";
@@ -92,7 +92,7 @@ public class tokenManager : MonoBehaviour
         string account = getAccount;
 
         BigInteger balanceOf = await ERC20.BalanceOf(chain, network, contract, account);
-        return balanceOf;
+        Metamask.Instance.balance = balanceOf;
     }
 
     
