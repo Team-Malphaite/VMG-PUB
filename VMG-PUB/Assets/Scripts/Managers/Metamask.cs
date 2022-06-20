@@ -9,7 +9,7 @@ public class Metamask : MonoBehaviour
     public static Metamask Instance = null;
     public bool _metamaskCheck = false;
 
-    public string walletAddress = "0x000000000000";
+    public string walletAddress = "0x0";
 
     public BigInteger balance = 0;
 
