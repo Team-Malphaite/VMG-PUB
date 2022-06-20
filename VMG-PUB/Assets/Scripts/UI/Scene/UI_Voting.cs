@@ -367,6 +367,11 @@ public class UI_Voting : UI_Scene
             AuthHandler.Instance.focusField="vote1Cnt";
             AuthHandler.Instance.IncrementFieldValue();
             Debug.Log(AuthHandler.Instance.voteCheck);
+            // 클릭시 그레이색 변경
+            GameObject chooseBtn1 = EventSystem.current.currentSelectedGameObject;
+            Color OrignalColor = chooseBtn1.GetComponent<Image>().color;
+            chooseBtn1.GetComponent<Image>().color = Color.gray;
+            Debug.Log("gray");
 
         }else{
             Debug.Log(" 이미 투표했네요");
@@ -387,6 +392,11 @@ public class UI_Voting : UI_Scene
         if(AuthHandler.Instance.voteCheck=="null"){
             AuthHandler.Instance.focusField="vote2Cnt";
             AuthHandler.Instance.IncrementFieldValue();
+            // 클릭시 그레이색 변경
+            GameObject chooseBtn1 = EventSystem.current.currentSelectedGameObject;
+            Color OrignalColor = chooseBtn1.GetComponent<Image>().color;
+            chooseBtn1.GetComponent<Image>().color = Color.gray;
+            Debug.Log("gray");
 
         }else{
             Debug.Log(" 이미 투표했네요");
@@ -406,6 +416,11 @@ public class UI_Voting : UI_Scene
         if(AuthHandler.Instance.voteCheck=="null"){
             AuthHandler.Instance.focusField="vote3Cnt";
             AuthHandler.Instance.IncrementFieldValue();
+            // 클릭시 그레이색 변경
+            GameObject chooseBtn1 = EventSystem.current.currentSelectedGameObject;
+            Color OrignalColor = chooseBtn1.GetComponent<Image>().color;
+            chooseBtn1.GetComponent<Image>().color = Color.gray;
+            Debug.Log("gray");
 
         }else{
             Debug.Log(" 이미 투표했네요");
@@ -426,6 +441,11 @@ public class UI_Voting : UI_Scene
         if(AuthHandler.Instance.voteCheck=="null"){
             AuthHandler.Instance.focusField="vote4Cnt";
             AuthHandler.Instance.IncrementFieldValue();
+            // 클릭시 그레이색 변경
+            GameObject chooseBtn1 = EventSystem.current.currentSelectedGameObject;
+            Color OrignalColor = chooseBtn1.GetComponent<Image>().color;
+            chooseBtn1.GetComponent<Image>().color = Color.gray;
+            Debug.Log("gray");
 
         }else{
             Debug.Log(" 이미 투표했네요");
@@ -446,6 +466,11 @@ public class UI_Voting : UI_Scene
         if(AuthHandler.Instance.voteCheck=="null"){
             AuthHandler.Instance.focusField="vote5Cnt";
             AuthHandler.Instance.IncrementFieldValue();
+            // 클릭시 그레이색 변경
+            GameObject chooseBtn1 = EventSystem.current.currentSelectedGameObject;
+            Color OrignalColor = chooseBtn1.GetComponent<Image>().color;
+            chooseBtn1.GetComponent<Image>().color = Color.gray;
+            Debug.Log("gray");
 
         }else{
             Debug.Log(" 이미 투표했네요");

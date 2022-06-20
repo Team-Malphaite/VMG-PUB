@@ -40,8 +40,12 @@ public class UI_Square : UI_Scene
     }
 
     private void Update(){
-        tokenManager.Instance.getBalance(Metamask.Instance.walletAddress);
-        GetText((int)Texts.Balance).text = Convert.ToString(Metamask.Instance.balance);   
+        if(!Metamask.Instance.walletAddress.Equals("0x0"))
+        {
+            tokenManager.Instance.getBalance(Metamask.Instance.walletAddress);
+            GetText((int)Texts.Balance).text = Convert.ToString(Metamask.Instance.balance);       
+        }
+        
     }
 
     public override void Init()
