@@ -616,6 +616,7 @@ public class PopupWindowController : UI_Popup
             // 관리자 계정으로 토큰 송금해야 게임입장
             Task k =  tokenManager.Instance.transfer("0x0C8a739504D6d827F24B7ED80CB8e32E5229A7e3", "1");
             await k;
+            tokenManager.Instance.getBalance(Metamask.Instance.walletAddress);
             //tokenManager.Instance.OnSendContract("0x390A76258925dDC904c806F16158b1050A7CD895", 1);
             if (setNum == 1){
 

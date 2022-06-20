@@ -20,6 +20,8 @@ public class WebLogin : MonoBehaviour
     private int expirationTime;
     private string account;
 
+    public string getAccount;
+
     private void Awake()
     { 
         if (Instance == null) 
@@ -38,7 +40,11 @@ public class WebLogin : MonoBehaviour
     {
         Web3Connect();
         await OnConnected();
+        
         PopupWindowController.Instance.setNum_login = 1;
+        tokenManager.Instance.getBalance(getAccount);
+        Debug.Log(getAccount);
+        // Debug.Log(tokenManager.Instance.getBalance(PlayerPrefs.GetString("Account")).Result);
     }
 
     async private Task OnConnected()
@@ -48,6 +54,8 @@ public class WebLogin : MonoBehaviour
             await new WaitForSeconds(1f);
             account = ConnectAccount();
         };
+        this.getAccount = account;
+        Metamask.Instance.walletAddress = account;
         // save account for next scene
         PlayerPrefs.SetString("Account", account);
         // reset login message

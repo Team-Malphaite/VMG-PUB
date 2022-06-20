@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
+using System.Numerics;
 
 public class UI_Square : UI_Scene
 {
@@ -36,6 +37,11 @@ public class UI_Square : UI_Scene
     private void Start()
     {
         Init();
+    }
+
+    private void Update(){
+        tokenManager.Instance.getBalance(Metamask.Instance.walletAddress);
+        GetText((int)Texts.Balance).text = Convert.ToString(Metamask.Instance.balance);   
     }
 
     public override void Init()

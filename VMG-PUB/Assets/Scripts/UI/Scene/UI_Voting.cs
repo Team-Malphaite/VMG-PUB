@@ -74,7 +74,8 @@ public class UI_Voting : UI_Scene
         chBtn2T,
         chBtn3T,
         chBtn4T,
-        chBtn5T
+        chBtn5T,
+        Balance,
     }
 
     public enum InputFields
@@ -201,6 +202,8 @@ public class UI_Voting : UI_Scene
     {
         // 메타마스크 테스트 시 주석 풀기
         //setWalletAddress(walletAddress.text);
+        tokenManager.Instance.getBalance(Metamask.Instance.walletAddress);
+        GetText((int)Texts.Balance).text = Convert.ToString(Metamask.Instance.balance);
     }
     public void AddNewUiObject(int j)
     {

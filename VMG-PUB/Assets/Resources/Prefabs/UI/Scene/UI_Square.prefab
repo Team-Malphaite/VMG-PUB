@@ -399,7 +399,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'ETH : 50'
+  m_Text: 'MTK : 0'
 --- !u!1 &7723952111916687267
 GameObject:
   m_ObjectHideFlags: 0

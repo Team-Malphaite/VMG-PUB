@@ -35,6 +35,7 @@ public class voteCheck : MonoBehaviour
             UI_Voting.Instance.chooseButton4.gameObject.SetActive(false);
             UI_Voting.Instance.chooseButton5.gameObject.SetActive(false);
             UI_Voting.Instance.sendContract.gameObject.SetActive(false);
+            
         } catch (Exception e) {
             Debug.LogException(e, this);
         }

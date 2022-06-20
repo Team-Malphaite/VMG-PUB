@@ -28,7 +28,7 @@ public class GoalController : MonoBehaviourPunCallbacks
 
             GameManagerEx.Instance.setGameFinished();
             if(PlayerController.Instance.getRank() == 1){
-                tokenManager.Instance.gameReward(PlayerPrefs.GetString("Account"), "2");
+                tokenManager.Instance.gameReward(Metamask.Instance.walletAddress, "2");
             }
 
             // go.GetComponent<PlayerController>()._mode = PlayerController.modeState.Square;
