@@ -203,17 +203,18 @@ public class UI_Voting : UI_Scene
         // 메타마스크 테스트 시 주석 풀기
         //setWalletAddress(walletAddress.text);
         tokenManager.Instance.getBalance(Metamask.Instance.walletAddress);
-        GetText((int)Texts.Balance).text = Convert.ToString(Metamask.Instance.balance);
+        string tmp = Convert.ToString(Metamask.Instance.balance);
+        GetText((int)Texts.Balance).text =  "MTK: " + tmp;
     }
     public void AddNewUiObject(int j)
     {
         var newUi = Instantiate(uiPrefab, voteListView.content).GetComponent<RectTransform>();
         newUi.name = "serveybtn" +j;
         //파이어베이스 부분
-        /*
+        
         newUi.GetComponent<ServeyBtn>().buttondata = AuthHandler.Instance.voteSubjectData[j];
         newUi.GetChild(0).gameObject.GetComponent<Text>().text =AuthHandler.Instance.voteSubjectData[j];
-        */
+        
 
 
         
@@ -235,7 +236,7 @@ public class UI_Voting : UI_Scene
     {
             voteListView.gameObject.SetActive(true);
             //파이어베이스부분
-            /*
+            
             Debug.Log("보트서브젝트데이터 카운트 길이:"+AuthHandler.Instance.voteSubjectData.Count);
             for(int i=0;i<AuthHandler.Instance.voteSubjectData.Count;i++)
             {
@@ -243,14 +244,14 @@ public class UI_Voting : UI_Scene
                // GameObject.find()
 
             }
-            */
+            /*
             //로컬부분
             for(int i=0;i<btnlength;i++)
             {
                 AddNewUiObject(i);
                // GameObject.find()
 
-            }
+            }*/
 
             
 
@@ -267,7 +268,7 @@ public class UI_Voting : UI_Scene
         {
             voteListView.gameObject.SetActive(false);
 //파이어베이스부분
-            /*
+            
             uiObjects.Clear();
             for(int i =0 ;i<AuthHandler.Instance.voteSubjectData.Count;i++){
 
@@ -275,22 +276,23 @@ public class UI_Voting : UI_Scene
 
 
             }
-            */
+                        //로컬부분
+/*
             uiObjects.Clear();
             for(int i =0 ;i<btnlength;i++){
 
                 Destroy(voteListView.content.GetChild(btnlength - i -1).gameObject);
 
 
-            }
+            }*/
 
         }
         else{
             //파이어베이스부분
-            /*
+            
             AuthHandler.Instance.voteSubjectData.Clear(); // 데이터 받아오기전 그전 데이터 남아있을수도있으니 삭제
             AuthHandler.Instance.GetAllVoteDocument(); // 데이터 받아서 votesubjectData에 저장
-            */
+            
 
             Invoke("parsingData",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌
 
@@ -368,10 +370,12 @@ public class UI_Voting : UI_Scene
             AuthHandler.Instance.IncrementFieldValue();
             Debug.Log(AuthHandler.Instance.voteCheck);
             // 클릭시 그레이색 변경
+            /*
             GameObject chooseBtn1 = EventSystem.current.currentSelectedGameObject;
             Color OrignalColor = chooseBtn1.GetComponent<Image>().color;
             chooseBtn1.GetComponent<Image>().color = Color.gray;
             Debug.Log("gray");
+            */
 
         }else{
             Debug.Log(" 이미 투표했네요");
@@ -381,22 +385,18 @@ public class UI_Voting : UI_Scene
     }
     public void vote1ChooseClicked(PointerEventData data){
         ///파이어베이스 부분
-        /*
+        
         AuthHandler.Instance.focusDocument=votingName.text;
         AuthHandler.Instance.GetVoteCheckDocument();
         Invoke("doingvote1",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌
-         */
+         
          
     }
     public void doingvote2(){
         if(AuthHandler.Instance.voteCheck=="null"){
             AuthHandler.Instance.focusField="vote2Cnt";
             AuthHandler.Instance.IncrementFieldValue();
-            // 클릭시 그레이색 변경
-            GameObject chooseBtn1 = EventSystem.current.currentSelectedGameObject;
-            Color OrignalColor = chooseBtn1.GetComponent<Image>().color;
-            chooseBtn1.GetComponent<Image>().color = Color.gray;
-            Debug.Log("gray");
+
 
         }else{
             Debug.Log(" 이미 투표했네요");
@@ -406,21 +406,17 @@ public class UI_Voting : UI_Scene
     }
     public void vote2ChooseClicked(PointerEventData data){
         ///파이어베이스 부분
-        /*
+        
        AuthHandler.Instance.focusDocument=votingName.text;
         AuthHandler.Instance.GetVoteCheckDocument();
         Invoke("doingvote2",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌
-    */
+    
     }
     public void doingvote3(){
         if(AuthHandler.Instance.voteCheck=="null"){
             AuthHandler.Instance.focusField="vote3Cnt";
             AuthHandler.Instance.IncrementFieldValue();
-            // 클릭시 그레이색 변경
-            GameObject chooseBtn1 = EventSystem.current.currentSelectedGameObject;
-            Color OrignalColor = chooseBtn1.GetComponent<Image>().color;
-            chooseBtn1.GetComponent<Image>().color = Color.gray;
-            Debug.Log("gray");
+
 
         }else{
             Debug.Log(" 이미 투표했네요");
@@ -430,22 +426,18 @@ public class UI_Voting : UI_Scene
     }
     public void vote3ChooseClicked(PointerEventData data){
         ///파이어베이스 부분
-        /*
+        
         AuthHandler.Instance.focusDocument=votingName.text;
         AuthHandler.Instance.GetVoteCheckDocument();
         Invoke("doingvote3",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌
        
-*/
+
     } 
     public void doingvote4(){
         if(AuthHandler.Instance.voteCheck=="null"){
             AuthHandler.Instance.focusField="vote4Cnt";
             AuthHandler.Instance.IncrementFieldValue();
-            // 클릭시 그레이색 변경
-            GameObject chooseBtn1 = EventSystem.current.currentSelectedGameObject;
-            Color OrignalColor = chooseBtn1.GetComponent<Image>().color;
-            chooseBtn1.GetComponent<Image>().color = Color.gray;
-            Debug.Log("gray");
+
 
         }else{
             Debug.Log(" 이미 투표했네요");
@@ -455,22 +447,18 @@ public class UI_Voting : UI_Scene
     }
     public void vote4ChooseClicked(PointerEventData data){
         ///파이어베이스 부분
-        /*
+        
          AuthHandler.Instance.focusDocument=votingName.text;
         AuthHandler.Instance.GetVoteCheckDocument();
         Invoke("doingvote4",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌
-      */
+      
 
     }
     public void doingvote5(){
         if(AuthHandler.Instance.voteCheck=="null"){
             AuthHandler.Instance.focusField="vote5Cnt";
             AuthHandler.Instance.IncrementFieldValue();
-            // 클릭시 그레이색 변경
-            GameObject chooseBtn1 = EventSystem.current.currentSelectedGameObject;
-            Color OrignalColor = chooseBtn1.GetComponent<Image>().color;
-            chooseBtn1.GetComponent<Image>().color = Color.gray;
-            Debug.Log("gray");
+
 
         }else{
             Debug.Log(" 이미 투표했네요");
@@ -480,11 +468,11 @@ public class UI_Voting : UI_Scene
     }
     public void vote5ChooseClicked(PointerEventData data){
         ///파이어베이스 부분
-        /*
+        
         AuthHandler.Instance.focusDocument=votingName.text;
         AuthHandler.Instance.GetVoteCheckDocument();
         Invoke("doingvote5",1f);//데이터를 읽어오는데 시간이 걸려서 invoke로 시간 지연 줌
-        */
+        
 
     }
 ///////////////////////////////////////////////파이어 베이스 투표지 1~5번 까지 코드
@@ -502,7 +490,7 @@ public class UI_Voting : UI_Scene
 
         ///파이어베이스부분 vote db에 쓰기 
         
-       /* 
+       
         AuthHandler.Instance.voteSubject=voteNames.text;
         AuthHandler.Instance.vote1 = voteFirsts.text;
         AuthHandler.Instance.vote2= voteSeconds.text;
@@ -511,7 +499,7 @@ public class UI_Voting : UI_Scene
         AuthHandler.Instance.vote5= voteFifths.text;
         AuthHandler.Instance.SetVoteDocument();
 
-*/
+
 
 
 
@@ -553,7 +541,8 @@ public class UI_Voting : UI_Scene
         chooseButton5.gameObject.SetActive(false);
         sendContract.gameObject.SetActive(false);
         closeBtn.gameObject.SetActive(false);
-        
+        votingName.gameObject.SetActive(false);
+       
         
     }
 

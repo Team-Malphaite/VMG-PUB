@@ -7,12 +7,14 @@ public class ServeyBtn : MonoBehaviour
     public string buttondata = null;
     public string tmp = null;
     public int num;
+    /*
     public void touch(){
         UI_Voting.Instance.OnOffVotePaper();
 
     }
+    */
     ////파이어베이스 
-/*
+
     async void touch()
     {
 
@@ -34,7 +36,7 @@ public class ServeyBtn : MonoBehaviour
         await new WaitForSeconds(1f);
     }
      
-*/
+
 
 
 }

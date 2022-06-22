@@ -8,6 +8,6 @@ public class UI_Scene : UI_Base
     {
         Managers.UI.SetCanvas(gameObject, false);
         Managers.UI.SetUIResolution(gameObject);
-        Managers.Screen.SetResolution(1920, 1080);
+        Managers.Screen1.SetResolution(1920, 1080);
     }    
 }

@@ -17,7 +17,7 @@ public class Managers : MonoBehaviour
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static UIMananger UI { get { return Instance._ui; } }
-    public static ScreenManager Screen { get { return Instance._screen; } }
+    public static ScreenManager Screen1 { get { return Instance._screen; } }
     public static NetworkManager Network { get { return Instance._network; }}
 
     // Start is called before the first frame update
@@ -30,6 +30,8 @@ public class Managers : MonoBehaviour
     void Update()
     {
         _input.OnUpdate();
+       // Screen.fullScreen = false;
+
     }
 
     static void Init()
