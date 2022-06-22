@@ -27,7 +27,12 @@ public class GoalController : MonoBehaviourPunCallbacks
             Debug.Log("골인");
 
             GameManagerEx.Instance.setGameFinished();
-            if(PlayerController.Instance.getRank() == 1){
+            // if(PlayerController.Instance.getRank() == 1){
+            //     tokenManager.Instance.gameReward(Metamask.Instance.walletAddress, "2");
+            // }
+            if(go.GetComponent<PlayerController>().getRank() == 1){
+                go.GetComponent<PlayerController>().setRank(0);
+
                 tokenManager.Instance.gameReward(Metamask.Instance.walletAddress, "2");
             }
 

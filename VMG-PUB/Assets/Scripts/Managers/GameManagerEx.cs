@@ -20,7 +20,7 @@ public class GameManagerEx : MonoBehaviour, IPunObservable
     int StartTimer = 0;
     int FinishTimer = 0;
 
-    float m_TotalSeconds = 1 * 60;
+    float m_TotalSeconds = 1 * 300;
     
     private void Awake()
     { 

@@ -298,7 +298,7 @@ public class UI_Game : UI_Scene
         }
 
         // Debug.Log(rank);
-        GameManagerEx.Instance.Players[0].GetComponent<PlayerController>().setRank(rank);
+        player.GetComponent<PlayerController>().setRank(rank);
         GetText((int)Texts.Rank).text = rank + "  /  " + Managers.Network.getGameMaxPlayer();
         // Debug.Log(GameManagerEx.Instance.Players[0].GetComponent<PlayerController>().getRank());
     }

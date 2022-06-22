@@ -38,12 +38,12 @@ public class UI_Square : UI_Scene
     {
         Init();
     }
-
     private void Update(){
         if(!Metamask.Instance.walletAddress.Equals("0x0"))
         {
             tokenManager.Instance.getBalance(Metamask.Instance.walletAddress);
-            GetText((int)Texts.Balance).text = Convert.ToString(Metamask.Instance.balance);       
+            string tmp = Convert.ToString(Metamask.Instance.balance);
+            GetText((int)Texts.Balance).text = "MTK: " + tmp;       
         }
         
     }
