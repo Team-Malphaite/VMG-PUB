@@ -18,14 +18,13 @@ public class GameTest : MonoBehaviourPunCallbacks
     void Update()
     {
         go = GameObject.Find("@Player");
-        if (go == null) return;
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (go.GetComponent<PhotonView>().IsMine)
-        {
+       // if (go.GetComponent<PhotonView>().IsMine)
+        //{
             // go.GetComponent<PlayerController>()._goalCheck = true;
             go.transform.position = dest.transform.position;
-        }
+       // }
     }
 }

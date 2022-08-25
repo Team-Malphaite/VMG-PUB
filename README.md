@@ -12,21 +12,19 @@
 ## 1. 프로그램 소개
 가상세계에서 블록체인을 활용한 투표를 통해 보다 공정한 투표를 진행하고 이러한 투표나 설문조사의 사람들의 참여를 증진시키기 위한 간단하고 재미있는 게임을 통해 사용자들의 호기심 유발과 투표를 장려한다.
 ### 기술 스택
-------------------------------------
 <div>
 <img src="https://img.shields.io/badge/unity-47A248?style=for-the-badge&logo=Unity&logoColor=white">
 <img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white">
-<img src="https://img.shields.io/badge/amazonaws-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
- <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
- <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
- <img src="https://img.shields.io/badge/webgl-61DAFB?style=for-the-badge&logo=WebGL&logoColor=black">
- <img src="https://img.shields.io/badge/solidity-7952B3?style=for-the-badge&logo=Solidity&logoColor=white">
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+<img src="https://img.shields.io/badge/webgl-61DAFB?style=for-the-badge&logo=WebGL&logoColor=black">
+<img src="https://img.shields.io/badge/solidity-7952B3?style=for-the-badge&logo=Solidity&logoColor=white">
 </div>
 
 ### 일정관리: <img src="https://img.shields.io/badge/notion-A86454?style=for-the-badge&logo=notion&logoColor=white">
    
 ### 프로그램 화면 
-------------------------
+
 * 로그인 화면    
 
 ![image1](./img/image01.png)
@@ -50,8 +48,11 @@
 
 * 보팅룸
 
-![image8](./img/image08.png)
+![image8](./img/votinroom.PNG)
 
+* 투표결과 영수증(transaction)
+
+![image9](./img/result.PNG)
 
 ## 2.시스템 구성도
 
