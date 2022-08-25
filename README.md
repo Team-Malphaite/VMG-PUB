@@ -56,7 +56,7 @@
 
 ## 2.시스템 구성도
 
-![system](./img/sy.png)
+![system](./img/say.png)
 
 ## 3.시스템 상세 구성도
 ![systemModule](./img/systemModule.png)
