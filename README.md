@@ -1,5 +1,5 @@
 #  🛸블록체인을 활용한 메타버스 보팅 플랫폼🛸
-#### VMG-PUB - Voting Metabus Game Platform Using Blockchain
+#### VMG-PUB - Voting Metaverse Game Platform Using Blockchain
 * [팀 노션 바로가기][notionlink]
 
 [notionlink]: https://www.notion.so/VMG-PUB-Voting-Metaverse-Game-Platform-Using-Blockchain-d76ebc92351e4cd287aa455026129300
